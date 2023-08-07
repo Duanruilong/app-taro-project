@@ -1,3 +1,11 @@
+/*
+ * @Author: Drlong drl1210@163.com
+ * @Date: 2023-08-07 11:01:57
+ * @LastEditors: Drlong drl1210@163.com
+ * @LastEditTime: 2023-08-07 15:02:25
+ * @FilePath: \myApp-tarod:\web-all\app-taro-project\config\index.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 const config = {
   projectName: 'app-taro-temp',
   date: '2023-8-7',
@@ -22,6 +30,16 @@ const config = {
   compiler: 'webpack5',
   cache: {
     enable: false // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
+  },
+  alias: {
+    "@": require("path").resolve(__dirname, "..", "src")
+  },
+  sass: {
+    resource: require("path").resolve(
+      __dirname,
+      "..",
+      "src/theme/variable.scss"
+    )
   },
   mini: {
     postcss: {
