@@ -93,7 +93,7 @@ jobs:
         run: |
           chmod +x ./android
           chmod +x ./android/gradlew
-          cd ./android && \
+           cd ./android && \
           ./gradlew assemble${{ env.BUILD_TYPE }} \
             -Papp_id=${{ env.APP_ID }} \
             -Papp_name='${{ env.APP_NAME }}' \
