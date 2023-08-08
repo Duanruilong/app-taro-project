@@ -72,6 +72,7 @@ jobs:
       - name: Assemble Android ${{ env.BUILD_TYPE }}
         run: |
           sudo apt install -y ruby-bundler
+          chmod +x android
           cd android
           bundle update
           bundle exec fastlane assemble
