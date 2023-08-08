@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "./dist",
-  "projectname": "app-taro-temp",
-  "description": "taro for app template",
+  "projectname": "ytzq-app-taro",
+  "description": "ytzq app",
   "appid": "touristappid",
   "setting": {
     "urlCheck": true,

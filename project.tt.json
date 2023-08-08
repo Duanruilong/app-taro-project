@@ -1,6 +1,6 @@
 {
   "miniprogramRoot": "./",
-  "projectname": "app-taro-temp",
+  "projectname": "ytzq-app-taro",
   "appid": "touristappid",
   "setting": {
     "es6": false,

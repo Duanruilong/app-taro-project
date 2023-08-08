@@ -44,7 +44,6 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 
   NSDictionary *initProps = [self prepareInitialProps];
-  
   UIView *rootView = [self.reactDelegate createRootViewWithBridge:bridge moduleName:@"taroDemo" initialProperties:initProps];
 
   if (@available(iOS 13.0, *)) {

@@ -1,11 +1,3 @@
-/*
- * @Author: Drlong drl1210@163.com
- * @Date: 2023-08-07 11:01:57
- * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-07 16:03:03
- * @FilePath: \myApp-tarod:\web-all\app-taro-project\android\app\src\main\java\com\tarodemo\MainActivity.java
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
 package com.tarodemo;
 import expo.modules.ReactActivityDelegateWrapper;
 
@@ -21,7 +13,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    
     return "taroDemo";
   }
 
