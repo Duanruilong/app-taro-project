@@ -91,6 +91,8 @@ jobs:
             ${{ runner.os }}-gradle
       - name: Assemble Android ${{ env.BUILD_TYPE }}
         run: |
+          chmod +x ./android
+          chmod +x ./android/gradlew
           cd ./android && \
           ./gradlew assemble${{ env.BUILD_TYPE }} \
             -Papp_id=${{ env.APP_ID }} \
