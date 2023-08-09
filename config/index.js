@@ -1,6 +1,6 @@
 const config = {
-  projectName: 'ytzq-app-taro',
-  date: '2023-8-9',
+  projectName: 'taroDemo',
+  date: '2023-5-12',
   designWidth: 750,
   deviceRatio: {
     640: 2.34 / 2,

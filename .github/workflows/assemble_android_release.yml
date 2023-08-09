@@ -24,13 +24,13 @@ env:
   # 版本号
   VERSION_CODE: 10
   # 密钥库文件
-  KEYSTORE_FILE: ytzq.keystore
+  KEYSTORE_FILE: debug.keystore
   # 密钥库口令
-  KEYSTORE_PASSWORD: ytzqapp
+  KEYSTORE_PASSWORD: android
   # 密钥库别名
-  KEYSTORE_KEY_ALIAS: ytzqkey
+  KEYSTORE_KEY_ALIAS: androiddebugkey
   # 密钥库别名口令
-  KEYSTORE_KEY_PASSWORD: ytzqapp
+  KEYSTORE_KEY_PASSWORD: android
 
 # 工作流作业
 jobs:
