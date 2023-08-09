@@ -1,13 +1,12 @@
 /*
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
- * @LastEditors: duanruilong
- * @LastEditTime: 2022-09-01 11:32:38
+ * @LastEditors: Drlong drl1210@163.com
+ * @LastEditTime: 2023-05-25 16:31:26
  * @Description:
  */
 import Taro from "@tarojs/taro";
 import { SYSTEM, LOGIN_PAGE, HOME_PAGE } from "@/constants";
-// import { getStorageData } from "./utils";
 import http from "../utils/http";
 
 const { post } = new http("sso", { ignoreErrorTips: true });
@@ -25,15 +24,16 @@ let session = () => {
 // let session = Taro.getStorageSync(SESSION_KEY);
 
 export function loginHandler(data = {}) {
-  const { token, nickname, userid, noHistory } = data;
-  if (token) {
+  console.log("loginHandler--> data :>> ", data);
+  const { id_code, user_name, user_id, noHistory } = data;
+  if (id_code || user_id) {
     Taro.setStorage({
       key: "use-name",
-      data: nickname
+      data: user_name
     });
     Taro.setStorage({
-      key: `${nickname}-userid`,
-      data: userid
+      key: `${user_name}-user_id`,
+      data: user_id
     });
     Taro.setStorage({
       key: `userInfo`,
@@ -44,7 +44,7 @@ export function loginHandler(data = {}) {
       key: "clerk",
       success: function() {}
     });
-    session = token;
+    session = id_code;
   }
   if (!noHistory) {
     // Taro.reLaunch({ url: HOME_PAGE });
@@ -73,7 +73,7 @@ export async function getUserId() {
     .catch(() => {});
   if (useName) {
     await Taro.getStorage({
-      key: `${useName}-userid`
+      key: `${useName}-user_id`
     })
       .then(res => {
         if (res.data) {
@@ -89,7 +89,7 @@ export async function updateSession() {
   const loginWx = await Taro.login();
   try {
     const res = await loginByWxCode({ code: loginWx.code, system: SYSTEM });
-    session = res.token;
+    session = res.id_code;
     // Taro.setStorage({
     //   key: SESSION_KEY,
     //   data: session

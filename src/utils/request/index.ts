@@ -1,6 +1,11 @@
-import Taro from "@tarojs/taro";
-import { hideLoading } from "../tools";
-import { getCacheItem } from "./cache";
+/*
+ * @Author: duanruilong
+ * @Date: 2022-10-25 16:44:16
+ * @LastEditors: duanruilong
+ * @LastEditTime: 2022-10-27 15:41:07
+ * @Description:
+ */
+import Taro from '@tarojs/taro'
 
 // 微信请求库封装
 
@@ -17,8 +22,6 @@ import { getCacheItem } from "./cache";
 //   [propName: string]: any;
 // }
 
-export * from "./cache";
-
 /**
  * Request
  *
@@ -34,35 +37,28 @@ export * from "./cache";
  */
 export default class Request {
   constructor(options = {}) {
-    this.options = options;
+    this.options = options
   }
 
-  options;
+  options
 
   get = (...args) => {
-    return this.request("GET", ...args);
-  };
+    return this.request('GET', ...args)
+  }
 
   post = (...args) => {
-    return this.request("POST", ...args);
-  };
+    return this.request('POST', ...args)
+  }
+  put = (...args) => {
+    return this.request('PUT', ...args)
+  }
 
   request = (...args) => {
     return new Promise((resolve, reject) => {
-      const [
-        method = "GET",
-        path = undefined,
-        params = {},
-        options = {},
-        sessionUpdated = false
-      ] = args;
-      const { useCache, log = false } = options;
-      const {
-        requestInterceptor,
-        responseInterceptor,
-        host,
-        ...rest
-      } = this.options;
+      const [method = 'GET', path = undefined, params = {}, options = {}, sessionUpdated = false] =
+        args
+      const { useCache, log = false } = options
+      const { requestInterceptor, responseInterceptor, host, ...rest } = this.options
 
       let config = {
         url: `${host}${path}`,
@@ -70,29 +66,29 @@ export default class Request {
         method,
         sessionUpdated,
         ...rest,
-        ...options
-      };
+        ...options,
+      }
 
       if (requestInterceptor) {
-        config = requestInterceptor({ config });
+        config = requestInterceptor({ config })
       }
-      console.log("Taro.config :>> ", config);
+      console.log('Taro.config :>> ', config)
 
       return Taro.request({
         ...config,
         success: response => {
-          console.log("Taro.request :>> ", response);
+          console.log('Taro.request :>> ', response)
           if (responseInterceptor) {
             responseInterceptor({
               response,
               config,
-              request: this.request.bind(this, ...args)
+              request: this.request.bind(this, ...args),
             })
               .then(resolve)
-              .catch(reject);
+              .catch(reject)
           }
-        }
-      });
-    });
-  };
+        },
+      })
+    })
+  }
 }
