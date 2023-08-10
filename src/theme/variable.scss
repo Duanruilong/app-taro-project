@@ -1,5 +1,7 @@
-$color-brand: #518bff;
-$color-brand-shadow: rgba(32, 106, 255, 0.4);
+// 设置主体色-主色调
+$color-brand: #07dac8; // 品牌色
+$color-brand-bc: #05aa9c; // 品牌色-背景色
+$color-brand-shadow: rgba($color: #07dac8, $alpha: 0.3); // 品牌色-阴影
 $color-f: #ffffff;
 $color-text: #1b1b1b;
 $color-a6: #a6a6a6;

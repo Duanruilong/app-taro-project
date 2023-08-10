@@ -2,14 +2,14 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-09 17:53:39
+ * @LastEditTime: 2023-08-10 15:11:45
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
 import Taro  from "@tarojs/taro";
-import { View, Image, Swiper, SwiperItem } from "@tarojs/components";
-// import YTitleTask from "@/components/YTitleTask";
-// import YButton from "@/components/YButton";
+import { View, Image, Swiper,ScrollView, SwiperItem } from "@tarojs/components";
+import YTitleTask from "@/components/YTitleTask";
+import YNoData from "@/components/YNoData";
 import YSafeAreaView from "@/components/YSafeAreaView";
 // import { toast } from "@/utils/tools";
 import { getStorageData, isEmpty } from "@/utils/utils";
@@ -26,11 +26,10 @@ const Index = () => {
   const { current } = useRef({
     pnParams: { pn: 1, ps: 20 },
   });
-  const [data, setData] = useState();
   const [tagData, setTagData] = useState(["默认"]);
-  const [ShowTag, setShowTag] = useState(0);
-
   const [swiperList, setSwiperList] = useState([]);
+  const [data, setData] = useState();
+  
 
    // 最新数据
    const getNewData = (opts) => {
@@ -44,17 +43,18 @@ const Index = () => {
       })
       .catch(() => {});
   };
-
-    // 与我相关 。type ：1默认 2根据tag筛选
-    const getOrderData = (opts) => {
-      getOrderPay({
-        ...opts,
+  // 与我相关 。type ：1默认 2根据tag筛选
+  const getOrderData = (opts) => {
+    getOrderPay({
+      ...opts,
+    })
+      .then((res) => {
+        setData(res);
       })
-        .then((res) => {
-          setData(res);
-        })
-        .catch(() => {});
-    };
+      .catch(() => {});
+  };
+ 
+ 
   
   useEffect(() => {
     Taro.setStorage({
@@ -99,6 +99,7 @@ const Index = () => {
       url: `/pagesWork/policyDetail/index`,
     });
   };
+ 
 
   const showImgUrl=(values)=>{
     if (values ===0) {
@@ -116,10 +117,52 @@ const Index = () => {
     return banner1
   }
 
+  const renderList = (data) => {
+    console.log("data renderList:>> ", data);
+    if (isEmpty(data)) {
+      console.log("暂无数据 :>> ", data);
+      return <YNoData desc={"暂无数据"} />;
+    }
+
+    if (data && data.length > 0) {
+      return (
+        <View>
+          {data.map((item,index) => {
+            return (
+              <View
+                key={item?.policy_id||index}
+                className="index_list_list-item"
+                onClick={() => {
+                  onEditData(item);
+                }}
+              >
+                <View className="index_list_list-item-cent">
+                  <View>{item.title}</View>
+                  <View className="index_list_list-item-cent-tags">
+                    {item.tags}
+                  </View>
+                  <View className="index_list_list-item-cent-info">
+                    {item.create_time}
+                  </View>
+                </View>
+                <View className="index_list_list-item-img">
+                  <Image
+                    className="index_list_list-item-img-cent"
+                    src={require("@/assets/index_list.png")}
+                  />
+                </View>
+              </View>
+            );
+          })}
+        </View>
+      );
+    }
+  };
+
   
   return (
     <YSafeAreaView className="index">
-      <View className="index_banner" style={{ height: 150 }}>
+      <View className="index_banner" style={{ height: 160 }}>
         {
           swiperList && swiperList.length > 0 && 
           <Swiper
@@ -166,10 +209,134 @@ const Index = () => {
             })}
           </Swiper>
         }
-       
       </View>
-     <View className={"index-tit-r"}>消息通知</View>
+      <YTitleTask
+        showIcon={false}
+        className="index_top-tas"
+        title={<View className="index_top-tit">特色服务 </View>}
+      />
+      <ServiceTab />
+      <YTitleTask
+        style={{ marginTop:10 }}
+        showIcon={false}
+        className="index_top-tas"
+        title={<View className="index_top-tit">与我相关 </View>}
+      />
+      <TagTab current={current} tagData={tagData} getOrderData={getOrderData} />
+      <View className="index_list">{renderList(data)}</View>
+      
+       
     </YSafeAreaView>
+  );
+};
+
+
+
+
+const TagTab = props => {
+   
+  const {tagData,getOrderData,current}=props
+  const [ShowTag, setShowTag] = useState(0);
+
+  return (
+    <View className="index_tag">
+      <ScrollView
+        className="index_tag-scroll"
+        scrollX // 横向
+        showsHorizontalScrollIndicator={false} // 此属性为true的时候，显示一个水平方向的滚动条。
+      >
+        {tagData.map((item, index) => {
+          return (
+            <View
+              key={item}
+              className={`${
+                ShowTag === index
+                  ? " index_tag-item index_tag-item-active"
+                  : "index_tag-item "
+              }`}
+              onClick={() => {
+                setShowTag(index);
+                getOrderData({
+                  user_id: current.infoData?.user_id,
+                  type: index === 0 ? 1 : 2,
+                  tag: item,
+                });
+              }}
+            >
+              {item}
+            </View>
+          );
+        })}
+      </ScrollView>
+    </View>
+  );
+};
+
+
+const ServiceTab = props => {
+  const serData = [
+    {
+      title: "法律服务",
+      url: "https://work.weixin.qq.com/kfid/kfc8cbb3383fe5e17cc",
+      img: require("@/assets/serve/falv.png"),
+    },
+    {
+      title: "财税服务",
+      url: "https://work.weixin.qq.com/kfid/kfc11914429a6346b01",
+      img: require("@/assets/serve/caishui.png"),
+    },
+    {
+      title: "企业培训",
+      url: "https://work.weixin.qq.com/kfid/kfc8cbb3383fe5e17cc",
+      img: require("@/assets/serve/peixun.png"),
+    },
+    {
+      title: "知识产权",
+      url: "https://work.weixin.qq.com/kfid/kfc184e62d581ad5f34",
+      img: require("@/assets/serve/zhishi.png"),
+    },
+  ];
+
+  // 打开微信客服
+  const onOpenCustomer = async (values) => {
+    console.log('打开微信客服 :>> ', values);
+    // toast("正在跳转客服，请稍等...");
+    // console.log('打开微信客服 :>> ', values);
+    // await Taro.openCustomerServiceChat({
+    //   extInfo: {
+    //     url: values?.url || "https://work.weixin.qq.com/kfid/kfc11914429a6346b01",
+    //   }, //客服链接
+    //   corpId: CORP_ID,
+    //   showMessageCard: true,
+    //   success: () => {},
+    // });
+  };
+
+
+  return (
+    <View className="index_sev">
+      <ScrollView
+        className="index_sev-scroll"
+        scrollX // 横向
+        showsHorizontalScrollIndicator={false} // 此属性为true的时候，显示一个水平方向的滚动条。
+      >
+       {serData.map((item, index) => {
+          return (
+            <View
+              key={index}
+              className="index_sev-item"
+              style={index === 0 ? "marginLeft:20px" : index+1 === serData.length ? "marginRight:20px" : ""}
+              onClick={() => {
+                onOpenCustomer(item);
+              }}
+            >
+              <Image className="index_sev-item-img" src={item.img} alt="" />
+              <View className="index_sev-item-text">{item.title}</View>
+            </View>
+          );
+        })}
+      </ScrollView>
+      </View>
   );
 };
 

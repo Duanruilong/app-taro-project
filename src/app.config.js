@@ -2,7 +2,7 @@
  * @Author: Drlong drl1210@163.com
  * @Date: 2023-08-09 10:53:12
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-09 15:33:18
+ * @LastEditTime: 2023-08-10 15:16:41
  * @FilePath: \app-taro-project\src\app.config.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -21,7 +21,7 @@ export default defineAppConfig({
         "login/index",
         "sign/index",
         // "question/index",
-        // "policyDetail/index",
+        "policyDetail/index",
         // "follow/index",
         // "apply/index",
         // "history/index",

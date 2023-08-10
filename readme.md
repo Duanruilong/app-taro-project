@@ -8,7 +8,9 @@
 
 使用：
 
-`yarn dev:rn --reset-cache`
+`
+yarn dev:rn --reset-cache
+`
 
 
 # 注意

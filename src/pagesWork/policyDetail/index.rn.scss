@@ -1,0 +1,82 @@
+
+.policy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 30px 0px;
+  height: 100%;
+  
+ 
+ 
+}
+
+.policy_cent{
+  
+  display: flex;
+  &-title {
+    font-weight: 500;
+    font-size: 32px;
+    width: 100%;
+    text-align: left;
+    padding: 0px 40px;
+  }
+  &-info {
+    font-size: 26px;
+    color: #777;
+    margin: 20px 0 20px;
+    text-align: left;
+    padding: 0px 40px;
+  }
+  &-tag{
+    font-size: 22px;
+    font-weight: 700;
+    background-color: #05a89b;
+    color: #ffffff;
+    padding: 6px 20px;
+    border-radius: 32px;
+    display: flex;
+    margin: 0px 40px;
+    
+  }
+  &-cont {
+    font-size: 28px;
+    line-height: 46px;
+    margin-top: 30px;
+    text-align: left;
+    width: 100%;
+    padding: 0px 40px;
+
+  }
+}
+
+.policy_but{
+  width: 100%;
+  margin: 30px 0 50px;
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  &-i {
+      // height: 80px;
+      border-radius: 45px;
+      max-width: 40%;
+      padding: 20px 0;
+      // margin-left: 12px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+  }
+  &-t {
+    padding-top: 10px;
+    line-height: 70px;
+    text-align: center;
+    color: $color-f;
+    font-weight: 700;
+    font-size: 38px;
+}
+
+ 
+}
