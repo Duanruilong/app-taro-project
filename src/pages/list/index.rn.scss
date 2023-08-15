@@ -1,178 +1,200 @@
-.login-sec {
-  background-color: #ffffff;
+.list {
+  background-color: #edecee;
   height: 100%;
+}
+
+.list_top{
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-
-  // padding: 0px 24px 40px;
-  &-back {
-    position: absolute;
-    top: -14;
-    left: 0;
-    width: 790px;
-    // height: 260PX;
-  }
-
-  &-tit {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    // width: 750px;
-    margin: 40px 0 60px;
-
-    &-l {
-      height: 200px;
-      width: 200px;
-    }
-
-    &-r {
-      font-size: 46px;
-      color: $color-f;
-      font-weight: 700;
-      text-align: center;
-      z-index: 9;
-    }
-
-
-
-  }
-
-
-  // center
-  &-center {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 30px 40px;
+  background-color: #fff;
+  &-item{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    // margin-top: 30px;
-    margin: -40px 42px;
-    z-index: 9;
+    justify-content: center;
+    font-size: 28px;
+    &-img{
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.list_list{
+  &-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 26px;
+    color: #000000;
+    margin: 30px 20px;
     background-color: #ffffff;
-    border-radius: 40px;
-
-    &-tas {
-      color: $color-text;
-      font-size: 32px;
+    padding: 24px;
+    border-radius: 14px;
+    box-shadow: 2px 5px 10px rgba($color: #000000, $alpha: 0.08);
+    &-cent{
+      min-height: 90PX;
+      max-width: 80%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content:space-between;
       text-align: left;
+      font-size: 26px;
+      color: #000000;
+      &-answer{
+        font-size: 24px;
+        color: #000000;
+        margin-top: 20px;
+        padding-left: 12px;
+        border-left: 6px solid  $color-brand-bc;
+      }
+      &-info{
+        font-size: 22px;
+        color: #777;
+        margin-top: 20px;
+      }
+    }
+    &-img{
+      width: 100px;
+      height: 100px;
+      border-radius: 14px;
+      &-cent{
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.list_but{
+  position: fixed;
+  right: 10px;
+  bottom: 20px;
+  background-color: $color-brand-bc;
+  padding: 60px 10px;
+  border-radius: 100px;
+  &-item{
+    color: #ffffff;
+  }
+}
+
+.list_mod{
+  &-cent{
+    margin-bottom: 30px;
+    min-height: 90PX;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content:space-between;
+    text-align: left;
+    font-size: 26px;
+    color: #000000;
+    &-left{
+      padding-left: 12px;
+      border-left: 4px solid  $color-brand-bc;
+      margin-top: 20px;
+      color: #000000;
+      font-weight: 700;
+    }
+    &-answer{
+      font-size: 26px;
+      color: #000000;
+      margin-top: 24px;
+     
+    }
+    &-info{
+      font-size: 22px;
+      color: #777;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+}
+
+.list_msk{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px 20px;
+  background-color: #fff;
+  width: 90%;
+  border-radius: 32px;
+  position: relative;
+
+  &-close {
+      position: absolute;
+      top: -120px;
+      right: 30px;
+      width: 85px;
+      height: 85px;
+  }
+
+  &-top {
+      color: $color-text;
+      font-size: 36px;
+      font-weight: 700;
+      margin: 20px 0;
       width: 100%;
-      padding: 32px 42px;
-    }
+      text-align: center;
+  }
 
-    &-input {
-      border: 0 solid $color-brand;
+  // code
+  &-code {
+      width: 90%;
+      line-height: 42px;
+      border: 0 solid #b6b6b6;
       border-width: 1px;
-      border-radius: 40px;
-      padding: 10px 32px;
-      width: 620px;
-      font-size: 32px;
-    }
+      padding: 12px;
+      border-radius: 12px;
 
-    &-forget {
-      font-size: 30px;
-      color: $color-brand;
-      width: 620px;
-      text-align: right;
-      margin: 40px 0 60px;
-    }
+  }
 
-    &-box {
-      margin-top: 100px;
-    }
-
-    // but
-    &-button {
+  &-but {
+      margin: 32px;
+      width: 100%;
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
-      width: 640px;
-      margin-top: 80px;
+      justify-content: flex-end;
 
-
-      &-text {
-        color: $color-f;
-        font-weight: 700;
-        height: 90px;
-        line-height: 90px;
-        font-size: 38px;
+      &-img1 {
+          width: 55px;
+          height: 40px;
+          margin-right: 24px;
+          padding: 10px;
       }
-    }
+
+      &-img {
+          width: 45px;
+          height: 45px;
+          margin-right: 44px;
+          padding: 10px;
+      }
   }
 
-  // tips
-  &-tips {
-    width: 640px;
-    margin: 30px 0px;
-    padding: 0 20px;
-    color: $color-a6;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    font-size: 22px;
-    line-height: 30px;
-
-    &-radio {
-      width: 50px;
-      height: 50px;
-      margin-right: 20px;
-    }
-
-    &-title {
-      width: 30px;
-      height: 30px;
-      margin: 6px;
-    }
-
-    &-item {
-      font-size: 26px;
+  &-b {
+      width: 100%;
+      background-color: #f1f1f1;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
-
-      &-active {
-        width: auto;
-        font-size: 26px;
-        color: $color-brand;
-        border: 0 solid $color-brand;
-        border-bottom-width: 1px;
+      justify-content: center;
+      align-items: center;
+      padding: 22px 0;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      &-c {
+          font-size: 34px;
+          color: $color-brand-bc;
       }
-    }
-  }
-
-  // other
-  &-other {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    &-cen {
-      width: 640px;
-      margin-bottom: 40px;
-
-      &-but {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-
-        &-img {
-          width: 50px;
-          height: 50px;
-          margin-right: 10px;
-        }
-
-        &-text {
-          color: $color-text;
-          font-weight: 700;
-          height: 90px;
-          line-height: 90px;
-          font-size: 38px;
-        }
-      }
-    }
-
   }
 }
