@@ -20,7 +20,7 @@ export default defineAppConfig({
       pages: [
         "login/index",
         "sign/index",
-        // "question/index",
+        "question/index",
         "policyDetail/index",
         // "follow/index",
         // "apply/index",
