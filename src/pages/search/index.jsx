@@ -2,9 +2,11 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-09 15:29:25
+ * @LastEditTime: 2023-08-15 16:52:53
  * @Description: 政策列表
  */
+ 
+
 import { useState } from "react";
 // import Taro, { useDidShow, Current } from "@tarojs/taro";
 import { View, Input, Image, Text } from "@tarojs/components";
@@ -26,7 +28,7 @@ const Search = () => {
 
   return (
     <View className="login-sec">
-     <View className={"login-sec-tit-r"}>政策列表</View>
+     <View className={"login-sec-tit-r"}>消息通知</View>
     </View>
   );
 };
