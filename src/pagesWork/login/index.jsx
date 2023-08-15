@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-09 15:34:42
+ * @LastEditTime: 2023-08-15 16:50:39
  * @Description: 登陆
  */
 import { useState } from "react";
@@ -10,7 +10,6 @@ import { useState } from "react";
 import { View, Input, Image, Text } from "@tarojs/components";
 // import YTitleTask from "@/components/YTitleTask";
 import YButton from "@/components/YButton";
-import YSafeAreaView from "@/components/YSafeAreaView";
 import { toast } from "@/utils/tools";
 // import { getStorageData } from "@/utils/utils";
 import { loginHandler } from "@/utils/loginHandler";
@@ -45,7 +44,7 @@ const Login = () => {
   };
 
   return (
-    <YSafeAreaView className="login-sec">
+    <View className="login-sec">
       {/* <Image className={"login-sec-back"} src={useBack} mode="aspectFit" /> */}
       <View className={"login-sec-tit"}>
         <Image className={"login-sec-tit-l"} src={logo} mode="aspectFit" />
@@ -89,7 +88,7 @@ const Login = () => {
           </YButton>
         </View>
       </View>
-    </YSafeAreaView>
+    </View>
   );
 };
 

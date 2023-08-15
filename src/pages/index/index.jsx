@@ -10,7 +10,7 @@ import Taro  from "@tarojs/taro";
 import { View, Image, Swiper,ScrollView, SwiperItem } from "@tarojs/components";
 import YTitleTask from "@/components/YTitleTask";
 import YNoData from "@/components/YNoData";
-import YSafeAreaView from "@/components/YSafeAreaView";
+// import YSafeAreaView from "@/components/YSafeAreaView";
 // import { toast } from "@/utils/tools";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { loginOutHandler } from "@/utils/loginHandler";
@@ -161,7 +161,7 @@ const Index = () => {
 
   
   return (
-    <YSafeAreaView className="index">
+    <View className="index">
       <View className="index_banner" style={{ height: 160 }}>
         {
           swiperList && swiperList.length > 0 && 
@@ -226,7 +226,7 @@ const Index = () => {
       <View className="index_list">{renderList(data)}</View>
       
        
-    </YSafeAreaView>
+    </View>
   );
 };
 

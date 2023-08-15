@@ -10,7 +10,6 @@ import { useState } from "react";
 import { View, Input, Image, Text } from "@tarojs/components";
 // import YTitleTask from "@/components/YTitleTask";
 // import YButton from "@/components/YButton";
-import YSafeAreaView from "@/components/YSafeAreaView";
 // import { toast } from "@/utils/tools";
 // // import { getStorageData } from "@/utils/utils";
 // import { loginHandler } from "@/utils/loginHandler";
@@ -26,9 +25,9 @@ const Search = () => {
  
 
   return (
-    <YSafeAreaView className="login-sec">
+    <View className="login-sec">
      <View className={"login-sec-tit-r"}>政策列表</View>
-    </YSafeAreaView>
+    </View>
   );
 };
 
