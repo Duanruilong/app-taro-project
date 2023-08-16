@@ -1,9 +1,33 @@
+# Taro 框架开发APP
+# 开发调试
+
+`yarn dev:rn --qr`
+
+
+更新 app.config 文件，但发现未更新成功。metro 缓存导致
+
+使用：
+
+`yarn dev:rn --reset-cache`
+
+
+# 注意
+
+- 记得生成秘钥文件
+  
+https://developer.android.com/studio/publish/app-signing?hl=zh-cn#generate-key
+https://blog.csdn.net/tzhenxiong/article/details/109901468
+
+
+
+
+
 React Native Template for Taro
 ====
 
 ## requirement
 
-0. taro: `@tarojs/cli@^3.5.0`
+0. taro: `@tarojs/cli@^3.6.7`
 1. framework: 'react'
 ## quick start
 
