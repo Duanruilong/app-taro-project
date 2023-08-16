@@ -4,7 +4,7 @@ name: Assemble Android Debug
 # 触发工作流程的事件
 on:
   push:
-    branches: [ dev ]
+    # branches: [ dev ]
     tags: [ v* ]
   pull_request:
     branches: [ dev ]
@@ -72,6 +72,7 @@ jobs:
       - name: Assemble Android ${{ env.BUILD_TYPE }}
         run: |
           sudo apt install -y ruby-bundler
+          chmod +x ./android/gradlew
           cd android
           bundle update
           bundle exec fastlane assemble
