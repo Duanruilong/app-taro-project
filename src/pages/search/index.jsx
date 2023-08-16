@@ -2,13 +2,13 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-16 17:28:52
+ * @LastEditTime: 2023-08-16 17:47:25
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
 import Taro from "@tarojs/taro";
 import { View, Input, Image } from "@tarojs/components";
-// import YInputSearch from "@/components/YInputSearch";
+import YInputSearch from "@/components/YInputSearch";
 import YListView from "@/components/YListView";
 import YNoData from "@/components/YNoData";
 import YButton from "@/components/YButton";
@@ -20,7 +20,7 @@ import "./index.scss";
 const Search = () => {
   const { current } = useRef({ local: null });
   const listViewRef = useRef(null);
-  const { windowHeight } = Taro.getSystemInfoSync();
+  // const { windowHeight } = Taro.getSystemInfoSync();
 
   const requestList = (param) => {
     listViewRef.current.load({
@@ -139,7 +139,7 @@ const Search = () => {
   return (
     <View className="search">
       <View className="search_top">
-        {/* <View className="search_top-cent">
+        <View className="search_top-cent">
           <YInputSearch
             className={"search_top-input"}
             placeholder={"搜索最新政策"}
@@ -148,20 +148,19 @@ const Search = () => {
             onChange={onChange}
             // initialValue={params?.text}
           />
-        </View> */}
+        </View>
       </View>
       {/* list */}
-      <View style={{ height: windowHeight - 188 }}>
-        <YListView
-          classStyle="search_list"
-          ref={listViewRef}
-          renderList={renderList}
-          request={getList}
-          extraParams={{}}
-          manual
-          pnParams
-        />
-      </View>
+      <YListView
+        classStyle="search_list"
+        boxHeight={188}
+        ref={listViewRef}
+        renderList={renderList}
+        request={getList}
+        extraParams={{}}
+        manual
+        pnParams
+      />
     </View>
   );
 };
