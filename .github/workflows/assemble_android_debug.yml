@@ -4,17 +4,17 @@ name: Assemble Android Debug
 # 触发工作流程的事件
 on:
   push:
-    # branches: [ master ]
+    branches: [ dev ]
     tags: [ v* ]
   pull_request:
-    branches: [ master ]
+    branches: [ dev ]
 
   workflow_dispatch:
 
 # 工作流环境变量
 env:
   # 应用的application_id
-  APP_ID: com.tarodemo
+  APP_ID: com.ytzq
   # 应用名称
   APP_NAME: 云通政企
   # 打包类型
