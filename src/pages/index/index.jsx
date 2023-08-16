@@ -85,7 +85,7 @@ const Index = () => {
     //   url: "/pages/user/index"
     // });
     // Taro.navigateTo({
-    //   url: "/pagesWork/useEdit/index",
+    //   url: "/pages/useEdit/index",
     // });
   }, []);
 
@@ -96,7 +96,7 @@ const Index = () => {
       data: values,
     });
     Taro.navigateTo({
-      url: `/pagesWork/policyDetail/index`,
+      url: `/pages/policyDetail/index`,
     });
   };
  

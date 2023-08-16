@@ -3,7 +3,7 @@
  * @Date: 2023-08-10 17:56:04
  * @LastEditors: Drlong drl1210@163.com
  * @LastEditTime: 2023-08-15 17:49:31
- * @FilePath: \app-taro-project\src\pagesWork\question\index.jsx
+ * @FilePath: \app-taro-project\src\pages\question\index.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { useRef } from "react";

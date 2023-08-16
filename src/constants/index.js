@@ -23,7 +23,7 @@ export const LOGIN_CHANNEL = "login-channel"; // 登录频道
 
 // export const USERS_KEY = `${NAME}-userid`;
 
-export const LOGIN_PAGE = "/pagesWork/login/index";
+export const LOGIN_PAGE = "/pages/login/index";
 
 export const HOME_PAGE = "/pages/index/index";
 

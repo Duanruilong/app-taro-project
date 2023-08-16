@@ -21,21 +21,21 @@ const User = () => {
     {
       title: "关注",
       type: "follow",
-      url: `/pagesWork/follow/index`,
+      url: `/pages/follow/index`,
       icon: require("@/assets/xinxi_item.png"),
       value: 0,
     },
     {
       title: "准备申请",
       type: "apply",
-      url: `/pagesWork/apply/index`,
+      url: `/pages/apply/index`,
       icon: require("@/assets/xinxi_item.png"),
       value: 0,
     },
     {
       title: "浏览历史",
       type: "history",
-      url: `/pagesWork/history/index`,
+      url: `/pages/history/index`,
       icon: require("@/assets/xinxi_item.png"),
       value: 0,
     },
@@ -157,7 +157,7 @@ const User = () => {
         className="user_top"
         onClick={() => {
           Taro.navigateTo({
-            url: "/pagesWork/useEdit/index",
+            url: "/pages/useEdit/index",
           });
         }}
       >
