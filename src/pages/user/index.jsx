@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-15 17:41:10
+ * @LastEditTime: 2023-08-16 17:24:50
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -97,12 +97,6 @@ const User = () => {
       img: require("@/assets/help.png"),
     },
     {
-      title: "分享",
-      type: "share",
-      url: "/",
-      img: require("@/assets/share.png"),
-    },
-    {
       title: "退出登录",
       type: "logout",
       url: "/",
@@ -152,9 +146,7 @@ const User = () => {
     console.log("helpClick :>> ", values);
     if (type === "logout") {
       loginOutHandler();
-    } else if (type === "share") {
-      toast("分享小程序。");
-    } else {
+    }  else {
       toast("开发中，敬请期待。");
     }
   };
