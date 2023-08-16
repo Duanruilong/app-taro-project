@@ -11,7 +11,7 @@ const { get } = new http("user");
 
 export function getList(params) {
   return get("/question_list", params, {
-    loading: { title: "加载中", mask: false }
+    loading: { title: "加载中...", mask: false }
   });
 }
 

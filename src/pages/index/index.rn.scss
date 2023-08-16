@@ -104,7 +104,7 @@
     background-color: #fff;
     border-radius: 18px;
     box-shadow: 0 6px 16px rgba(1, 1, 1, 0.12);
-    margin-right: 40px;
+    margin-right: 20px;
     margin-bottom: 30px;
     padding: 30px 30px;
     display: flex;
@@ -120,13 +120,14 @@
     &-text{
       font-size: 26px;
       margin-top: 22px;
+      color: #000000;
     }
   }
 }
 
 
 .index_tag{
-  padding-bottom: 20px;
+  // padding-bottom: 20px;
   padding-top: 20px;
   background-color: #fff;
   margin-bottom: 20px;
@@ -139,15 +140,21 @@
   }
   &-item{
     font-size: 32px;
-    color: #777;
+    font-weight: 700;
+    color: #000000;
     margin-right: 20px;
     margin-left: 20px;
     min-width: 100px;
     text-align: center;
-    background-color: #fff;
+    background-color: #ffffff;
+    padding-bottom: 20px;
+    border: 0 solid #fff;
+    border-bottom-width: 4px;
   }
   &-item-active{
     color:$color-brand-bc;
+    border: 0 solid $color-brand-bc;
+    border-bottom-width: 4px;
   }
 }
 
@@ -173,9 +180,14 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content:space-between;
+      &-title{
+        font-size: 28px;
+        color: #000000;
+        font-weight: 700;
+      }
       &-info{
         font-size: 22px;
-        color: #777;
+        color: #202020;
         margin-top: 20px;
       }
       &-tags{
@@ -183,8 +195,8 @@
         font-weight: 700;
         background-color: #05a89b;
         color: #ffffff;
-        margin-top: 20px;
-        padding: 6px 20px;
+        margin-top: 14px;
+        padding: 5px 20px;
         border-radius: 32px;
       }
     }

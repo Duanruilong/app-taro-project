@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-15 17:12:32
+ * @LastEditTime: 2023-08-16 14:33:21
  * @Description: 消息通知
  */
 import { useState, useRef, useEffect } from "react";
@@ -54,9 +54,12 @@ const List = () => {
             }}
           >
             <View className="list_list-item-cent">
-              <View> {item.title}</View>
+              <View className="list_list-item-cent-title"> {item.title}</View>
+              <View className="list_list-item-cent-left">
+                回复内容：  
+              </View>
               <View className="list_list-item-cent-answer">
-                回复内容： {item.answer || "暂无回复"}
+                 {item.answer || "暂无回复"}
               </View>
               <View className="list_list-item-cent-info">
                 {item.create_time}
@@ -81,14 +84,14 @@ const List = () => {
             className="list_top-item-img"
             src={require("@/assets/xinxi.png")}
           />
-          <View>系统通知</View>
+          <View  className="list_top-item-title">系统通知</View>
         </View>
         <View className="list_top-item">
           <Image
             className="list_top-item-img"
             src={require("@/assets/xinxi_bug.png")}
           />
-          <View>问题反馈</View>
+          <View className="list_top-item-title">问题反馈</View>
         </View>
         <View
           className="list_top-item"
@@ -108,7 +111,7 @@ const List = () => {
             className="list_top-item-img"
             src={require("@/assets/xinxi_new.png")}
           />
-          <View>提问</View>
+          <View className="list_top-item-title">提问</View>
         </View>
       </View>
       <YListView
@@ -126,14 +129,14 @@ const List = () => {
         <TMask visible>
           <View className="list_msk">
             <View className="list_msk-top">信息详情</View>
-            <View className="list_mod-cent">
-              <View className="list_mod-cent-left">提问内容： </View>
-              <View className="list_mod-cent-answer">{showData.question}</View>
-              <View className="list_mod-cent-left">回复内容：</View>
-              <View className="list_mod-cent-answer">
+            <View className="list_msk-cent">
+              <View className="list_msk-cent-left">提问内容： </View>
+              <View className="list_msk-cent-answer">{showData.question}</View>
+              <View className="list_msk-cent-left">回复内容：</View>
+              <View className="list_msk-cent-answer">
                 {showData.answer || "暂无回复"}
               </View>
-              <View className="list_mod-cent-info">
+              <View className="list_msk-cent-info">
                 创建时间： {showData.create_time}
               </View>
             </View>

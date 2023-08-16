@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-10 15:11:45
+ * @LastEditTime: 2023-08-16 14:39:20
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -137,7 +137,7 @@ const Index = () => {
                 }}
               >
                 <View className="index_list_list-item-cent">
-                  <View>{item.title}</View>
+                  <View className="index_list_list-item-cent-title">{item.title}</View>
                   <View className="index_list_list-item-cent-tags">
                     {item.tags}
                   </View>

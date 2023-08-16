@@ -13,13 +13,13 @@ const { get } = new http("user");
 //  统计阅读
 export function getInfo(params) {
   return get("/policy_info", params, {
-    loading: { title: "加载中", mask: false }
+    loading: { title: "加载中...", mask: false }
   });
 }
 //  申请
 export function getApply(params) {
   return get("/apply", params, {
-    loading: { title: "加载中", mask: false }
+    loading: { title: "加载中...", mask: false }
   });
 }
 

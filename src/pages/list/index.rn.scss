@@ -21,6 +21,11 @@
       height: 100px;
       margin-bottom: 20px;
     }
+    &-title{
+        font-size: 28px;
+        color: #000000;
+        font-weight: 700;
+    }
   }
 }
 
@@ -32,7 +37,7 @@
     justify-content: space-between;
     font-size: 26px;
     color: #000000;
-    margin: 30px 20px;
+    margin: 20px 20px 0px;
     background-color: #ffffff;
     padding: 24px;
     border-radius: 14px;
@@ -47,12 +52,24 @@
       text-align: left;
       font-size: 26px;
       color: #000000;
+      &-title{
+        font-size: 28px;
+        color: #000000;
+      }
+      &-left{
+        padding-left: 12px;
+        border: 0 solid $color-brand-bc;
+        border-left-width: 4px;
+        margin-top: 20px;
+        color: #000000;
+        font-size: 24px;
+        font-weight: 700;
+      }
       &-answer{
         font-size: 24px;
         color: #000000;
-        margin-top: 20px;
+        margin-top: 10px;
         padding-left: 12px;
-        border-left: 6px solid  $color-brand-bc;
       }
       &-info{
         font-size: 22px;
@@ -83,8 +100,19 @@
     color: #ffffff;
   }
 }
+ 
 
-.list_mod{
+.list_msk{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px 20px;
+  background-color: #fff;
+  width: 90%;
+  border-radius: 32px;
+  position: relative;
+
   &-cent{
     margin-bottom: 30px;
     min-height: 90PX;
@@ -98,7 +126,8 @@
     color: #000000;
     &-left{
       padding-left: 12px;
-      border-left: 4px solid  $color-brand-bc;
+      border: 0 solid $color-brand-bc;
+      border-left-width: 4px;
       margin-top: 20px;
       color: #000000;
       font-weight: 700;
@@ -107,7 +136,6 @@
       font-size: 26px;
       color: #000000;
       margin-top: 24px;
-     
     }
     &-info{
       font-size: 22px;
@@ -118,18 +146,6 @@
       align-items: flex-start;
     }
   }
-}
-
-.list_msk{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 20px 20px;
-  background-color: #fff;
-  width: 90%;
-  border-radius: 32px;
-  position: relative;
 
   &-close {
       position: absolute;

@@ -13,7 +13,7 @@ const { get } = new http("user");
 // 发起问题
 export function getSetQue(params) {
   return get("/question", params, {
-    loading: { title: "加载中", mask: false }
+    loading: { title: "加载中...", mask: false }
   });
 }
  
