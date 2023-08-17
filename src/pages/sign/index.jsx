@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 10:53:55
+ * @LastEditTime: 2023-08-17 11:04:31
  * @Description:账号注册
  */
 import Taro from "@tarojs/taro";
@@ -67,12 +67,12 @@ const Sign = () => {
     if (!id_code) {
       return toast("请输入社会信用码");
     }
-    if (!checked) {
-      return toast("请阅读并同意用户协议和隐私协议");
-    }
+    // if (!checked) {
+    //   return toast("请阅读并同意用户协议和隐私协议");
+    // }
 
     if (popList.length === 0) {
-      // return toast("请选择产业领域");
+      return toast("请选择产业领域");
     }
     const param = {
       user_name,
@@ -81,13 +81,13 @@ const Sign = () => {
       contact_phone,
       password,
     };
-    if (value5 === "1") {
+    if (value5) {
       popList.push("退役军人创业");
     }
-    if (value6 === "1") {
+    if (value6) {
       popList.push("大学生创业");
     }
-    if (value7 === "1") {
+    if (value7) {
       popList.push("留学生创业");
     }
     param.tags = popList.join(",");
@@ -125,8 +125,8 @@ const Sign = () => {
 
   const onPopClick = (values) => {
     console.log("onPopClick :>> ", values);
-    const newPop = [...popList];
-    if (popList.includes(values)) {
+    const newPop = popList&&popList.length>0 ? [...popList] : [];
+    if (popList&&popList.length>0 && popList.includes(values)) {
       toast("已经存在内容，请选择其他内容！");
     } else {
       newPop.push(values);
@@ -143,22 +143,23 @@ const Sign = () => {
     current.popListNew = popListNew;
     setPopList(popListNew)
   };
+
   // 查看
-  const cliLook = (values) => {
-    Taro.downloadFile({
-      url: values?.pdf,
-      success: function (res) {
-        var filePath = res.tempFilePath;
-        Taro.openDocument({
-          filePath: filePath,
-          success: () => {
-            console.log("打开文档成功");
-            toast("打开文档成功");
-          },
-        });
-      },
-    });
-  };
+  // const cliLook = (values) => {
+  //   Taro.downloadFile({
+  //     url: values?.pdf,
+  //     success: function (res) {
+  //       var filePath = res.tempFilePath;
+  //       Taro.openDocument({
+  //         filePath: filePath,
+  //         success: () => {
+  //           console.log("打开文档成功");
+  //           toast("打开文档成功");
+  //         },
+  //       });
+  //     },
+  //   });
+  // };
 
   console.log("popList :>> ", popList);
   return (
@@ -239,6 +240,7 @@ const Sign = () => {
           <YRoad
             onChange={(e) => {
               console.log("e :>> ", e);
+              current.value5=e
             }}
           />
           <Text className="sign-center-tas-info">&nbsp;是</Text>
@@ -248,6 +250,7 @@ const Sign = () => {
           <YRoad
             onChange={(e) => {
               console.log("e :>> ", e);
+              current.value6=e
             }}
           />
           <Text className="sign-center-tas-info">&nbsp;是</Text>
@@ -257,6 +260,7 @@ const Sign = () => {
           <YRoad
             onChange={(e) => {
               console.log("e :>> ", e);
+              current.value7=e
             }}
           />
           <Text className="sign-center-tas-info">&nbsp;是</Text>
@@ -351,7 +355,7 @@ const Sign = () => {
                   })}
                 </View>
               ) : (
-                <View>无</View>
+                <View style={{ fontSize:16,marginLeft:10 }}>无</View>
               )}
             </ScrollView>
             <View className="sign_popup-seg" />
@@ -373,7 +377,7 @@ const Sign = () => {
                     );
                   })
                 ) : (
-                  <View>无</View>
+                  <View style={{ fontSize:16,marginLeft:10 }}>无</View>
                 )}
               </View>
             </ScrollView>

@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 10:02:38
+ * @LastEditTime: 2023-08-17 11:08:36
  * @Description:登陆
  */
 import Taro from "@tarojs/taro";
@@ -31,21 +31,17 @@ const Login = () => {
     if (!password) {
       return toast("输入正确密码");
     }
-    if (!checked) {
-      return toast("请阅读并同意用户协议和隐私协议");
-    }
-    Taro.login().then((res) => {
-      // console.log("Taro.login() :>> ", res);
-      login({
-        wxcode: res.code,
-        phone,
-        password,
+    // if (!checked) {
+    //   return toast("请阅读并同意用户协议和隐私协议");
+    // }
+    login({
+      phone,
+      password,
+    })
+      .then((res) => {
+        loginHandler({ ...res });
       })
-        .then((res) => {
-          loginHandler({ ...res });
-        })
-        .catch(() => {});
-    });
+      .catch(() => {});
   };
  
 
