@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 16:41:05
+ * @LastEditTime: 2023-08-17 17:08:28
  * @Description: 消息通知
  */
 import { useState, useRef, useEffect } from "react";
@@ -116,7 +116,7 @@ const List = () => {
       </View>
       <YListView
         classStyle={"list_list"}
-        // boxHeight={130}
+        boxHeight={0}
         renderList={renderList}
         request={getList}
         ref={listViewRef}
