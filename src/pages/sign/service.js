@@ -1,17 +1,24 @@
 /*
- * @Author: Drlong drl1210@163.com
- * @Date: 2023-08-09 15:32:09
+ * @Author: duanruilong
+ * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-09 16:24:15
- * @FilePath: \app-taro-project\src\pages\sign\service.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @LastEditTime: 2023-08-17 10:07:39
+ * @Description:
  */
 import http from "@/utils/http";
 
-const { get } = new http("user", { ignoreSession: true });
+const common = new http("common");
+const user = new http("user");
 
-export function login(params, options) {
-  return get("/login", params, {
-    ...options
+
+// 标签
+export function getList(params) {
+  return common.get("/search", params, {
+    loading: { title: "加载中...", mask: false }
   });
+}
+
+// 注册/zqt/api/user/register
+export function Register(params) {
+  return user.get("/register", params, { loading: { title: "加载中...", mask: false } });
 }

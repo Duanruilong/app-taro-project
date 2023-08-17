@@ -1,30 +1,28 @@
 /*
  * @Author: duanruilong
- * @Date: 2022-07-22 17:25:19
+ * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-15 16:50:39
- * @Description: 登陆
+ * @LastEditTime: 2023-08-17 10:02:38
+ * @Description:登陆
  */
+import Taro from "@tarojs/taro";
 import { useState } from "react";
-// import Taro, { useDidShow, Current } from "@tarojs/taro";
-import { View, Input, Image, Text } from "@tarojs/components";
-// import YTitleTask from "@/components/YTitleTask";
+import { View, Input, Image } from "@tarojs/components";
 import YButton from "@/components/YButton";
-import { toast } from "@/utils/tools";
-// import { getStorageData } from "@/utils/utils";
-import { loginHandler } from "@/utils/loginHandler";
-// import useBack from "@/assets/use_back.png";
 import logo from "@/assets/logo.png";
+import phoneImg from "@/assets/phone.png";
+import paswordImg from "@/assets/pasword.png";
+import { toast } from "@/utils/tools";
+import { loginHandler } from "@/utils/loginHandler";
 import { login } from "./service";
+
 import "./index.scss";
+
 
 const Login = () => {
   const [phone, setPhone] = useState();
   const [password, setPassword] = useState();
-
-  // const onForget = () => {
-  //   Taro.navigateTo({ url: "/pages/updatePassword/index" });
-  // };
+  const [checked, setChecked] = useState(false);
 
   const onLog = () => {
     if (!phone) {
@@ -33,63 +31,114 @@ const Login = () => {
     if (!password) {
       return toast("输入正确密码");
     }
-    login({
-      phone,
-      password
-    })
-      .then(res => {
-        loginHandler({ ...res });
+    if (!checked) {
+      return toast("请阅读并同意用户协议和隐私协议");
+    }
+    Taro.login().then((res) => {
+      // console.log("Taro.login() :>> ", res);
+      login({
+        wxcode: res.code,
+        phone,
+        password,
       })
-      .catch(() => {});
+        .then((res) => {
+          loginHandler({ ...res });
+        })
+        .catch(() => {});
+    });
   };
+ 
 
   return (
-    <View className="login-sec">
-      {/* <Image className={"login-sec-back"} src={useBack} mode="aspectFit" /> */}
-      <View className={"login-sec-tit"}>
-        <Image className={"login-sec-tit-l"} src={logo} mode="aspectFit" />
-        <View className={"login-sec-tit-r"}>秀海生产管理系统</View>
+    <View className="login">
+      <View className={"login-logo"}>
+        <Image className={"login-logo-img"} src={logo} mode="aspectFit" />
       </View>
-      <View className="login-sec-center">
-        <Text className="login-sec-center-tas">手机号</Text>
-        <Input
-          className="login-sec-center-input"
-          name={"phone"}
-          placeholder="输入手机号"
-          type="number"
-          value={phone}
-          maxlength={11}
-          onInput={e => {
-            setPhone(e.detail.value);
-          }}
-        />
-        <Text className="login-sec-center-tas">密码</Text>
-        <Input
-          className="login-sec-center-input"
-          type="password"
-          password
-          placeholder="输入密码"
-          value={password}
-          onInput={e => {
-            setPassword(e.detail.value);
-          }}
-        />
-        {/* <View className="login-sec-center-forget" onClick={onForget}>
-          忘记密码
-        </View> */}
-        <View className="login-sec-center-button">
+      <View className="login-center">
+        <View className="login-center-tit">账号登陆</View>
+        <View className="login-center-tas">
+          <Image
+            className={"login-center-tas-img"}
+            src={phoneImg}
+            mode="aspectFit"
+          />
+          <Input
+            className="login-center-input"
+            name={"phone"}
+            placeholder="输入手机号"
+            type="number"
+            value={phone}
+            maxlength={11}
+            onInput={(e) => {
+              setPhone(e.detail.value);
+            }}
+          />
+        </View>
+        <View className="login-center-tas">
+          <Image
+            className={"login-center-tas-img"}
+            src={paswordImg}
+            mode="aspectFit"
+          />
+          <Input
+            className="login-center-input"
+            type="password"
+            password
+            placeholder="输入密码"
+            value={password}
+            onInput={(e) => {
+              setPassword(e.detail.value);
+            }}
+          />
+        </View>
+
+        <View className="login-center-button">
           <YButton
             yType="default"
             onClick={() => {
               onLog();
             }}
           >
-            <View className="login-sec-center-button-text">登录</View>
+            登 录
           </YButton>
         </View>
+        <View className="login-center-button">
+          <YButton
+            yType="grey"
+            onClick={() => {
+              Taro.navigateTo({ url: "/pages/sign/index" });
+            }}
+          >
+            注 册
+          </YButton>
+        </View>
+        {/* <View
+          className="login-center-info"
+          onClick={() => {
+            setChecked(!checked)
+          }}
+        >
+          &nbsp;我已阅读并同意&nbsp;
+          <View
+            style={{ color: "#05aa9c" }}
+            onClick={() => {
+              cliLook('https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/User%20Agreement.pdf');
+            }}
+          >
+            用户服务协议
+          </View>
+          &nbsp;及&nbsp;
+          <View
+            style={{ color: "#05aa9c" }}
+            onClick={() => {
+              cliLook('https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/privacy.pdf');
+            }}
+          >
+           隐私政策
+          </View>
+        </View> */}
       </View>
     </View>
   );
 };
-
 export default Login;

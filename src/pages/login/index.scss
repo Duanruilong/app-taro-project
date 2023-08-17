@@ -1,18 +1,11 @@
 page {
-  background-color: #ffffff;
+  background-color: #f1f1f1;
 }
 
-.login-sec {
-  background-color: #ffffff;
-
+.login {
+  background-color: #f1f1f1;
+  height: 100vh;
   @import './index.rn.scss';
 
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  // align-items: center;
-  // padding: 32px;
-
-
+ 
 }
