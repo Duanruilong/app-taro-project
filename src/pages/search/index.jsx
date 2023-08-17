@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 09:54:30
+ * @LastEditTime: 2023-08-17 11:51:42
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -199,11 +199,11 @@ const Search = () => {
       </View> */}
       {/* list */}
       <YListView
-        classStyle="search_list"
+        classStyle={"search_list"}
         boxHeight={188}
-        ref={listViewRef}
         renderList={renderList}
         request={getList}
+        ref={listViewRef}
         extraParams={{}}
         manual
         pnParams
