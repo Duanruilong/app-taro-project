@@ -7,3 +7,25 @@ page {
   @import './index.rn.scss';
 
 }
+
+
+
+
+/*  #ifdef  h5  */
+ .user_top_list-item-text{
+  margin-top: 14px !important;
+  color: #000;
+ }
+
+ .user .user_top_list-item-tit{
+  margin-top: 14px !important;
+ }
+
+ .user .user_top_list-item-cent{
+  padding: 0;
+ }
+
+ taro-button-core::after{
+  border: 0px;
+ }
+/*  #endif  */

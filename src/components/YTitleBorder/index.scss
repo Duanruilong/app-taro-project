@@ -1,7 +1,7 @@
 .y-title_border {
   text-align: center;
   color: #000;
-  width: 100%;
+  // width: 100%;
   text-align: left;
   display: flex;
   justify-content: flex-start;
@@ -16,6 +16,7 @@
   margin-left: 0px;
   min-width: 180px;
   padding-left: 20px;
+  color: #000;
 }
 &-left{
   width:28px;

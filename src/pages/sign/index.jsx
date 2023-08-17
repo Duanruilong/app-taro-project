@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 11:04:31
+ * @LastEditTime: 2023-08-17 14:57:16
  * @Description:账号注册
  */
 import Taro from "@tarojs/taro";
@@ -93,7 +93,7 @@ const Sign = () => {
     param.tags = popList.join(",");
 
     Register({
-      ...param
+      ...param,
     })
       .then((res) => {
         toast("注册成功，请登录");
@@ -122,8 +122,8 @@ const Sign = () => {
 
   const onPopClick = (values) => {
     console.log("onPopClick :>> ", values);
-    const newPop = popList&&popList.length>0 ? [...popList] : [];
-    if (popList&&popList.length>0 && popList.includes(values)) {
+    const newPop = popList && popList.length > 0 ? [...popList] : [];
+    if (popList && popList.length > 0 && popList.includes(values)) {
       toast("已经存在内容，请选择其他内容！");
     } else {
       newPop.push(values);
@@ -138,7 +138,7 @@ const Sign = () => {
     console.log(values, "删除tag :>> ", popListNew);
     popListNew.splice(values, 1);
     current.popListNew = popListNew;
-    setPopList(popListNew)
+    setPopList(popListNew);
   };
 
   // 查看
@@ -161,12 +161,12 @@ const Sign = () => {
   console.log("popList :>> ", popList);
   return (
     <View className="sign">
-      <View className="sign-center">
-        <View className="sign-center-tit">账号注册</View>
-        <View className="sign-center-tas">
+      <View className="sign_center">
+        <View className="sign_center-tit">账号注册</View>
+        <View className="sign_center-tas">
           <YTitleBorder title="企业名称：" />
           <Input
-            className="sign-center-input"
+            className="sign_center-input"
             name={"user_name"}
             placeholder="输入企业名称"
             type="text"
@@ -177,10 +177,10 @@ const Sign = () => {
             }}
           />
         </View>
-        <View className="sign-center-tas">
+        <View className="sign_center-tas">
           <YTitleBorder title="社会信用码：" />
           <Input
-            className="sign-center-input"
+            className="sign_center-input"
             name={"id_code"}
             placeholder="输入社会信用码"
             type="text"
@@ -191,10 +191,10 @@ const Sign = () => {
             }}
           />
         </View>
-        <View className="sign-center-tas">
+        <View className="sign_center-tas">
           <YTitleBorder title="联系人：" />
           <Input
-            className="sign-center-input"
+            className="sign_center-input"
             name={"contact_name"}
             placeholder="输入联系人"
             type="text"
@@ -205,10 +205,10 @@ const Sign = () => {
             }}
           />
         </View>
-        <View className="sign-center-tas">
+        <View className="sign_center-tas">
           <YTitleBorder title="联系电话：" />
           <Input
-            className="sign-center-input"
+            className="sign_center-input"
             name={"contact_phone"}
             placeholder="输入手机号"
             type="number"
@@ -219,10 +219,10 @@ const Sign = () => {
             }}
           />
         </View>
-        <View className="sign-center-tas">
+        <View className="sign_center-tas">
           <YTitleBorder title="登陆密码：" />
           <Input
-            className="sign-center-input"
+            className="sign_center-input"
             name={"phone"}
             placeholder="输入登陆密码"
             type="text"
@@ -232,53 +232,53 @@ const Sign = () => {
             }}
           />
         </View>
-        <View className="sign-center-tas">
+        <View className="sign_center-tas">
           <YTitleBorder title="是否退役军人创业：" />
           <YRoad
             onChange={(e) => {
               console.log("e :>> ", e);
-              current.value5=e
+              current.value5 = e;
             }}
           />
-          <Text className="sign-center-tas-info">&nbsp;是</Text>
+          <Text className="sign_center-tas-info">&nbsp;是</Text>
         </View>
-        <View className="sign-center-tas">
+        <View className="sign_center-tas">
           <YTitleBorder title="是否大学生创业：" />
           <YRoad
             onChange={(e) => {
               console.log("e :>> ", e);
-              current.value6=e
+              current.value6 = e;
             }}
           />
-          <Text className="sign-center-tas-info">&nbsp;是</Text>
+          <Text className="sign_center-tas-info">&nbsp;是</Text>
         </View>
-        <View className="sign-center-tas">
+        <View className="sign_center-tas">
           <YTitleBorder title="是否留学生创业：" />
           <YRoad
             onChange={(e) => {
               console.log("e :>> ", e);
-              current.value7=e
+              current.value7 = e;
             }}
           />
-          <Text className="sign-center-tas-info">&nbsp;是</Text>
+          <Text className="sign_center-tas-info">&nbsp;是</Text>
         </View>
 
         <View
-          className="sign-center-tas"
+          className="sign_center-tas"
           style={{ width: "100%", justifyContent: "space-between" }}
           onClick={() => {
             setShowBottom(true);
           }}
         >
-          <View className="sign-center-tas-lef">
+          <View className="sign_center-tas-lef">
             <YTitleBorder title="产业领域：" />
             {popList && popList.length > 0 ? null : (
-              <View className="sign-center-tas-lef-text">请选择产业领域</View>
+              <View className="sign_center-tas-lef-text">请选择产业领域</View>
             )}
           </View>
-          <Image className={"sign-center-tas-image"} src={rightImg} />
+          <Image className={"sign_center-tas-image"} src={rightImg} />
         </View>
-        <View className="sign-center-tas-pop">
+        <View className="sign_center-tas-pop">
           {popList && popList.length > 0
             ? popList.map((item, index) => {
                 return (
@@ -294,24 +294,27 @@ const Sign = () => {
             : null}
         </View>
 
-        <View className="sign-center-button">
+        <View className="sign_center-button">
           <YButton
             yType="default"
             onClick={() => {
               onLog();
             }}
           >
-            注 册
+            <View className="sign_center-button-text">注 册</View>
           </YButton>
         </View>
-        <View className="sign-center-button">
+        <View className="sign_center-button">
           <YButton
             yType="grey"
             onClick={() => {
-              Taro.navigateTo({ url: "/pages/login/index" });
+              Taro.navigateBack();
+              // Taro.navigateTo({ url: "/pages/login/index" });
             }}
           >
-            去 登 录
+            <View className="sign_center-button-text" style={{ color: "#000" }}>
+              去 登 录
+            </View>
           </YButton>
         </View>
       </View>
@@ -332,32 +335,42 @@ const Sign = () => {
             onClear={(e) => onSearchClear(e)}
           /> */}
             <YTitleBorder title="已选择：" />
-            <ScrollView className="sign_popup-scroll" style={{ height: 100 }} scrollY scrollWithAnimation>
-              {popList && popList.length > 0 ? (
-                <View className="sign_popup-list">
-                  {popList.map((item, index) => {
+            <ScrollView
+              className="sign_popup-scroll"
+              style={{ height: 50 }}
+              scrollY
+              scrollWithAnimation
+            >
+              <View className="sign_popup-list">
+                {popList && popList.length > 0 ? (
+                  popList.map((item, index) => {
                     return (
                       <View className="sign_popup-item" key={index}>
-                          <View className="sign_popup-item-text">{item}</View>
-                          <Image
-                            className="sign_popup-item-img"
-                            mode="aspectFit"
-                            src={close_b}
-                            onClick={() => {
-                              onPopClose(index);
-                            }}
-                          />
-                        </View>
+                        <View className="sign_popup-item-text">{item}</View>
+                        <Image
+                          className="sign_popup-item-img"
+                          mode="aspectFit"
+                          src={close_b}
+                          onClick={() => {
+                            onPopClose(index);
+                          }}
+                        />
+                      </View>
                     );
-                  })}
-                </View>
-              ) : (
-                <View style={{ fontSize:16,marginLeft:10 }}>无</View>
-              )}
+                  })
+                ) : (
+                  <View style={{ fontSize: 16, marginLeft: 10 }}>无</View>
+                )}
+              </View>
             </ScrollView>
             <View className="sign_popup-seg" />
             <YTitleBorder title="选择数据：" />
-            <ScrollView className="sign_popup-scroll" style={{ height: 250 }} scrollY scrollWithAnimation>
+            <ScrollView
+              className="sign_popup-scroll"
+              style={{ height: 100 }}
+              scrollY
+              scrollWithAnimation
+            >
               <View className="sign_popup-list">
                 {popupData && popupData.length > 0 ? (
                   popupData.map((item, index) => {
@@ -367,14 +380,12 @@ const Sign = () => {
                         key={index}
                         onClick={() => onPopClick(item)}
                       >
-                        <View className="sign_popup-item-text">
-                          {item}
-                        </View>
+                        <View className="sign_popup-item-text">{item}</View>
                       </View>
                     );
                   })
                 ) : (
-                  <View style={{ fontSize:16,marginLeft:10 }}>无</View>
+                  <View style={{ fontSize: 16, marginLeft: 10 }}>无</View>
                 )}
               </View>
             </ScrollView>
@@ -388,7 +399,6 @@ const Sign = () => {
               }}
             />
           </View>
-         
         </TMask>
       )}
     </View>
@@ -408,7 +418,7 @@ const YRoad = (props) => {
       onStartShouldSetResponderCapture={(ev) => true}
     >
       <Image
-        className="sign-center-tas-radio"
+        className="sign_center-tas-radio"
         mode="aspectFit"
         src={check ? selectItem : selectNo}
       />

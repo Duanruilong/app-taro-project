@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-16 17:24:50
+ * @LastEditTime: 2023-08-17 15:42:53
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -233,7 +233,7 @@ const User = () => {
                   }}
                >
                 <View className="user_ser-help-img">
-                  <Image className="user_ser-help-img-cen" src={item.img} alt="" />
+                  <Image className="user_ser-help-img-cen"  mode="aspectFit" src={item.img} alt="" />
                 </View>
                 <View className="user_ser-help-text">{item.title}</View>
               </Button>

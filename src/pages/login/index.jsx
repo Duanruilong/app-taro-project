@@ -2,12 +2,12 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 11:08:36
+ * @LastEditTime: 2023-08-17 15:22:38
  * @Description:登陆
  */
 import Taro from "@tarojs/taro";
 import { useState } from "react";
-import { View, Input, Image } from "@tarojs/components";
+import { View, Input, Image, Radio } from "@tarojs/components";
 import YButton from "@/components/YButton";
 import logo from "@/assets/logo.png";
 import phoneImg from "@/assets/phone.png";
@@ -17,7 +17,6 @@ import { loginHandler } from "@/utils/loginHandler";
 import { login } from "./service";
 
 import "./index.scss";
-
 
 const Login = () => {
   const [phone, setPhone] = useState();
@@ -43,7 +42,12 @@ const Login = () => {
       })
       .catch(() => {});
   };
- 
+
+  const cliLook = (values) => {
+    Taro.navigateTo({
+      url: `/pagesWork/webView/index?url=${values}`,
+    });
+  };
 
   return (
     <View className="login">
@@ -95,7 +99,7 @@ const Login = () => {
               onLog();
             }}
           >
-            登 录
+            <View className="login-center-button-text">登 录</View>
           </YButton>
         </View>
         <View className="login-center-button">
@@ -105,7 +109,12 @@ const Login = () => {
               Taro.navigateTo({ url: "/pages/sign/index" });
             }}
           >
-            注 册
+            <View
+              className="login-center-button-text"
+              style={{ color: "#000" }}
+            >
+              注 册
+            </View>
           </YButton>
         </View>
         {/* <View
@@ -114,7 +123,7 @@ const Login = () => {
             setChecked(!checked)
           }}
         >
-          &nbsp;我已阅读并同意&nbsp;
+          <Radio checked />&nbsp;我已阅读并同意&nbsp;
           <View
             style={{ color: "#05aa9c" }}
             onClick={() => {
