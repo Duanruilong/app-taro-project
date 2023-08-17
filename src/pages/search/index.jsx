@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 14:40:57
+ * @LastEditTime: 2023-08-17 15:24:25
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -10,11 +10,11 @@ import Taro from "@tarojs/taro";
 import { View, Input, Image } from "@tarojs/components";
 import YListView from "@/components/YListView";
 // import YInputSearch from "@/components/YInputSearch";
-// import YListView from "@/components/YListView";
 import YNoData from "@/components/YNoData";
-// import YButton from "@/components/YButton";
+import YButton from "@/components/YButton";
+import listItemImg from "@/assets/index_list1.png";
 import { getStorageData, isEmpty } from "@/utils/utils";
-// import { toast } from "@/utils/tools";
+import { toast } from "@/utils/tools";
 import { getList, getFollow } from "./service";
 import "./index.scss";
 
@@ -43,15 +43,15 @@ const SearchPage = () => {
   //   current.local = values;
   // };
 
-  // const onClearClick = (values) => {
-  //   console.log("onSearchChange :>> ", values);
-  //   current.local = null;
-  //   listViewRef.current.load({
-  //     user_id: current.infoData?.user_id,
-  //     key: "",
-  //     pn: 1,
-  //   });
-  // };
+  const onClearClick = (values) => {
+    console.log("onSearchChange :>> ", values);
+    current.local = null;
+    listViewRef.current.load({
+      user_id: current.infoData?.user_id,
+      key: "",
+      pn: 1,
+    });
+  };
 
   // const onSearchGoods = (values) => {
   //   current.local = values;
@@ -68,17 +68,17 @@ const SearchPage = () => {
   //   onSearchGoods(searchValue);
   // };
 
-  // const cliTip = (values) => {
-  //   getFollow({
-  //     user_id: current.infoData?.user_id,
-  //     policy_id: values?.policy_id,
-  //   })
-  //     .then(() => {
-  //       toast("关注该政策成功!");
-  //       onClearClick();
-  //     })
-  //     .catch(() => {});
-  // };
+  const cliTip = (values) => {
+    getFollow({
+      user_id: current.infoData?.user_id,
+      policy_id: values?.policy_id,
+    })
+      .then(() => {
+        toast("关注该政策成功!");
+        onClearClick();
+      })
+      .catch(() => {});
+  };
 
   // const onEditData = async (values) => {
   //   await Taro.setStorage({
@@ -139,27 +139,29 @@ const SearchPage = () => {
   const renderList = (values) => {
     console.log("data renderList:>> ", values);
 
-    
-    return [1,2,3,4,33].map((item) => {
+    const { records } = values;
+    if (isEmpty(values) || isEmpty(records)) {
+      return <YNoData desc={"暂无数据"} />;
+    }
+    return records.map((item) => {
       return (
         <View
-          key={item}
+          key={item?.policy_id}
           className="search_list-item"
           // onClick={() => {
           //   onEditData(item);
           // }}
         >
           <View className="search_list-item-cent">
-          <View className="search_list-item-cent-title">{item}</View>
-            {/* <View className="search_list-item-cent-title">{item.title}</View>
+            <View className="search_list-item-cent-title">{item.title}</View>
             {item?.tags && (
               <View className="search_list-item-cent-tag">{item?.tags}</View>
             )}
             <View className="search_list-item-cent-info">
               {item.create_time}
-            </View> */}
+            </View>
 
-            {/* <View className="search_list-item-but">
+            <View className="search_list-item-but">
               <YButton
                 yType="default"
                 disabled={item?.follow === 1}
@@ -169,12 +171,12 @@ const SearchPage = () => {
               >
                 <View className="search_list-item-but-t">关注该政策</View>
               </YButton>
-            </View> */}
+            </View>
           </View>
           <View className="search_list-item-img">
             <Image
               className="search_list-item-img-cent"
-              src={require("@/assets/index_list1.png")}
+              src={listItemImg}
             />
           </View>
         </View>
