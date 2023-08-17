@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 15:48:23
+ * @LastEditTime: 2023-08-17 16:00:08
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -31,54 +31,54 @@ const SearchPage = () => {
   //   });
   // };
 
-  useEffect(() => {
-    getStorageData("userInfo").then((values) => {
-      current.infoData = values;
-      // requestList({ user_id: values?.user_id });
-    });
-  }, []);
+  // useEffect(() => {
+  //   getStorageData("userInfo").then((values) => {
+  //     current.infoData = values;
+  //     requestList({ user_id: values?.user_id });
+  //   });
+  // }, []);
 
-  const onChange = (values) => {
-    console.log("onChange :>> ", values);
-    current.local = values;
-  };
+  // const onChange = (values) => {
+  //   console.log("onChange :>> ", values);
+  //   current.local = values;
+  // };
 
-  const onClearClick = (values) => {
-    console.log("onSearchChange :>> ", values);
-    current.local = null;
-    // listViewRef.current.load({
-    //   user_id: current.infoData?.user_id,
-    //   key: "",
-    //   pn: 1,
-    // });
-  };
+  // const onClearClick = (values) => {
+  //   console.log("onSearchChange :>> ", values);
+  //   current.local = null;
+  //   listViewRef.current.load({
+  //     user_id: current.infoData?.user_id,
+  //     key: "",
+  //     pn: 1,
+  //   });
+  // };
 
-  const onSearchGoods = (values) => {
-    current.local = values;
-    console.log("onConfirmChange :>> ", values);
-    // listViewRef.current.load({
-    //   user_id: current.infoData?.user_id,
-    //   key: values,
-    //   pn: 1,
-    // });
-  };
+  // const onSearchGoods = (values) => {
+  //   current.local = values;
+  //   console.log("onConfirmChange :>> ", values);
+  //   listViewRef.current.load({
+  //     user_id: current.infoData?.user_id,
+  //     key: values,
+  //     pn: 1,
+  //   });
+  // };
 
-  const onConfirmChange = (values) => {
-    const searchValue = values.detail?.value || undefined;
-    onSearchGoods(searchValue);
-  };
+  // const onConfirmChange = (values) => {
+  //   const searchValue = values.detail?.value || undefined;
+  //   onSearchGoods(searchValue);
+  // };
 
-  const cliTip = (values) => {
-    getFollow({
-      user_id: current.infoData?.user_id,
-      policy_id: values?.policy_id,
-    })
-      .then(() => {
-        toast("关注该政策成功!");
-        onClearClick();
-      })
-      .catch(() => {});
-  };
+  // const cliTip = (values) => {
+  //   getFollow({
+  //     user_id: current.infoData?.user_id,
+  //     policy_id: values?.policy_id,
+  //   })
+  //     .then(() => {
+  //       toast("关注该政策成功!");
+  //       onClearClick();
+  //     })
+  //     .catch(() => {});
+  // };
 
   // const onEditData = async (values) => {
   //   await Taro.setStorage({
@@ -192,9 +192,9 @@ const SearchPage = () => {
           <YInputSearch
             className={"search_top-input"}
             placeholder={"搜索最新政策"}
-            onClearClick={onClearClick}
-            onConfirm={onConfirmChange}
-            onChange={onChange}
+            // onClearClick={onClearClick}
+            // onConfirm={onConfirmChange}
+            // onChange={onChange}
             // initialValue={params?.text}
           />
         </View>
