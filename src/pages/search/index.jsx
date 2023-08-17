@@ -2,13 +2,13 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-16 17:47:25
+ * @LastEditTime: 2023-08-17 09:39:40
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
 import Taro from "@tarojs/taro";
 import { View, Input, Image } from "@tarojs/components";
-import YInputSearch from "@/components/YInputSearch";
+// import YInputSearch from "@/components/YInputSearch";
 import YListView from "@/components/YListView";
 import YNoData from "@/components/YNoData";
 import YButton from "@/components/YButton";
@@ -138,7 +138,7 @@ const Search = () => {
 
   return (
     <View className="search">
-      <View className="search_top">
+      {/* <View className="search_top">
         <View className="search_top-cent">
           <YInputSearch
             className={"search_top-input"}
@@ -149,7 +149,7 @@ const Search = () => {
             // initialValue={params?.text}
           />
         </View>
-      </View>
+      </View> */}
       {/* list */}
       <YListView
         classStyle="search_list"
