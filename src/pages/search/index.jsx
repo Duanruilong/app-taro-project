@@ -2,14 +2,14 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 17:07:45
+ * @LastEditTime: 2023-08-17 17:25:30
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
 import Taro from "@tarojs/taro";
 import { View, Input, Image } from "@tarojs/components";
 import YListView from "@/components/YListView";
-import YInputSearch from "@/components/YInputSearch";
+// import YInputSearch from "@/components/YInputSearch";
 import YNoData from "@/components/YNoData";
 import YButton from "@/components/YButton";
 import listItemImg from "@/assets/index_list1.png";
@@ -68,7 +68,6 @@ const SearchPage = () => {
     onSearchGoods(searchValue);
   };
 
-  
   const cliTip = (values) => {
     getFollow({
       user_id: current.infoData?.user_id,
@@ -93,7 +92,7 @@ const SearchPage = () => {
 
   const renderList = (values) => {
     const { records } = values;
-    if (records.length === 0) {
+    if (isEmpty(values) || isEmpty(records)) {
       return <YNoData desc={"暂无数据"} />;
     }
     return records.map((item) => {
@@ -115,22 +114,19 @@ const SearchPage = () => {
             </View>
 
             <View className="search_list-item-but">
-                <YButton
-                  yType="default"
-                  disabled={item?.follow === 1}
-                  onClick={() => {
-                    cliTip(item);
-                  }}
-                >
-                  <View className="search_list-item-but-t">关注该政策</View>
-                </YButton>
-              </View>
+              <YButton
+                yType="default"
+                disabled={item?.follow === 1}
+                onClick={() => {
+                  cliTip(item);
+                }}
+              >
+                <View className="search_list-item-but-t">关注该政策</View>
+              </YButton>
+            </View>
           </View>
           <View className="search_list-item-img">
-            <Image
-              className="search_list-item-img-cent"
-              src={require("@/assets/index_list1.png")}
-            />
+            <Image className="search_list-item-img-cent" src={listItemImg} />
           </View>
         </View>
       );
@@ -139,7 +135,7 @@ const SearchPage = () => {
 
   return (
     <View className="search">
-      <View className="search_top">
+      {/* <View className="search_top">
         <View className="search_top-cent">
           <YInputSearch
             className={"search_top-input"}
@@ -150,7 +146,7 @@ const SearchPage = () => {
             onChange={onChange}
           />
         </View>
-      </View>
+      </View> */}
       <YListView
         classStyle="search_list"
         ref={listViewRef}
