@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 10:07:39
+ * @LastEditTime: 2023-08-17 11:29:39
  * @Description:
  */
 import http from "@/utils/http";
@@ -20,5 +20,5 @@ export function getList(params) {
 
 // 注册/zqt/api/user/register
 export function Register(params) {
-  return user.get("/register", params, { loading: { title: "加载中...", mask: false } });
+  return user.get("/app_register", params, { loading: { title: "加载中...", mask: false } });
 }

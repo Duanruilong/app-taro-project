@@ -92,17 +92,14 @@ const Sign = () => {
     }
     param.tags = popList.join(",");
 
-    Taro.login().then((res) => {
-      Register({
-        wxcode: res.code,
-        ...param,
+    Register({
+      ...param
+    })
+      .then((res) => {
+        toast("注册成功，请登录");
+        loginHandler({ ...res });
       })
-        .then((res) => {
-          toast("注册成功，请登录");
-          loginHandler({ ...res });
-        })
-        .catch(() => {});
-    });
+      .catch(() => {});
   };
 
   const onGetList = (param) => {
