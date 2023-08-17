@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 14:25:26
+ * @LastEditTime: 2023-08-17 14:40:57
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -18,7 +18,7 @@ import { getStorageData, isEmpty } from "@/utils/utils";
 import { getList, getFollow } from "./service";
 import "./index.scss";
 
-const Search = () => {
+const SearchPage = () => {
   const { current } = useRef({ local: null });
   const listViewRef = useRef(null);
   // // const { windowHeight } = Taro.getSystemInfoSync();
@@ -139,21 +139,18 @@ const Search = () => {
   const renderList = (values) => {
     console.log("data renderList:>> ", values);
 
-    const { records } = values;
-    if (isEmpty(values) || isEmpty(records)) {
-      return <YNoData desc={"暂无数据"} />;
-    }
-    return records.map((item) => {
+    
+    return [1,2,3,4,33].map((item) => {
       return (
         <View
-          key={item?.policy_id}
+          key={item}
           className="search_list-item"
           // onClick={() => {
           //   onEditData(item);
           // }}
         >
           <View className="search_list-item-cent">
-          <View className="search_list-item-cent-title">{item.title}</View>
+          <View className="search_list-item-cent-title">{item}</View>
             {/* <View className="search_list-item-cent-title">{item.title}</View>
             {item?.tags && (
               <View className="search_list-item-cent-tag">{item?.tags}</View>
@@ -215,4 +212,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchPage;
