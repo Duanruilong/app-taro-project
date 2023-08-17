@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 11:51:42
+ * @LastEditTime: 2023-08-17 14:25:26
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -137,6 +137,8 @@ const Search = () => {
   // };
 
   const renderList = (values) => {
+    console.log("data renderList:>> ", values);
+
     const { records } = values;
     if (isEmpty(values) || isEmpty(records)) {
       return <YNoData desc={"暂无数据"} />;
@@ -151,13 +153,14 @@ const Search = () => {
           // }}
         >
           <View className="search_list-item-cent">
-            <View className="search_list-item-cent-title">{item.title}</View>
+          <View className="search_list-item-cent-title">{item.title}</View>
+            {/* <View className="search_list-item-cent-title">{item.title}</View>
             {item?.tags && (
               <View className="search_list-item-cent-tag">{item?.tags}</View>
             )}
             <View className="search_list-item-cent-info">
               {item.create_time}
-            </View>
+            </View> */}
 
             {/* <View className="search_list-item-but">
               <YButton
