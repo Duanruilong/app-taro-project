@@ -82,13 +82,15 @@
       flex-direction: row;
       align-items: center;
         &-t {
-        padding: 14px 0;
+        // padding: 14px 0;
         // line-height: 70px;
         // text-align: center;
+        line-height: 66px;
         color: $color-f;
         font-weight: 700;
         font-size: 26px;
       }
+     
     }
 
     &-img{
@@ -102,4 +104,9 @@
       }
     }
   }
+}
+
+.y-button-disabled{
+  line-height: 60px;
+ 
 }

@@ -2,14 +2,14 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 15:24:25
+ * @LastEditTime: 2023-08-17 15:44:40
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
 import Taro from "@tarojs/taro";
 import { View, Input, Image } from "@tarojs/components";
 import YListView from "@/components/YListView";
-// import YInputSearch from "@/components/YInputSearch";
+import YInputSearch from "@/components/YInputSearch";
 import YNoData from "@/components/YNoData";
 import YButton from "@/components/YButton";
 import listItemImg from "@/assets/index_list1.png";
@@ -38,10 +38,10 @@ const SearchPage = () => {
     });
   }, []);
 
-  // const onChange = (values) => {
-  //   console.log("onChange :>> ", values);
-  //   current.local = values;
-  // };
+  const onChange = (values) => {
+    console.log("onChange :>> ", values);
+    current.local = values;
+  };
 
   const onClearClick = (values) => {
     console.log("onSearchChange :>> ", values);
@@ -53,20 +53,20 @@ const SearchPage = () => {
     });
   };
 
-  // const onSearchGoods = (values) => {
-  //   current.local = values;
-  //   console.log("onConfirmChange :>> ", values);
-  //   listViewRef.current.load({
-  //     user_id: current.infoData?.user_id,
-  //     key: values,
-  //     pn: 1,
-  //   });
-  // };
+  const onSearchGoods = (values) => {
+    current.local = values;
+    console.log("onConfirmChange :>> ", values);
+    listViewRef.current.load({
+      user_id: current.infoData?.user_id,
+      key: values,
+      pn: 1,
+    });
+  };
 
-  // const onConfirmChange = (values) => {
-  //   const searchValue = values.detail?.value || undefined;
-  //   onSearchGoods(searchValue);
-  // };
+  const onConfirmChange = (values) => {
+    const searchValue = values.detail?.value || undefined;
+    onSearchGoods(searchValue);
+  };
 
   const cliTip = (values) => {
     getFollow({
@@ -136,58 +136,58 @@ const SearchPage = () => {
   //   });
   // };
 
-  const renderList = (values) => {
-    console.log("data renderList:>> ", values);
+  // const renderList = (values) => {
+  //   console.log("data renderList:>> ", values);
 
-    const { records } = values;
-    if (isEmpty(values) || isEmpty(records)) {
-      return <YNoData desc={"暂无数据"} />;
-    }
-    return records.map((item) => {
-      return (
-        <View
-          key={item?.policy_id}
-          className="search_list-item"
-          // onClick={() => {
-          //   onEditData(item);
-          // }}
-        >
-          <View className="search_list-item-cent">
-            <View className="search_list-item-cent-title">{item.title}</View>
-            {item?.tags && (
-              <View className="search_list-item-cent-tag">{item?.tags}</View>
-            )}
-            <View className="search_list-item-cent-info">
-              {item.create_time}
-            </View>
+  //   const { records } = values;
+  //   if (isEmpty(values) || isEmpty(records)) {
+  //     return <YNoData desc={"暂无数据"} />;
+  //   }
+  //   return records.map((item) => {
+  //     return (
+  //       <View
+  //         key={item?.policy_id}
+  //         className="search_list-item"
+  //         // onClick={() => {
+  //         //   onEditData(item);
+  //         // }}
+  //       >
+  //         <View className="search_list-item-cent">
+  //           <View className="search_list-item-cent-title">{item.title}</View>
+  //           {item?.tags && (
+  //             <View className="search_list-item-cent-tag">{item?.tags}</View>
+  //           )}
+  //           <View className="search_list-item-cent-info">
+  //             {item.create_time}
+  //           </View>
 
-            <View className="search_list-item-but">
-              <YButton
-                yType="default"
-                disabled={item?.follow === 1}
-                onClick={() => {
-                  cliTip(item);
-                }}
-              >
-                <View className="search_list-item-but-t">关注该政策</View>
-              </YButton>
-            </View>
-          </View>
-          <View className="search_list-item-img">
-            <Image
-              className="search_list-item-img-cent"
-              src={listItemImg}
-            />
-          </View>
-        </View>
-      );
-    });
-  };
+  //           <View className="search_list-item-but">
+  //             <YButton
+  //               yType="default"
+  //               disabled={item?.follow === 1}
+  //               onClick={() => {
+  //                 cliTip(item);
+  //               }}
+  //             >
+  //               <View className="search_list-item-but-t">关注该政策</View>
+  //             </YButton>
+  //           </View>
+  //         </View>
+  //         <View className="search_list-item-img">
+  //           <Image
+  //             className="search_list-item-img-cent"
+  //             src={listItemImg}
+  //           />
+  //         </View>
+  //       </View>
+  //     );
+  //   });
+  // };
 
   return (
     <View className="search">
       <View className="search_top">政策列表</View>
-      {/* <View className="search_top">
+      <View className="search_top">
         <View className="search_top-cent">
           <YInputSearch
             className={"search_top-input"}
@@ -198,9 +198,8 @@ const SearchPage = () => {
             // initialValue={params?.text}
           />
         </View>
-      </View> */}
-      {/* list */}
-      <YListView
+      </View>
+      {/* <YListView
         classStyle={"search_list"}
         boxHeight={188}
         renderList={renderList}
@@ -209,7 +208,7 @@ const SearchPage = () => {
         extraParams={{}}
         manual
         pnParams
-      />
+      /> */}
     </View>
   );
 };
