@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 15:44:40
+ * @LastEditTime: 2023-08-17 15:48:23
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -23,18 +23,18 @@ const SearchPage = () => {
   const listViewRef = useRef(null);
   // // const { windowHeight } = Taro.getSystemInfoSync();
 
-  const requestList = (param) => {
-    listViewRef.current.load({
-      pn: param?.pn || 1,
-      ps: 10,
-      ...param,
-    });
-  };
+  // const requestList = (param) => {
+  //   listViewRef.current.load({
+  //     pn: param?.pn || 1,
+  //     ps: 10,
+  //     ...param,
+  //   });
+  // };
 
   useEffect(() => {
     getStorageData("userInfo").then((values) => {
       current.infoData = values;
-      requestList({ user_id: values?.user_id });
+      // requestList({ user_id: values?.user_id });
     });
   }, []);
 
@@ -46,21 +46,21 @@ const SearchPage = () => {
   const onClearClick = (values) => {
     console.log("onSearchChange :>> ", values);
     current.local = null;
-    listViewRef.current.load({
-      user_id: current.infoData?.user_id,
-      key: "",
-      pn: 1,
-    });
+    // listViewRef.current.load({
+    //   user_id: current.infoData?.user_id,
+    //   key: "",
+    //   pn: 1,
+    // });
   };
 
   const onSearchGoods = (values) => {
     current.local = values;
     console.log("onConfirmChange :>> ", values);
-    listViewRef.current.load({
-      user_id: current.infoData?.user_id,
-      key: values,
-      pn: 1,
-    });
+    // listViewRef.current.load({
+    //   user_id: current.infoData?.user_id,
+    //   key: values,
+    //   pn: 1,
+    // });
   };
 
   const onConfirmChange = (values) => {
