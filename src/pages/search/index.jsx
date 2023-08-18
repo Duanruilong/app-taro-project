@@ -152,12 +152,12 @@ const SearchPage = () => {
               setShowData(item);
             }}
           >
-            <View className="search_list-item-cent">
+            {/* <View className="search_list-item-cent">
               <View className="search_list-item-cent-tit">{item.title}</View>
               <View className="search_list-item-cent-tags">{item.tags}</View>
              
               <View className="search_list-item-cent-butt">
-                {/* <YButton
+                <YButton
                   yType="default"
                   disabled={item?.follow === 1}
                   onClick={() => {
@@ -165,13 +165,13 @@ const SearchPage = () => {
                   }}
                 >
                   <View className="search_list-item-butt-t">关注该政策</View>
-                </YButton> */}
+                </YButton>
                 <Button className="search_list-item-cent-butt-cent" size='mini'  disabled={item?.follow === 1} type='primary'>关注该政策</Button>
               </View>
               <View className="search_list-item-cent-time">
                 {item.create_time}
               </View>
-            </View>
+            </View> */}
             <View className="search_list-item-img">
               <Image
                 className="search_list-item-img-cent"
