@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 14:38:18
+ * @LastEditTime: 2023-08-18 16:23:29
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -125,7 +125,6 @@ const SearchPage = () => {
   //   }
   // };
 
-
   const onEditData = async (values) => {
     await Taro.setStorage({
       key: "DAMAGE-ITEM",
@@ -135,7 +134,7 @@ const SearchPage = () => {
       url: `/pages/policyDetail/index`,
     });
   };
-  
+
   const renderList = (data) => {
     console.log("data renderList:>> ", data);
     const { records } = data;
@@ -144,26 +143,38 @@ const SearchPage = () => {
       return <YNoData desc={"暂无数据"} />;
     }
     if (records && records.length > 0) {
-      return records.map((item) => {
+      return records.map((item, index) => {
         return (
           <View
-            key={item?.question_id}
-            className="list_list-item"
+            key={Date.now() + index}
+            className="search_list-item"
             onClick={() => {
               setShowData(item);
             }}
           >
-            <View className="list_list-item-cent">
-              <View className="list_list-item-cent-title"> {item.title}</View>
-              <View className="list_list-item-cent-left">
-                回复内容：  
+            <View className="search_list-item-cent">
+              <View className="search_list-item-cent-tit">{item.title}</View>
+              <View className="search_list-item-cent-tags">{item.tags}</View>
+             
+              <View className="search_list-item-cent-butt">
+                <YButton
+                  yType="default"
+                  disabled={item?.follow === 1}
+                  onClick={() => {
+                    cliTip(item);
+                  }}
+                >
+                  <View className="search_list-item-butt-t">关注该政策</View>
+                </YButton>
               </View>
-              
+              <View className="search_list-item-cent-time">
+                {item.create_time}
+              </View>
             </View>
-            <View className="list_list-item-img">
+            <View className="search_list-item-img">
               <Image
-                className="list_list-item-img-cent"
-                src={require("@/assets/xinxi_item.png")}
+                className="search_list-item-img-cent"
+                src={require("@/assets/index_list1.png")}
               />
             </View>
           </View>
@@ -185,16 +196,18 @@ const SearchPage = () => {
           />
         </View>
       </View>
-      <YListView
-        classStyle={"search_list"}
-        boxHeight={230}
-        renderList={renderList}
-        request={getList}
-        ref={listViewRef}
-        extraParams={{}}
-        manual
-        pnParams
-      />
+      <View style={{ height: "100vh" }}>
+        <YListView
+          classStyle={"search_list"}
+          boxHeight={176}
+          renderList={renderList}
+          request={getList}
+          ref={listViewRef}
+          extraParams={{}}
+          manual
+          pnParams
+        />
+      </View>
     </View>
   );
 };
