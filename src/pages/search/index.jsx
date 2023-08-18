@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 16:33:00
+ * @LastEditTime: 2023-08-18 17:20:24
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -92,7 +92,7 @@ const SearchPage = () => {
   //       return (
   //         <View
   //           key={item?.policy_id}
-  //           className="search_list-item"
+  //           className="list_list-item"
   //           onClick={() => {
   //             setShowData(item);
   //           }}
@@ -147,16 +147,16 @@ const SearchPage = () => {
         return (
           <View
             key={Date.now() + index}
-            className="search_list-item"
+            className="list_list-item"
             onClick={() => {
               setShowData(item);
             }}
           >
-            {/* <View className="search_list-item-cent">
-              <View className="search_list-item-cent-tit">{item.title}</View>
-              <View className="search_list-item-cent-tags">{item.tags}</View>
+            {/* <View className="list_list-item-cent">
+              <View className="list_list-item-cent-tit">{item.title}</View>
+              <View className="list_list-item-cent-tags">{item.tags}</View>
              
-              <View className="search_list-item-cent-butt">
+              <View className="list_list-item-cent-butt">
                 <YButton
                   yType="default"
                   disabled={item?.follow === 1}
@@ -164,17 +164,17 @@ const SearchPage = () => {
                     cliTip(item);
                   }}
                 >
-                  <View className="search_list-item-butt-t">关注该政策</View>
+                  <View className="list_list-item-butt-t">关注该政策</View>
                 </YButton>
-                <Button className="search_list-item-cent-butt-cent" size='mini'  disabled={item?.follow === 1} type='primary'>关注该政策</Button>
+                <Button className="list_list-item-cent-butt-cent" size='mini'  disabled={item?.follow === 1} type='primary'>关注该政策</Button>
               </View>
-              <View className="search_list-item-cent-time">
+              <View className="list_list-item-cent-time">
                 {item.create_time}
               </View>
             </View> */}
-            <View className="search_list-item-img">
+            <View className="list_list-item-img">
               <Image
-                className="search_list-item-img-cent"
+                className="list_list-item-img-cent"
                 src={require("@/assets/index_list1.png")}
               />
             </View>
@@ -199,7 +199,7 @@ const SearchPage = () => {
       </View>
       <View style={{ height: "100vh" }}>
         <YListView
-          classStyle={"search_list"}
+          classStyle={"list_list"}
           boxHeight={176}
           renderList={renderList}
           request={getList}
