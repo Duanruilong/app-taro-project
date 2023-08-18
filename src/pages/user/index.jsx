@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 15:42:53
+ * @LastEditTime: 2023-08-18 15:47:23
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -21,22 +21,22 @@ const User = () => {
     {
       title: "关注",
       type: "follow",
-      url: `/pages/follow/index`,
-      icon: require("@/assets/xinxi_item.png"),
+      url: `/pagesWork/follow/index`,
+      icon: require("@/assets/follow.png"),
       value: 0,
     },
     {
       title: "准备申请",
       type: "apply",
-      url: `/pages/apply/index`,
-      icon: require("@/assets/xinxi_item.png"),
+      url: `/pagesWork/apply/index`,
+      icon: require("@/assets/apply.png"),
       value: 0,
     },
     {
       title: "浏览历史",
       type: "history",
-      url: `/pages/history/index`,
-      icon: require("@/assets/xinxi_item.png"),
+      url: `/pagesWork/history/index`,
+      icon: require("@/assets/history.png"),
       value: 0,
     },
   ];
@@ -157,7 +157,7 @@ const User = () => {
         className="user_top"
         onClick={() => {
           Taro.navigateTo({
-            url: "/pages/useEdit/index",
+            url: "/pagesWork/useEdit/index",
           });
         }}
       >
@@ -184,7 +184,7 @@ const User = () => {
                   <View className="user_top_list-item-cent">
                     <Image
                       className="user_top_list-item-img"
-                      src={require("@/assets/xinxi_item.png")}
+                      src={item.icon}
                     />
                     <View className="user_top_list-item-text"> {dataCount[item.type]}</View>
                   </View>

@@ -1,0 +1,107 @@
+ .useEdit {
+     flex-direction: column;
+     justify-content: space-between;
+     align-items: center;
+     display: flex;
+    //  height: 100vh;
+     // background-color: #f7f7f7;
+
+     &_center {
+         border-radius: 10px;
+         width: 100%;
+         padding: 10px 30px;
+         flex-direction: row;
+         justify-content: flex-start;
+         align-items: center;
+         display: flex;
+         background-color: #fff;
+         margin-bottom: 12px;
+
+
+         &-input {
+             padding: 0px 22px;
+             font-size: 30px;
+             border: 0 solid #a7a7a7;
+             border-bottom-width: 1px;
+            width: 60%;
+         }
+
+         .y-title_border {
+             width: auto;
+             padding-bottom: 0px;
+         }
+
+         &-tas {
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            display: flex;
+            margin-bottom: 24px;
+            width: 90%;
+            &-image {
+                width: 50px;
+                height: 50px;
+                margin-right: 12px;
+                padding-bottom: 10px;
+            }
+
+            &-lef{
+              flex-direction: row;
+              justify-content: flex-start;
+              align-items: center;
+              display: flex;
+              width: 90%;
+              flex-wrap: wrap;
+              &-text {
+                font-size: 28px;
+                color: #000000;
+              }
+            }
+            &-pop{
+              flex-direction: row;
+              justify-content: flex-start;
+              align-items: center;
+              display: flex;
+              width: 100%;
+              flex-wrap: wrap;
+              background-color: #fff;
+              padding: 12px 30px;
+            }
+          }
+          &-item{
+            margin-right: 30px;
+            margin-bottom: 20px;
+            background-color: #4fc08d;
+            border-radius: 24px;
+            padding: 9px 20px;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: flex-start;
+            &-text {
+              font-size: 24px;
+              color: #ffffff;
+            }
+        
+            &-img {
+              width: 26px;
+              height: 26px;
+              margin-left: 12px;
+            }
+          }
+     }
+
+     &-but {
+         margin: 100px auto 0;
+         width: 90%;
+
+         &-t {
+             line-height: 90px;
+             text-align: center;
+             color: $color-f;
+             font-weight: 700;
+             font-size: 36px;
+         }
+
+     }
+ }
