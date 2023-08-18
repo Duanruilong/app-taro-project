@@ -75,14 +75,13 @@
         color: #ffffff;
         padding: 8px 20px;
         border-radius: 12px;
-        display: flex;
         margin-top: 10px;
       }
     }
 
     &-but {
       border-radius: 45px;
-      max-width: 70%;
+      width: 70%;
       margin-top: 12px;
       display: flex;
       flex-direction: row;
@@ -101,7 +100,6 @@
       width: 190px;
       height: 190px;
       border-radius: 14px;
-      z-index: 10;
 
       &-cent {
         width: 100%;

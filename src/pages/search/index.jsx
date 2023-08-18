@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 11:47:06
+ * @LastEditTime: 2023-08-18 14:38:18
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -124,6 +124,18 @@ const SearchPage = () => {
   //     });
   //   }
   // };
+
+
+  const onEditData = async (values) => {
+    await Taro.setStorage({
+      key: "DAMAGE-ITEM",
+      data: values,
+    });
+    Taro.navigateTo({
+      url: `/pages/policyDetail/index`,
+    });
+  };
+  
   const renderList = (data) => {
     console.log("data renderList:>> ", data);
     const { records } = data;
@@ -146,22 +158,12 @@ const SearchPage = () => {
               <View className="list_list-item-cent-left">
                 回复内容：  
               </View>
-              <View className="list_list-item-but">
-                 <YButton
-                   yType="default"
-                   disabled={item?.follow && item.follow === 1}
-                   onClick={() => {
-                     cliTip(item)
-                   }}
-                 >
-                   <View className="list_list-item-but-t">关注该政策</View>
-                 </YButton>
-               </View>
+              
             </View>
             <View className="list_list-item-img">
               <Image
                 className="list_list-item-img-cent"
-                src={require("@/assets/index_list1.png")}
+                src={require("@/assets/xinxi_item.png")}
               />
             </View>
           </View>
