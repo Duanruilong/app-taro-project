@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 17:21:39
+ * @LastEditTime: 2023-08-18 17:31:01
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -152,26 +152,29 @@ const SearchPage = () => {
               setShowData(item);
             }}
           >
-            {/* <View className="searchPage_list-item-cent">
+            <View className="searchPage_list-item-cent">
               <View className="searchPage_list-item-cent-tit">{item.title}</View>
               <View className="searchPage_list-item-cent-tags">{item.tags}</View>
              
               <View className="searchPage_list-item-cent-butt">
-                <YButton
-                  yType="default"
-                  disabled={item?.follow === 1}
-                  onClick={() => {
-                    cliTip(item);
-                  }}
-                >
-                  <View className="searchPage_list-item-butt-t">关注该政策</View>
-                </YButton>
-                <Button className="searchPage_list-item-cent-butt-cent" size='mini'  disabled={item?.follow === 1} type='primary'>关注该政策</Button>
+                {/* <Button className="searchPage_list-item-cent-butt-cent" size='mini'  disabled={item?.follow === 1} type='primary'>关注该政策</Button> */}
               </View>
+              <View className="searchPage_list-item-ibt">
+                  <YButton
+                    yType="default"
+                    size='mini'
+                    disabled={item?.follow === 1}
+                    onClick={() => {
+                      cliTip(item);
+                    }}
+                  >
+                    <View className="searchPage_list-item-ibt-t">关注该政策</View>
+                  </YButton>
+                </View>
               <View className="searchPage_list-item-cent-time">
                 {item.create_time}
               </View>
-            </View> */}
+            </View>
             <View className="searchPage_list-item-img">
               <Image
                 className="searchPage_list-item-img-cent"
