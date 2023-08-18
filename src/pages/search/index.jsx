@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 10:59:07
+ * @LastEditTime: 2023-08-18 11:02:18
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -14,7 +14,7 @@ import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
-import { getList,getFollow } from "./service";
+import { getList, getFollow } from "./service";
 import "./index.scss";
 
 const SearchPage = () => {
@@ -37,7 +37,6 @@ const SearchPage = () => {
       requestList({ user_id: values?.user_id });
     });
   }, []);
-
 
   const onChange = (values) => {
     console.log("onChange :>> ", values);
@@ -99,13 +98,9 @@ const SearchPage = () => {
             }}
           >
             <View className="search_list-item-cent">
-                <View className="search_list-item-cent-title"> {item.title}</View>
-                {item?.tags && (
-                <View className="search_list-item-cent-tag">{item?.tags}</View>
-              )}
-              <View className="search_list-item-cent-info">
-                {item.create_time}
-              </View>
+              <View className="search_list-item-cent-title"> {item.title}</View>
+              <View className="search_list-item-cent-tag">{item?.tags}</View>
+              <View className="search_list-item-cent-info">{item.create_time}</View>
               {/* <View className="search_list-item-but">
                 <YButton
                   yType="default"
@@ -119,11 +114,11 @@ const SearchPage = () => {
               </View> */}
             </View>
             <View className="search_list-item-img">
-            <Image
-              className="search_list-item-img-cent"
-              src={require("@/assets/index_list1.png")}
-            />
-          </View>
+              <Image
+                className="search_list-item-img-cent"
+                src={require("@/assets/index_list1.png")}
+              />
+            </View>
           </View>
         );
       });
@@ -141,7 +136,7 @@ const SearchPage = () => {
             onChange={onChange}
             // initialValue={params?.text}
           />
-        </View> 
+        </View>
       </View>
       <YListView
         classStyle={"search_list"}
@@ -153,7 +148,6 @@ const SearchPage = () => {
         manual
         pnParams
       />
-      
     </View>
   );
 };
