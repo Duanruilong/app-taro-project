@@ -80,6 +80,50 @@ const SearchPage = () => {
       .catch(() => {});
   };
 
+  // const renderList = (data) => {
+  //   console.log("data renderList:>> ", data);
+  //   const { records } = data;
+  //   if (isEmpty(data) || isEmpty(records)) {
+  //     console.log("暂无数据 :>> ", records);
+  //     return <YNoData desc={"暂无数据"} />;
+  //   }
+  //   if (records && records.length > 0) {
+  //     return records.map((item) => {
+  //       return (
+  //         <View
+  //           key={item?.policy_id}
+  //           className="search_list-item"
+  //           onClick={() => {
+  //             setShowData(item);
+  //           }}
+  //         >
+  //           <View className="list_list-item-cent">
+  //             <View className="list_list-item-cent-title"> {item.title}</View>
+  //             <View className="list_list-item-cent-tag">{item?.tags}</View>
+  //             <View className="list_list-item-cent-info">{item.create_time}</View>
+  //             <View className="list_list-item-but">
+  //               <YButton
+  //                 yType="default"
+  //                 disabled={item?.follow && item.follow === 1}
+  //                 onClick={() => {
+  //                   cliTip(item)
+  //                 }}
+  //               >
+  //                 <View className="list_list-item-but-t">关注该政策</View>
+  //               </YButton>
+  //             </View>
+  //           </View>
+  //           <View className="list_list-item-img">
+  //             <Image
+  //               className="list_list-item-img-cent"
+  //               src={require("@/assets/index_list1.png")}
+  //             />
+  //           </View>
+  //         </View>
+  //       );
+  //     });
+  //   }
+  // };
   const renderList = (data) => {
     console.log("data renderList:>> ", data);
     const { records } = data;
@@ -91,27 +135,28 @@ const SearchPage = () => {
       return records.map((item) => {
         return (
           <View
-            key={item?.policy_id}
-            className="search_list-item"
+            key={item?.question_id}
+            className="list_list-item"
             onClick={() => {
               setShowData(item);
             }}
           >
             <View className="list_list-item-cent">
               <View className="list_list-item-cent-title"> {item.title}</View>
-              <View className="list_list-item-cent-tag">{item?.tags}</View>
-              <View className="list_list-item-cent-info">{item.create_time}</View>
-              <View className="list_list-item-but">
-                <YButton
-                  yType="default"
-                  disabled={item?.follow && item.follow === 1}
-                  onClick={() => {
-                    cliTip(item)
-                  }}
-                >
-                  <View className="list_list-item-but-t">关注该政策</View>
-                </YButton>
+              <View className="list_list-item-cent-left">
+                回复内容：  
               </View>
+              <View className="list_list-item-but">
+                 <YButton
+                   yType="default"
+                   disabled={item?.follow && item.follow === 1}
+                   onClick={() => {
+                     cliTip(item)
+                   }}
+                 >
+                   <View className="list_list-item-but-t">关注该政策</View>
+                 </YButton>
+               </View>
             </View>
             <View className="list_list-item-img">
               <Image
