@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 10:42:32
+ * @LastEditTime: 2023-08-18 10:59:07
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -106,7 +106,7 @@ const SearchPage = () => {
               <View className="search_list-item-cent-info">
                 {item.create_time}
               </View>
-              <View className="search_list-item-but">
+              {/* <View className="search_list-item-but">
                 <YButton
                   yType="default"
                   disabled={item?.follow === 1}
@@ -116,7 +116,7 @@ const SearchPage = () => {
                 >
                   <View className="search_list-item-but-t">关注该政策</View>
                 </YButton>
-              </View>
+              </View> */}
             </View>
             <View className="search_list-item-img">
             <Image
