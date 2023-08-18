@@ -1,9 +1,9 @@
-.search {
+.searchPage {
   background-color: #edecee;
   height: 100%;
 }
 
-.search_top {
+.searchPage_top {
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
@@ -32,7 +32,7 @@
 }
 
 
-.search_list {
+.searchPage_list {
   &-item {
     display: flex;
     flex-direction: row;
