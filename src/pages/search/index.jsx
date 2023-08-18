@@ -2,12 +2,13 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 10:06:26
+ * @LastEditTime: 2023-08-18 10:38:03
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
 import Taro from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
+import YInputSearch from "@/components/YInputSearch";
 import TMask from "@/components/tinker/TMask";
 import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
@@ -35,6 +36,38 @@ const SearchPage = () => {
       requestList({ user_id: values?.user_id });
     });
   }, []);
+
+
+  const onChange = (values) => {
+    console.log("onChange :>> ", values);
+    current.local = values;
+  };
+
+  const onClearClick = (values) => {
+    console.log("onSearchChange :>> ", values);
+    current.local = null;
+    listViewRef.current.load({
+      user_id: current.infoData?.user_id,
+      key: "",
+      pn: 1,
+    });
+  };
+
+  const onSearchGoods = (values) => {
+    current.local = values;
+    console.log("onConfirmChange :>> ", values);
+    listViewRef.current.load({
+      user_id: current.infoData?.user_id,
+      key: values,
+      pn: 1,
+    });
+  };
+
+  const onConfirmChange = (values) => {
+    const searchValue = values.detail?.value || undefined;
+    onSearchGoods(searchValue);
+  };
+
 
   const renderList = (data) => {
     console.log("data renderList:>> ", data);
@@ -77,46 +110,22 @@ const SearchPage = () => {
     }
   };
   return (
-    <View className="list">
-      <View className="list_top">
-        <View className="list_top-item">
-          <Image
-            className="list_top-item-img"
-            src={require("@/assets/xinxi.png")}
+    <View className="search">
+      <View className="search_top">
+        <View className="search_top-cent">
+          <YInputSearch
+            className={"search_top-input"}
+            placeholder={"搜索最新政策"}
+            onClearClick={onClearClick}
+            onConfirm={onConfirmChange}
+            onChange={onChange}
+            // initialValue={params?.text}
           />
-          <View  className="list_top-item-title">系统通知</View>
-        </View>
-        <View className="list_top-item">
-          <Image
-            className="list_top-item-img"
-            src={require("@/assets/xinxi_bug.png")}
-          />
-          <View className="list_top-item-title">问题反馈</View>
-        </View>
-        <View
-          className="list_top-item"
-          onClick={() => {
-            Taro.navigateTo({
-              url: `/pages/question/index`,
-              events: {
-                // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-                QuestionPage: function () {
-                  requestList({ user_id: current.infoData?.user_id });
-                },
-              },
-            });
-          }}
-        >
-          <Image
-            className="list_top-item-img"
-            src={require("@/assets/xinxi_new.png")}
-          />
-          <View className="list_top-item-title">提问</View>
-        </View>
+        </View> 
       </View>
       <YListView
-        classStyle={"list_list"}
-        boxHeight={110}
+        classStyle={"search_list"}
+        boxHeight={230}
         renderList={renderList}
         request={getList}
         ref={listViewRef}
