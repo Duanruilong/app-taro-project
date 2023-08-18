@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 11:18:48
+ * @LastEditTime: 2023-08-18 11:37:36
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -97,11 +97,11 @@ const SearchPage = () => {
               setShowData(item);
             }}
           >
-            <View className="search_list-item-cent">
-              <View className="search_list-item-cent-title"> {item.title}</View>
-              {/* <View className="search_list-item-cent-tag">{item?.tags}</View>
-              <View className="search_list-item-cent-info">{item.create_time}</View>
-              <View className="search_list-item-but">
+            <View className="list_list-item-cent">
+              <View className="list_list-item-cent-title"> {item.title}</View>
+              <View className="list_list-item-cent-tag">{item?.tags}</View>
+              <View className="list_list-item-cent-info">{item.create_time}</View>
+              <View className="list_list-item-but">
                 <YButton
                   yType="default"
                   disabled={item?.follow === 1}
@@ -109,13 +109,13 @@ const SearchPage = () => {
                     cliTip(item);
                   }}
                 >
-                  <View className="search_list-item-but-t">关注该政策</View>
+                  <View className="list_list-item-but-t">关注该政策</View>
                 </YButton>
-              </View> */}
+              </View>
             </View>
-            <View className="search_list-item-img">
+            <View className="list_list-item-img">
               <Image
-                className="search_list-item-img-cent"
+                className="list_list-item-img-cent"
                 src={require("@/assets/index_list1.png")}
               />
             </View>
