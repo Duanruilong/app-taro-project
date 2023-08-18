@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 11:37:36
+ * @LastEditTime: 2023-08-18 11:47:06
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -104,9 +104,9 @@ const SearchPage = () => {
               <View className="list_list-item-but">
                 <YButton
                   yType="default"
-                  disabled={item?.follow === 1}
+                  disabled={item?.follow && item.follow === 1}
                   onClick={() => {
-                    cliTip(item);
+                    cliTip(item)
                   }}
                 >
                   <View className="list_list-item-but-t">关注该政策</View>
