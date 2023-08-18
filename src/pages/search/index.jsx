@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 17:31:01
+ * @LastEditTime: 2023-08-18 17:45:03
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -152,12 +152,12 @@ const SearchPage = () => {
               setShowData(item);
             }}
           >
-            <View className="searchPage_list-item-cent">
+            {/* <View className="searchPage_list-item-cent">
               <View className="searchPage_list-item-cent-tit">{item.title}</View>
               <View className="searchPage_list-item-cent-tags">{item.tags}</View>
              
               <View className="searchPage_list-item-cent-butt">
-                {/* <Button className="searchPage_list-item-cent-butt-cent" size='mini'  disabled={item?.follow === 1} type='primary'>关注该政策</Button> */}
+                <Button className="searchPage_list-item-cent-butt-cent" size='mini'  disabled={item?.follow === 1} type='primary'>关注该政策</Button>
               </View>
               <View className="searchPage_list-item-ibt">
                   <YButton
@@ -179,6 +179,24 @@ const SearchPage = () => {
               <Image
                 className="searchPage_list-item-img-cent"
                 src={require("@/assets/index_list1.png")}
+              />
+            </View> */}
+            <View className="list_list-item-cent">
+              <View className="list_list-item-cent-title"> {item.title}</View>
+              <View className="list_list-item-cent-left">
+                回复内容：  
+              </View>
+              <View className="list_list-item-cent-answer">
+                 {item.answer || "暂无回复"}
+              </View>
+              <View className="list_list-item-cent-info">
+                {item.create_time}
+              </View>
+            </View>
+            <View className="list_list-item-img">
+              <Image
+                className="list_list-item-img-cent"
+                src={require("@/assets/xinxi_item.png")}
               />
             </View>
           </View>
