@@ -2,18 +2,19 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 10:38:03
+ * @LastEditTime: 2023-08-18 10:42:32
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
 import Taro from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import YInputSearch from "@/components/YInputSearch";
-import TMask from "@/components/tinker/TMask";
+import YButton from "@/components/YButton";
 import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
 import { getStorageData, isEmpty } from "@/utils/utils";
-import { getList } from "./service";
+import { toast } from "@/utils/tools";
+import { getList,getFollow } from "./service";
 import "./index.scss";
 
 const SearchPage = () => {
@@ -68,6 +69,17 @@ const SearchPage = () => {
     onSearchGoods(searchValue);
   };
 
+  const cliTip = (values) => {
+    getFollow({
+      user_id: current.infoData?.user_id,
+      policy_id: values?.policy_id,
+    })
+      .then(() => {
+        toast("关注该政策成功!");
+        onClearClick();
+      })
+      .catch(() => {});
+  };
 
   const renderList = (data) => {
     console.log("data renderList:>> ", data);
@@ -80,30 +92,38 @@ const SearchPage = () => {
       return records.map((item) => {
         return (
           <View
-            key={item?.question_id}
-            className="list_list-item"
+            key={item?.policy_id}
+            className="search_list-item"
             onClick={() => {
               setShowData(item);
             }}
           >
-            <View className="list_list-item-cent">
-              <View className="list_list-item-cent-title"> {item.title}</View>
-              <View className="list_list-item-cent-left">
-                回复内容：  
-              </View>
-              <View className="list_list-item-cent-answer">
-                 {item.answer || "暂无回复"}
-              </View>
-              <View className="list_list-item-cent-info">
+            <View className="search_list-item-cent">
+                <View className="search_list-item-cent-title"> {item.title}</View>
+                {item?.tags && (
+                <View className="search_list-item-cent-tag">{item?.tags}</View>
+              )}
+              <View className="search_list-item-cent-info">
                 {item.create_time}
               </View>
+              <View className="search_list-item-but">
+                <YButton
+                  yType="default"
+                  disabled={item?.follow === 1}
+                  onClick={() => {
+                    cliTip(item);
+                  }}
+                >
+                  <View className="search_list-item-but-t">关注该政策</View>
+                </YButton>
+              </View>
             </View>
-            <View className="list_list-item-img">
-              <Image
-                className="list_list-item-img-cent"
-                src={require("@/assets/xinxi_item.png")}
-              />
-            </View>
+            <View className="search_list-item-img">
+            <Image
+              className="search_list-item-img-cent"
+              src={require("@/assets/index_list1.png")}
+            />
+          </View>
           </View>
         );
       });
