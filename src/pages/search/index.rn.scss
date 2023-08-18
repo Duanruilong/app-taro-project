@@ -84,18 +84,25 @@
     }
 
     &-butt {
-      border-radius: 45px;
       width: 70%;
       margin-top: 22px;
+      border-radius: 50px;
       display: flex;
       flex-direction: row;
       align-items: center;
-
+      &-cent{
+        color: #ffffff;
+        background: $color-brand-bc;
+        font-weight: 700;
+        border-radius: 50px;
+        width: 70%;
+      }
       &-t {
         line-height: 66px;
         color: $color-f;
         font-weight: 700;
         font-size: 26px;
+        text-align: center;
       }
     }
 
