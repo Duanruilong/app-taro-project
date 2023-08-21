@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 15:40:41
+ * @LastEditTime: 2023-08-21 16:04:58
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -12,6 +12,7 @@ import YInputSearch from "@/components/YInputSearch";
 import YButton from "@/components/YButton";
 import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
+import listIMG from "@/assets/index_item.png";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
 import { getList, getFollow } from "./service";
@@ -164,7 +165,7 @@ const SearchPage = () => {
             <View className="searchPage_list-item-img">
               <Image
                 className="searchPage_list-item-img-cont"
-                src={require("@/assets/index_item.png")}
+                src={listIMG}
               />
             </View>
           </View>
