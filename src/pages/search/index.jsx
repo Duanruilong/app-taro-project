@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 16:48:17
+ * @LastEditTime: 2023-08-21 17:09:01
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -14,7 +14,7 @@ import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
-import listIMG from "./index_item.png";
+import listIMG from "@/assets/index_img.png";
 import { getList, getFollow } from "./service";
 import "./index.scss";
 
@@ -165,7 +165,7 @@ const SearchPage = () => {
             <View className="searchPage_list-item-img">
               <Image
                 className="searchPage_list-item-img-cont"
-                src={'https://pic5.58cdn.com.cn/nowater/fangfe/n_v25a185c1657984016926f26af591912c4.jpg'}
+                src={listIMG}
               />
             </View>
           </View>
