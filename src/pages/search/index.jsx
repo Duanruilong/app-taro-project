@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 17:09:01
+ * @LastEditTime: 2023-08-21 17:44:40
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -81,51 +81,6 @@ const SearchPage = () => {
       .catch(() => {});
   };
 
-  // const renderList = (data) => {
-  //   console.log("data renderList:>> ", data);
-  //   const { records } = data;
-  //   if (isEmpty(data) || isEmpty(records)) {
-  //     console.log("暂无数据 :>> ", records);
-  //     return <YNoData desc={"暂无数据"} />;
-  //   }
-  //   if (records && records.length > 0) {
-  //     return records.map((item) => {
-  //       return (
-  //         <View
-  //           key={item?.policy_id}
-  //           className="searchPage_list-item"
-  //           onClick={() => {
-  //             setShowData(item);
-  //           }}
-  //         >
-  //           <View className="searchPage_list-item-cent">
-  //             <View className="searchPage_list-item-cent-title"> {item.title}</View>
-  //             <View className="searchPage_list-item-cent-tag">{item?.tags}</View>
-  //             <View className="searchPage_list-item-cent-info">{item.create_time}</View>
-  //             <View className="searchPage_list-item-but">
-  //               <YButton
-  //                 yType="default"
-  //                 disabled={item?.follow && item.follow === 1}
-  //                 onClick={() => {
-  //                   cliTip(item)
-  //                 }}
-  //               >
-  //                 <View className="searchPage_list-item-but-t">关注该政策</View>
-  //               </YButton>
-  //             </View>
-  //           </View>
-  //           <View className="searchPage_list-item-img">
-  //             <Image
-  //               className="searchPage_list-item-img-cent"
-  //               src={require("@/assets/index_list1.png")}
-  //             />
-  //           </View>
-  //         </View>
-  //       );
-  //     });
-  //   }
-  // };
-
   const onEditData = async (values) => {
     await Taro.setStorage({
       key: "DAMAGE-ITEM",
@@ -150,7 +105,7 @@ const SearchPage = () => {
             key={Date.now() + index}
             className="searchPage_list-item"
             onClick={() => {
-              setShowData(item);
+              onEditData(item);
             }}
           >
             <View className="searchPage_list-item-cont">
@@ -158,6 +113,17 @@ const SearchPage = () => {
               <View className="searchPage_list-item-cont-tags">
                 {item.tags}
               </View>
+              <View className="searchPage_list-item-but">
+                 <YButton
+                   yType="default"
+                   disabled={item?.follow && item.follow === 1}
+                   onClick={() => {
+                     cliTip(item)
+                   }}
+                 >
+                   <View className="searchPage_list-item-but-t">关注该政策</View>
+                 </YButton>
+               </View>
               <View className="searchPage_list-item-cont-info">
                 {item.create_time}
               </View>

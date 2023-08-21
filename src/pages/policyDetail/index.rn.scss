@@ -15,11 +15,12 @@
   
   display: flex;
   &-title {
-    font-weight: 400;
-    font-size: 32px;
+    font-weight: 700;
+    font-size: 34px;
     width: 100%;
     text-align: left;
     padding: 0px 40px;
+    color: #000;
   }
   &-info {
     font-size: 26px;
@@ -46,6 +47,7 @@
     text-align: left;
     width: 100%;
     padding: 0px 40px;
+    color: #4d4d4d;
 
   }
 }
@@ -70,7 +72,7 @@
       align-items: center;
   }
   &-t {
-    line-height: 80px;
+    line-height: 90px;
     text-align: center;
     color: $color-f;
     font-weight: 700;
