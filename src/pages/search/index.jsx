@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 16:04:58
+ * @LastEditTime: 2023-08-21 16:21:09
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -162,13 +162,13 @@ const SearchPage = () => {
                 {item.create_time}
               </View>
             </View>
-            <View className="searchPage_list-item-img">
+            {/* <View className="searchPage_list-item-img">
               <Image
                 className="searchPage_list-item-img-cont"
                 // src={listIMG}
                 src={require("@/assets/xinxi_item.png")}
               />
-            </View>
+            </View> */}
           </View>
         );
       });
