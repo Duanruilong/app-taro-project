@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 15:31:17
+ * @LastEditTime: 2023-08-21 15:40:41
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -164,7 +164,7 @@ const SearchPage = () => {
             <View className="searchPage_list-item-img">
               <Image
                 className="searchPage_list-item-img-cont"
-                src={require("@/assets/index_list1.png")}
+                src={require("@/assets/index_item.png")}
               />
             </View>
           </View>
