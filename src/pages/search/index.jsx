@@ -165,7 +165,8 @@ const SearchPage = () => {
             <View className="searchPage_list-item-img">
               <Image
                 className="searchPage_list-item-img-cont"
-                src={listIMG}
+                // src={listIMG}
+                src={require("@/assets/xinxi_item.png")}
               />
             </View>
           </View>
