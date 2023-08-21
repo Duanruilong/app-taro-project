@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 15:13:02
+ * @LastEditTime: 2023-08-21 15:31:17
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -152,59 +152,18 @@ const SearchPage = () => {
               setShowData(item);
             }}
           >
-            {/* <View className="searchPage_list-item-cent">
-              <View className="searchPage_list-item-cent-tit">{item.title}</View>
-              <View className="searchPage_list-item-cent-tags">{item.tags}</View>
-             
-              <View className="searchPage_list-item-cent-butt">
-                <Button className="searchPage_list-item-cent-butt-cent" size='mini'  disabled={item?.follow === 1} type='primary'>关注该政策</Button>
+            <View className="searchPage_list-item-cont">
+              <View className="searchPage_list-item-cont-title"> {item.title}</View>
+              <View className="searchPage_list-item-cont-tags">
+                {item.tags}
               </View>
-              <View className="searchPage_list-item-ibt">
-                  <YButton
-                    yType="default"
-                    size='mini'
-                    disabled={item?.follow === 1}
-                    onClick={() => {
-                      cliTip(item);
-                    }}
-                  >
-                    <View className="searchPage_list-item-ibt-t">关注该政策</View>
-                  </YButton>
-                </View>
-              <View className="searchPage_list-item-cent-time">
+              <View className="searchPage_list-item-cont-info">
                 {item.create_time}
               </View>
             </View>
             <View className="searchPage_list-item-img">
               <Image
-                className="searchPage_list-item-img-cent"
-                src={require("@/assets/index_list1.png")}
-              />
-            </View> */}
-            <View className="list_list-item-cent">
-              <View className="list_list-item-cent-title"> {item.title}</View>
-              <View className="list_list-item-cent-answer">
-                 {item.tags}
-              </View>
-              <View className="list_list-item-bt">
-                  <YButton
-                    yType="default"
-                    size='mini'
-                    disabled={item?.follow === 1}
-                    onClick={() => {
-                      cliTip(item);
-                    }}
-                  >
-                    <View className="list_list-item-bt-t">关注该政策</View>
-                  </YButton>
-                </View>
-              <View className="list_list-item-cent-info">
-                {item.create_time}
-              </View>
-            </View>
-            <View className="list_list-item-img">
-              <Image
-                className="list_list-item-img-cent"
+                className="searchPage_list-item-img-cont"
                 src={require("@/assets/index_list1.png")}
               />
             </View>
