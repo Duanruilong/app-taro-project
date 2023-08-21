@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 16:34:14
+ * @LastEditTime: 2023-08-21 16:48:17
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -165,7 +165,7 @@ const SearchPage = () => {
             <View className="searchPage_list-item-img">
               <Image
                 className="searchPage_list-item-img-cont"
-                src={listIMG}
+                src={'https://pic5.58cdn.com.cn/nowater/fangfe/n_v25a185c1657984016926f26af591912c4.jpg'}
               />
             </View>
           </View>
