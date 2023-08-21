@@ -187,7 +187,7 @@ const SearchPage = () => {
                 回复内容：  
               </View>
               <View className="list_list-item-cent-answer">
-                 {item.answer || "暂无回复"}
+                 {item.tags}
               </View>
               <View className="list_list-item-cent-info">
                 {item.create_time}
