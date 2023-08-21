@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 16:21:09
+ * @LastEditTime: 2023-08-21 16:34:14
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -12,9 +12,9 @@ import YInputSearch from "@/components/YInputSearch";
 import YButton from "@/components/YButton";
 import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
-import listIMG from "@/assets/index_item.png";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
+import listIMG from "./index_item.png";
 import { getList, getFollow } from "./service";
 import "./index.scss";
 
@@ -162,13 +162,12 @@ const SearchPage = () => {
                 {item.create_time}
               </View>
             </View>
-            {/* <View className="searchPage_list-item-img">
+            <View className="searchPage_list-item-img">
               <Image
                 className="searchPage_list-item-img-cont"
-                // src={listIMG}
-                src={require("@/assets/xinxi_item.png")}
+                src={listIMG}
               />
-            </View> */}
+            </View>
           </View>
         );
       });
