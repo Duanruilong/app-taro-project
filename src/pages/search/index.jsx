@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 15:11:32
+ * @LastEditTime: 2023-08-21 15:13:02
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -183,12 +183,21 @@ const SearchPage = () => {
             </View> */}
             <View className="list_list-item-cent">
               <View className="list_list-item-cent-title"> {item.title}</View>
-              <View className="list_list-item-cent-left">
-                回复内容：  
-              </View>
               <View className="list_list-item-cent-answer">
                  {item.tags}
               </View>
+              <View className="list_list-item-bt">
+                  <YButton
+                    yType="default"
+                    size='mini'
+                    disabled={item?.follow === 1}
+                    onClick={() => {
+                      cliTip(item);
+                    }}
+                  >
+                    <View className="list_list-item-bt-t">关注该政策</View>
+                  </YButton>
+                </View>
               <View className="list_list-item-cent-info">
                 {item.create_time}
               </View>
