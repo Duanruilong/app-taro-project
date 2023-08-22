@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-22 09:49:58
+ * @LastEditTime: 2023-08-22 10:01:10
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -32,12 +32,12 @@ const SearchPage = () => {
     });
   };
 
-  // useEffect(() => {
-  //   getStorageData("userInfo").then((values) => {
-  //     current.infoData = values;
-  //     requestList({ user_id: values?.user_id });
-  //   });
-  // }, []);
+  useEffect(() => {
+    getStorageData("userInfo").then((values) => {
+      current.infoData = values;
+      requestList({ user_id: values?.user_id });
+    });
+  }, []);
 
   const onChange = (values) => {
     console.log("onChange :>> ", values);
@@ -153,7 +153,7 @@ const SearchPage = () => {
           />
         </View>
       </View>
-      {/* <View style={{ height: "100vh" }}>
+      <View classStyle={"searchPage_scroll"}>
         <YListView
           classStyle={"searchPage_list"}
           boxHeight={176}
@@ -164,7 +164,7 @@ const SearchPage = () => {
           manual
           pnParams
         />
-      </View> */}
+      </View>
     </View>
   );
 };
