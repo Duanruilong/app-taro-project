@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-21 17:44:40
+ * @LastEditTime: 2023-08-22 09:42:30
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -121,7 +121,7 @@ const SearchPage = () => {
                      cliTip(item)
                    }}
                  >
-                   <View className="searchPage_list-item-but-t">关注该政策</View>
+                   <View className="searchPage_list-item-but-t">+ 关注</View>
                  </YButton>
                </View>
               <View className="searchPage_list-item-cont-info">
@@ -153,7 +153,7 @@ const SearchPage = () => {
           />
         </View>
       </View>
-      <View style={{ height: "100vh" }}>
+      {/* <View style={{ height: "100vh" }}>
         <YListView
           classStyle={"searchPage_list"}
           boxHeight={176}
@@ -164,7 +164,7 @@ const SearchPage = () => {
           manual
           pnParams
         />
-      </View>
+      </View> */}
     </View>
   );
 };
