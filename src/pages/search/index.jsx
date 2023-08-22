@@ -2,14 +2,14 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-22 11:12:30
+ * @LastEditTime: 2023-08-22 11:52:42
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
 import Taro from "@tarojs/taro";
-import { View, Image,Button } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
 import YInputSearch from "@/components/YInputSearch";
-import YButton from "@/components/YButton";
+// import YButton from "@/components/YButton";
 import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
 import { getStorageData, isEmpty } from "@/utils/utils";
@@ -70,6 +70,10 @@ const SearchPage = () => {
   };
 
   const cliTip = (values) => {
+    if (values?.follow && values.follow === 1) {
+      toast("已关注关注该政策!");
+      return;
+    }
     getFollow({
       user_id: current.infoData?.user_id,
       policy_id: values?.policy_id,
@@ -109,29 +113,34 @@ const SearchPage = () => {
             }}
           >
             <View className="searchPage_list-item-cont">
-              <View className="searchPage_list-item-cont-title"> {item.title}</View>
-              <View className="searchPage_list-item-cont-tags">
-                {item.tags}
+              <View className="searchPage_list-item-cont-title">
+                {item.title}
               </View>
-              <View className="searchPage_list-item-but">
-                 <YButton
-                   yType="default"
-                   disabled={item?.follow && item.follow === 1}
-                   onClick={() => {
-                     cliTip(item)
-                   }}
-                 >
-                   <View className="searchPage_list-item-but-t">+ 关注</View>
-                 </YButton>
-               </View>
-              <View className="searchPage_list-item-cont-info">
-                {item.create_time}
+              <View>
+                <View className="searchPage_list-item-cont-tags">
+                  {item.tags}
+                </View>
+                <View className="searchPage_list-item-cont-info">
+                  {item.create_time}
+                </View>
               </View>
             </View>
             <View className="searchPage_list-item-img">
+              <Image className="searchPage_list-item-img-cont" src={listIMG} />
+            </View>
+            <View
+              className="searchPage_list-item-follow"
+              onClick={() => {
+                cliTip(item);
+              }}
+            >
               <Image
-                className="searchPage_list-item-img-cont"
-                src={listIMG}
+                className="searchPage_list-item-follow-img"
+                src={
+                  item?.follow && item.follow === 1
+                    ? require("@/assets/follow_yes.png")
+                    : require("@/assets/follow_no.png")
+                }
               />
             </View>
           </View>
