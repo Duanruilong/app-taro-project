@@ -3,7 +3,7 @@
  * @Author: Drlong drl1210@163.com
  * @Date: 2023-05-19 10:12:59
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 16:09:10
+ * @LastEditTime: 2023-08-22 09:50:48
  * @FilePath: \taro-rn-appd:\fanx\zqt-weapp\src\pages\list\index.jsx
  * @Description: apply
  */
@@ -83,7 +83,7 @@ const ApplyPages = () => {
     }
   };
   return (
-    <View className="apply" style={{height:'100vh'}}>
+    <View className="apply" >
       <YListView
         classStyle={"apply_list"}
         boxHeight={60}
