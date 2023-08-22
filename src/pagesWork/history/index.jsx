@@ -2,7 +2,7 @@
  * @Author: Drlong drl1210@163.com
  * @Date: 2023-05-19 10:12:59
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 16:08:38
+ * @LastEditTime: 2023-08-22 10:05:46
  * @FilePath: \taro-rn-appd:\fanx\zqt-weapp\src\pages\list\index.jsx
  * @Description: HistoryPages
  */
@@ -82,7 +82,7 @@ const HistoryPages = () => {
     }
   };
   return (
-    <View className="history" style={{height:'100vh'}}>
+    <View className="history" >
       <YListView
         classStyle={"history_list"}
         boxHeight={70}
