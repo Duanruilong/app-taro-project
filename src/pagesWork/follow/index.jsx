@@ -89,7 +89,7 @@ const Follow = () => {
     }
   };
   return (
-    <View className="follow" style={{height:'100vh'}}>
+    <View className="follow">
       <YListView
         classStyle={"follow_list"}
         boxHeight={60}

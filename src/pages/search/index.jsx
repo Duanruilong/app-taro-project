@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-22 10:01:10
+ * @LastEditTime: 2023-08-22 11:12:30
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -153,7 +153,7 @@ const SearchPage = () => {
           />
         </View>
       </View>
-      <View classStyle={"searchPage_scroll"}>
+      <View>
         <YListView
           classStyle={"searchPage_list"}
           boxHeight={176}
