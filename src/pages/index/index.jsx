@@ -2,37 +2,44 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-16 14:39:20
+ * @LastEditTime: 2023-08-23 09:57:43
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
-import Taro  from "@tarojs/taro";
-import { View, Image, Swiper,ScrollView, SwiperItem } from "@tarojs/components";
+import Taro from "@tarojs/taro";
+import {
+  View,
+  Image,
+  Swiper,
+  ScrollView,
+  SwiperItem,
+} from "@tarojs/components";
 import YTitleTask from "@/components/YTitleTask";
 import YNoData from "@/components/YNoData";
+import LoginMore from "@/components/LoginMore";
 // import YSafeAreaView from "@/components/YSafeAreaView";
 // import { toast } from "@/utils/tools";
 import { getStorageData, isEmpty } from "@/utils/utils";
-import { loginOutHandler } from "@/utils/loginHandler";
+// import { loginOutHandler } from "@/utils/loginHandler";
 import banner1 from "@/assets/banner1.jpg";
 import banner2 from "@/assets/banner2.jpg";
 import banner3 from "@/assets/banner3.jpg";
 import banner4 from "@/assets/banner4.jpg";
-// import logo from "@/assets/logo.png";
+import { USER_DEFAULT_ID, USER_DEFAULT_TAG } from "@/constants";
 import { getNewList, getOrderPay } from "./service";
 import "./index.scss";
 
 const Index = () => {
   const { current } = useRef({
     pnParams: { pn: 1, ps: 20 },
+    hideInfo: false,
   });
   const [tagData, setTagData] = useState(["默认"]);
   const [swiperList, setSwiperList] = useState([]);
   const [data, setData] = useState();
-  
 
-   // 最新数据
-   const getNewData = (opts) => {
+  // 最新数据
+  const getNewData = (opts) => {
     getNewList({ ...opts })
       .then((res) => {
         if (res && res.length > 4) {
@@ -53,32 +60,31 @@ const Index = () => {
       })
       .catch(() => {});
   };
- 
- 
-  
-  useEffect(() => {
-    Taro.setStorage({
-      key: `userInfo`,
-      data: { contact_name: "龙大",
-      contact_phone: "13012345678",
-      id_code: "2023052677777",
-      tag: "互联网,农业,中小微企业,房地产,教育行业",
-      user_id: "U426729141445162062",
-      user_name: "云通政企有限公司" }
-    });
-    getStorageData("userInfo").then((values) => {
-      if (isEmpty(values)) {
-        loginOutHandler();
-      } else {
-        current.infoData = values;
-        const tagNew = values?.tag.split(",");
 
+  useEffect(() => {
+    // Taro.clearStorage(); //清理本地数据缓存
+    getStorageData("userInfo")
+      .then((values) => {
+        console.log("values :>> ", values);
+        let userData = {};
+        if (isEmpty(values)) {
+          // loginOutHandler();
+          userData.user_id = USER_DEFAULT_ID;
+          userData.tag = USER_DEFAULT_TAG;
+          current.hideInfo = true;
+        } else {
+          userData = values;
+        }
+        current.infoData = userData;
+        const tagNew = userData?.tag.split(",");
         setTagData(["默认", ...tagNew]);
-        getNewData({ user_id: values?.user_id });
-        getOrderData({ user_id: values?.user_id, type: 1 });
-      }
-     
-    });
+        getNewData({ user_id: userData?.user_id });
+        getOrderData({ user_id: userData?.user_id, type: 1 });
+      })
+      .catch(() => {
+        current.hideInfo = true;
+        current.infoData = { user_id: USER_DEFAULT_ID, tag: USER_DEFAULT_TAG };
+      });
 
     // TODO:
     // Taro.switchTab({
@@ -89,7 +95,6 @@ const Index = () => {
     // });
   }, []);
 
-
   const onEditData = async (values) => {
     await Taro.setStorage({
       key: "DAMAGE-ITEM",
@@ -99,23 +104,22 @@ const Index = () => {
       url: `/pages/policyDetail/index`,
     });
   };
- 
 
-  const showImgUrl=(values)=>{
-    if (values ===0) {
-      return banner1
+  const showImgUrl = (values) => {
+    if (values === 0) {
+      return banner1;
     }
-    if (values ===1) {
-      return banner2
+    if (values === 1) {
+      return banner2;
     }
-    if (values ===2) {
-      return banner3
+    if (values === 2) {
+      return banner3;
     }
-    if (values ===3) {
-      return banner4
+    if (values === 3) {
+      return banner4;
     }
-    return banner1
-  }
+    return banner1;
+  };
 
   const renderList = (data) => {
     console.log("data renderList:>> ", data);
@@ -127,17 +131,19 @@ const Index = () => {
     if (data && data.length > 0) {
       return (
         <View>
-          {data.map((item,index) => {
+          {data.map((item, index) => {
             return (
               <View
-                key={item?.policy_id||index}
+                key={Date.now() + index}
                 className="index_list_list-item"
                 onClick={() => {
                   onEditData(item);
                 }}
               >
                 <View className="index_list_list-item-cent">
-                  <View className="index_list_list-item-cent-title">{item.title}</View>
+                  <View className="index_list_list-item-cent-title">
+                    {item.title}
+                  </View>
                   <View className="index_list_list-item-cent-tags">
                     {item.tags}
                   </View>
@@ -159,12 +165,10 @@ const Index = () => {
     }
   };
 
-  
   return (
     <View className="index">
       <View className="index_banner" style={{ height: 160 }}>
-        {
-          swiperList && swiperList.length > 0 && 
+        {swiperList && swiperList.length > 0 && (
           <Swiper
             className="index_banner-swipe"
             indicatorActiveColor="#05aa9c"
@@ -177,7 +181,7 @@ const Index = () => {
           >
             {swiperList.map((item, index) => {
               return (
-                <SwiperItem key={item}>
+                <SwiperItem key={Date.now() + index}>
                   <View
                     className="index_banner-item"
                     onClick={() => {
@@ -190,7 +194,9 @@ const Index = () => {
                       alt=""
                     />
                     <View className="index_banner-item-text">
-                      <View className="index_banner-item-tit">{item.title}</View>
+                      <View className="index_banner-item-tit">
+                        {item.title}
+                      </View>
                       <View className="index_banner-item-info">
                         {item?.create_time}
                       </View>
@@ -201,15 +207,29 @@ const Index = () => {
                         src={require("@/assets/new.png")}
                         alt="最新发布"
                       />
-                      <View className="index_banner-item-new-text">最新发布</View>
+                      <View className="index_banner-item-new-text">
+                        最新发布
+                      </View>
                     </View>
                   </View>
                 </SwiperItem>
               );
             })}
           </Swiper>
-        }
+        )}
       </View>
+
+      {current.hideInfo && (
+        <View className="index_top-more">
+          <LoginMore
+            title="登录查看更多"
+            text="登录解锁更多功能。"
+            but="注册/登录"
+            bc="#7472fa"
+          />
+        </View>
+      )}
+
       <YTitleTask
         showIcon={false}
         className="index_top-tas"
@@ -217,25 +237,19 @@ const Index = () => {
       />
       <ServiceTab />
       <YTitleTask
-        style={{ marginTop:10 }}
+        style={{ marginTop: 10 }}
         showIcon={false}
         className="index_top-tas"
         title={<View className="index_top-tit">与我相关 </View>}
       />
       <TagTab current={current} tagData={tagData} getOrderData={getOrderData} />
       <View className="index_list">{renderList(data)}</View>
-      
-       
     </View>
   );
 };
 
-
-
-
-const TagTab = props => {
-   
-  const {tagData,getOrderData,current}=props
+const TagTab = (props) => {
+  const { tagData, getOrderData, current } = props;
   const [ShowTag, setShowTag] = useState(0);
 
   return (
@@ -248,7 +262,7 @@ const TagTab = props => {
         {tagData.map((item, index) => {
           return (
             <View
-              key={item}
+              key={Date.now() + index}
               className={`${
                 ShowTag === index
                   ? " index_tag-item index_tag-item-active"
@@ -272,8 +286,7 @@ const TagTab = props => {
   );
 };
 
-
-const ServiceTab = props => {
+const ServiceTab = (props) => {
   const serData = [
     {
       title: "法律服务",
@@ -299,7 +312,7 @@ const ServiceTab = props => {
 
   // 打开微信客服
   const onOpenCustomer = async (values) => {
-    console.log('打开微信客服 :>> ', values);
+    console.log("打开微信客服 :>> ", values);
     // toast("正在跳转客服，请稍等...");
     // console.log('打开微信客服 :>> ', values);
     // await Taro.openCustomerServiceChat({
@@ -312,7 +325,6 @@ const ServiceTab = props => {
     // });
   };
 
-
   return (
     <View className="index_sev">
       <ScrollView
@@ -320,12 +332,18 @@ const ServiceTab = props => {
         scrollX // 横向
         showsHorizontalScrollIndicator={false} // 此属性为true的时候，显示一个水平方向的滚动条。
       >
-       {serData.map((item, index) => {
+        {serData.map((item, index) => {
           return (
             <View
-              key={index}
+              key={Date.now() + index}
               className="index_sev-item"
-              style={index === 0 ? "marginLeft:20px" : index+1 === serData.length ? "marginRight:20px" : ""}
+              style={
+                index === 0
+                  ? "marginLeft:20px"
+                  : index + 1 === serData.length
+                  ? "marginRight:20px"
+                  : ""
+              }
               onClick={() => {
                 onOpenCustomer(item);
               }}
@@ -336,7 +354,7 @@ const ServiceTab = props => {
           );
         })}
       </ScrollView>
-      </View>
+    </View>
   );
 };
 

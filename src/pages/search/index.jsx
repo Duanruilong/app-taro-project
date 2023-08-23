@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-22 11:52:42
+ * @LastEditTime: 2023-08-23 09:52:45
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -15,6 +15,7 @@ import YListView from "@/components/YListView";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
 import listIMG from "@/assets/index_img.png";
+import { USER_DEFAULT_ID } from "@/constants";
 import { getList, getFollow } from "./service";
 import "./index.scss";
 
@@ -22,8 +23,8 @@ const SearchPage = () => {
   const listViewRef = useRef(null);
   const { current } = useRef({
     infoData: "",
+    hideInfo: false,
   });
-  const [showData, setShowData] = useState();
 
   const requestList = (param) => {
     listViewRef.current.load({
@@ -34,8 +35,19 @@ const SearchPage = () => {
 
   useEffect(() => {
     getStorageData("userInfo").then((values) => {
-      current.infoData = values;
-      requestList({ user_id: values?.user_id });
+      console.log('userInfo :>> ', values);
+      let userData = {};
+      if (isEmpty(values)) {
+        userData.user_id = USER_DEFAULT_ID;
+        current.hideInfo = true;
+      } else {
+        userData = values;
+      }
+      current.infoData = userData;
+      requestList({ user_id: userData?.user_id });
+    }).catch(() => {
+      current.hideInfo = true;
+      current.infoData = {user_id:USER_DEFAULT_ID};
     });
   }, []);
 
@@ -128,21 +140,23 @@ const SearchPage = () => {
             <View className="searchPage_list-item-img">
               <Image className="searchPage_list-item-img-cont" src={listIMG} />
             </View>
-            <View
-              className="searchPage_list-item-follow"
-              onClick={() => {
-                cliTip(item);
-              }}
-            >
-              <Image
-                className="searchPage_list-item-follow-img"
-                src={
-                  item?.follow && item.follow === 1
-                    ? require("@/assets/follow_yes.png")
-                    : require("@/assets/follow_no.png")
-                }
-              />
-            </View>
+            {!current.hideInfo && (
+              <View
+                className="searchPage_list-item-follow"
+                onClick={() => {
+                  cliTip(item);
+                }}
+              >
+                <Image
+                  className="searchPage_list-item-follow-img"
+                  src={
+                    item?.follow && item.follow === 1
+                      ? require("@/assets/follow_yes.png")
+                      : require("@/assets/follow_no.png")
+                  }
+                />
+              </View>
+            )}
           </View>
         );
       });

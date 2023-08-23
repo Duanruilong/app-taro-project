@@ -2,17 +2,18 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 15:47:23
+ * @LastEditTime: 2023-08-23 09:56:12
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
 import { useState, useEffect, useRef } from "react";
 import { View, Image, ScrollView ,Button} from "@tarojs/components";
 import YTitleTask from "@/components/YTitleTask";
+import LoginMore from "@/components/LoginMore";
 import { loginOutHandler } from "@/utils/loginHandler";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
-import { APP_VERSION } from "@/constants";
+import { APP_VERSION,USER_DEFAULT_ID } from "@/constants";
 import { getCount } from "./service";
 import "./index.scss";
 
@@ -106,26 +107,35 @@ const User = () => {
 
   const { current } = useRef({
     infoData: "",
+    hideInfo: false,
+
   });
   const [data, setData] = useState();
   const [dataCount, setDataCount] = useState();
 
   useEffect(() => {
     getStorageData("userInfo").then((values) => {
+      let userData = {};
       if (isEmpty(values)) {
-        loginOutHandler();
+        userData.user_id = USER_DEFAULT_ID;
+        current.hideInfo = true;
+        // loginOutHandler();
       } else {
-        current.infoData = values;
-        setData(values);
-        getCount({
-          user_id: values?.user_id,
-        })
-          .then((res) => {
-            console.log("res :>> ", res);
-            setDataCount(res);
-          })
-          .catch(() => {});
+        userData = values;
       }
+      current.infoData = userData;
+      setData(userData);
+      getCount({
+        user_id: userData?.user_id,
+      })
+        .then((res) => {
+          console.log("res :>> ", res);
+          setDataCount(res);
+        })
+        .catch(() => {});
+    }).catch(() => {
+      current.hideInfo = true;
+      current.infoData = {user_id:USER_DEFAULT_ID};
     });
   }, []);
 
@@ -167,7 +177,8 @@ const User = () => {
             src={require("@/assets/logo.png")}
           />
         </View>
-        <View className="user_top-title">{data?.user_name || "用户名"}</View>
+        <View className="user_top-title">{data?.user_name || "未登录"}</View>
+       
         <View className="user_top_list">
           {!isEmpty(dataCount) &&
             topData.map((item) => {
@@ -176,6 +187,9 @@ const User = () => {
                   key={item.url}
                   className="user_top_list-item"
                   onClick={() => {
+                    if (current.hideInfo) {
+                      return
+                    }
                     Taro.navigateTo({
                       url: item.url,
                     });
@@ -186,7 +200,7 @@ const User = () => {
                       className="user_top_list-item-img"
                       src={item.icon}
                     />
-                    <View className="user_top_list-item-text"> {dataCount[item.type]}</View>
+                    <View className="user_top_list-item-text"> {current.hideInfo?0:dataCount[item.type]}</View>
                   </View>
                   <View className="user_top_list-item-tit"> {item.title}</View>
                 </View>
@@ -194,7 +208,16 @@ const User = () => {
             })}
         </View>
       </View>
+      {current.hideInfo && <View className="list_top-more">
+          <LoginMore
+            title="登录查看更多"
+            text="登录解锁更多功能。"
+            but="立即登录"
+            bc='#fa7272'
+          />
+        </View> }
       <TopTab />
+     
       <YTitleTask
         showIcon={false}
         className="user_tas"

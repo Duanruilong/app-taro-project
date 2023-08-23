@@ -11,7 +11,7 @@ const { get } = new http("user");
 
 export function getCount(params) {
   return get("/count_info", params, {
-    loading: { title: "加载中...", mask: false }
+    loading:false
   });
 }
 

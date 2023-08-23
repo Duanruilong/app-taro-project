@@ -2,17 +2,18 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-10 15:49:34
+ * @LastEditTime: 2023-08-23 09:57:18
  * @Description: 政策详情
  */
 
-import Taro,{Current} from "@tarojs/taro";
+import Taro, { Current } from "@tarojs/taro";
 import { useState, useEffect, useRef } from "react";
 import { View } from "@tarojs/components";
 import YButton from "@/components/YButton";
-import { getStorageData } from "@/utils/utils";
+import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
-import { getInfo,getApply } from "./service";
+import { USER_DEFAULT_ID } from "@/constants";
+import { getInfo, getApply } from "./service";
 import "./index.scss";
 
 const PolicyDetail = () => {
@@ -26,15 +27,25 @@ const PolicyDetail = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
-    getStorageData("userInfo").then((date) => {
-      current.infoData = date;
+    getStorageData("userInfo").then((values) => {
+      let userData = {};
+      if (isEmpty(values)) {
+        userData.user_id = USER_DEFAULT_ID;
+        current.hideInfo = true;
+      } else {
+        userData = values;
+      }
+      current.infoData = userData;
 
       getStorageData("DAMAGE-ITEM").then((values) => {
         setData(values);
-        getInfo({ user_id: date?.user_id, policy_id: values?.policy_id })
+        getInfo({ user_id: userData?.user_id, policy_id: values?.policy_id })
           .then(() => {})
           .catch(() => {});
       });
+    }).catch(() => {
+      current.hideInfo = true;
+      current.infoData = {user_id:USER_DEFAULT_ID};
     });
   }, []);
 
@@ -67,29 +78,29 @@ const PolicyDetail = () => {
     // });
   };
 
-  console.log('params :>> ', params);
+  console.log("params :>> ", params);
   return (
     <View className="policy">
-       <View className="policy_cent-title">{data?.title}</View>
-        <View className="policy_cent-info">{data?.create_time}</View>
-        <View className="policy_cent-tag" >
-            {data?.tags}
-          </View>
-        <View className="policy_cent-cont">* 具体内容查看附件</View>
+      <View className="policy_cent-title">{data?.title}</View>
+      <View className="policy_cent-info">{data?.create_time}</View>
+      <View className="policy_cent-tag">{data?.tags}</View>
+      <View className="policy_cent-cont">* 具体内容查看附件</View>
 
-     
       <View className="policy_but">
-        <View className="policy_but-i">
-          <YButton
-            yType="primary"
-            disabled={params?.type === "dis"}
-            onClick={() => {
-              cliTip();
-            }}
-          >
+        {!current.hideInfo && (
+          <View className="policy_but-i">
+            <YButton
+              yType="primary"
+              disabled={params?.type === "dis"}
+              onClick={() => {
+                cliTip();
+              }}
+            >
               <View className="policy_but-t">我要申请</View>
             </YButton>
-        </View>
+          </View>
+        )}
+
         <View className="policy_but-i">
           {data?.pdf && (
             <YButton

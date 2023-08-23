@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-09 15:15:12
+ * @LastEditTime: 2023-08-22 16:32:07
  * @Description:
  */
 // import { getStorageData } from "@/utils/utils";
@@ -28,6 +28,11 @@ export const LOGIN_PAGE = "/pages/login/index";
 export const HOME_PAGE = "/pages/index/index";
 
 export const SYSTEM = "REPRESENT";
+
+
+// 默认用户信息
+export const USER_DEFAULT_ID = "U426729141445162062";
+export const USER_DEFAULT_TAG = "互联网,农业,中小微企业,房地产,教育行业";
 
 // 性别
 export const MAP_SEX = [

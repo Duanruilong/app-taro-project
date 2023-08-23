@@ -10,6 +10,10 @@
   justify-content: space-around;
   padding: 30px 40px;
   background-color: #fff;
+  &-more{
+    margin-top: 40px;
+  }
+
   &-item{
     display: flex;
     flex-direction: column;
