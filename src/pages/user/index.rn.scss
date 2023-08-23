@@ -11,7 +11,9 @@
   padding: 140px 40px 40px;
   margin-bottom: 160px;
   height: 500px;
-  border-radius: 28px;
+  // border-radius: 28px;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
   position: relative;
   display: flex;
   flex-direction: row;
