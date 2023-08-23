@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 09:52:45
+ * @LastEditTime: 2023-08-23 11:47:36
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -14,7 +14,7 @@ import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
-import listIMG from "@/assets/index_img.png";
+import listIMG from "@/assets/policy2.png";
 import { USER_DEFAULT_ID } from "@/constants";
 import { getList, getFollow } from "./service";
 import "./index.scss";
@@ -179,7 +179,7 @@ const SearchPage = () => {
       <View>
         <YListView
           classStyle={"searchPage_list"}
-          boxHeight={176}
+          boxHeight={180}
           renderList={renderList}
           request={getList}
           ref={listViewRef}

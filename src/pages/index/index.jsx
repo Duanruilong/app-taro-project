@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 10:07:47
+ * @LastEditTime: 2023-08-23 11:39:47
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -167,7 +167,7 @@ const Index = () => {
                 <View className="index_list_list-item-img">
                   <Image
                     className="index_list_list-item-img-cent"
-                    src={require("@/assets/index_list.png")}
+                    src={require("@/assets/policy1.png")}
                   />
                 </View>
               </View>

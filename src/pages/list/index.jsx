@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 10:36:15
+ * @LastEditTime: 2023-08-23 11:19:16
  * @Description: 消息通知
  */
 import { useState, useRef, useEffect } from "react";
@@ -103,7 +103,18 @@ const List = () => {
   return (
     <View className="list">
       <View className="list_top">
-        <View className="list_top-item">
+        <View
+          className="list_top-item"
+          onClick={() => {
+            if (current.hideInfo) {
+              return;
+            }
+            Taro.navigateTo({
+              url: `/pagesWork/notice/index`,
+              events: {},
+            });
+          }}
+        >
           <Image
             className="list_top-item-img"
             src={require("@/assets/xinxi.png")}
