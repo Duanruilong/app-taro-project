@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 09:54:47
+ * @LastEditTime: 2023-08-23 10:36:15
  * @Description: 消息通知
  */
 import { useState, useRef, useEffect } from "react";
@@ -32,20 +32,22 @@ const List = () => {
   };
 
   useEffect(() => {
-    getStorageData("userInfo").then((values) => {
-      let userData = {};
-      if (isEmpty(values)) {
-        userData.user_id = USER_DEFAULT_ID;
+    getStorageData("userInfo")
+      .then((values) => {
+        let userData = {};
+        if (isEmpty(values)) {
+          userData.user_id = USER_DEFAULT_ID;
+          // current.hideInfo = true;
+        } else {
+          userData = values;
+        }
+        current.infoData = userData;
+        requestList({ user_id: userData?.user_id });
+      })
+      .catch(() => {
         current.hideInfo = true;
-      } else {
-        userData = values;
-      }
-      current.infoData = userData;
-      requestList({ user_id: userData?.user_id });
-    }).catch(() => {
-      current.hideInfo = true;
-      current.infoData = {user_id:USER_DEFAULT_ID};
-    });
+        current.infoData = { user_id: USER_DEFAULT_ID };
+      });
   }, []);
 
   const renderList = (data) => {
@@ -90,7 +92,7 @@ const List = () => {
             <View className="list_list-item-img">
               <Image
                 className="list_list-item-img-cent"
-                src={require("@/assets/xinxi_item.png")}
+                src={require("@/assets/xinxi_icon.png")}
               />
             </View>
           </View>
@@ -108,7 +110,23 @@ const List = () => {
           />
           <View className="list_top-item-title">系统通知</View>
         </View>
-        <View className="list_top-item">
+        <View
+          className="list_top-item"
+          onClick={() => {
+            if (current.hideInfo) {
+              return;
+            }
+            Taro.navigateTo({
+              url: `/pages/question/index?type=feed`,
+              events: {
+                // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+                QuestionPage: function () {
+                  requestList({ user_id: current.infoData?.user_id });
+                },
+              },
+            });
+          }}
+        >
           <Image
             className="list_top-item-img"
             src={require("@/assets/xinxi_bug.png")}
@@ -119,10 +137,10 @@ const List = () => {
           className="list_top-item"
           onClick={() => {
             if (current.hideInfo) {
-              return
+              return;
             }
             Taro.navigateTo({
-              url: `/pages/question/index`,
+              url: `/pages/question/index?type=new`,
               events: {
                 // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
                 QuestionPage: function () {
@@ -142,7 +160,7 @@ const List = () => {
 
       <YListView
         classStyle={"list_list"}
-        boxHeight={0}
+        boxHeight={260}
         renderList={renderList}
         request={getList}
         ref={listViewRef}

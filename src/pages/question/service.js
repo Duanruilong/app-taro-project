@@ -8,11 +8,19 @@
 import http from "@/utils/http";
 
 const { get } = new http("user");
+const common = new http("common");
 
 
 // 发起问题
 export function getSetQue(params) {
   return get("/question", params, {
+    loading: { title: "加载中...", mask: false }
+  });
+}
+ 
+// 问题反馈
+export function getFeedback(params) {
+  return common.get("/feedback", params, {
     loading: { title: "加载中...", mask: false }
   });
 }
