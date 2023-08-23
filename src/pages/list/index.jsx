@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 11:19:16
+ * @LastEditTime: 2023-08-23 14:46:01
  * @Description: 消息通知
  */
 import { useState, useRef, useEffect } from "react";
@@ -37,7 +37,7 @@ const List = () => {
         let userData = {};
         if (isEmpty(values)) {
           userData.user_id = USER_DEFAULT_ID;
-          // current.hideInfo = true;
+          current.hideInfo = true;
         } else {
           userData = values;
         }

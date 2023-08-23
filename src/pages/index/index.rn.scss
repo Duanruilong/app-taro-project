@@ -114,8 +114,8 @@
 
 
     &-img{
-      width: 120px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
     }
     &-text{
       font-size: 26px;
@@ -149,12 +149,12 @@
     background-color: #ffffff;
     padding-bottom: 20px;
     border: 0 solid #fff;
-    border-bottom-width: 4px;
+    border-bottom-width: 6px;
   }
   &-item-active{
     color:$color-brand-bc;
     border: 0 solid $color-brand-bc;
-    border-bottom-width: 4px;
+    border-bottom-width: 6px;
   }
 }
 

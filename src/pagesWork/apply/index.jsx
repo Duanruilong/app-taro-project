@@ -44,7 +44,7 @@ const ApplyPages = () => {
       data: values,
     });
     Taro.navigateTo({
-      url: `/pagesWork/policyDetail/index?type=dis`,
+      url: `/pages/policyDetail/index?type=dis`,
     });
   };
 
@@ -74,7 +74,7 @@ const ApplyPages = () => {
             <View className="apply_list-item-img">
               <Image
                 className="apply_list-item-img-cent"
-                src={require("@/assets/policy.png")}
+                src={require("@/assets/policy1.png")}
               />
             </View>
           </View>

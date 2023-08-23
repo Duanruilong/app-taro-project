@@ -2,18 +2,18 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 09:56:12
+ * @LastEditTime: 2023-08-23 15:56:36
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
 import { useState, useEffect, useRef } from "react";
-import { View, Image, ScrollView ,Button} from "@tarojs/components";
+import { View, Image, Text, ScrollView, Button } from "@tarojs/components";
 import YTitleTask from "@/components/YTitleTask";
 import LoginMore from "@/components/LoginMore";
 import { loginOutHandler } from "@/utils/loginHandler";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
-import { APP_VERSION,USER_DEFAULT_ID } from "@/constants";
+import { APP_VERSION, USER_DEFAULT_ID } from "@/constants";
 import { getCount } from "./service";
 import "./index.scss";
 
@@ -87,7 +87,7 @@ const User = () => {
   const helpData = [
     {
       title: "意见反馈",
-      type: "",
+      type: "question",
       url: "/",
       img: require("@/assets/fank.png"),
     },
@@ -108,35 +108,36 @@ const User = () => {
   const { current } = useRef({
     infoData: "",
     hideInfo: false,
-
   });
   const [data, setData] = useState();
   const [dataCount, setDataCount] = useState();
 
   useEffect(() => {
-    getStorageData("userInfo").then((values) => {
-      let userData = {};
-      if (isEmpty(values)) {
-        userData.user_id = USER_DEFAULT_ID;
-        current.hideInfo = true;
-        // loginOutHandler();
-      } else {
-        userData = values;
-      }
-      current.infoData = userData;
-      setData(userData);
-      getCount({
-        user_id: userData?.user_id,
-      })
-        .then((res) => {
-          console.log("res :>> ", res);
-          setDataCount(res);
+    getStorageData("userInfo")
+      .then((values) => {
+        let userData = {};
+        if (isEmpty(values)) {
+          userData.user_id = USER_DEFAULT_ID;
+          current.hideInfo = true;
+          // loginOutHandler();
+        } else {
+          userData = values;
+        }
+        current.infoData = userData;
+        setData(userData);
+        getCount({
+          user_id: userData?.user_id,
         })
-        .catch(() => {});
-    }).catch(() => {
-      current.hideInfo = true;
-      current.infoData = {user_id:USER_DEFAULT_ID};
-    });
+          .then((res) => {
+            console.log("res :>> ", res);
+            setDataCount(res);
+          })
+          .catch(() => {});
+      })
+      .catch(() => {
+        current.hideInfo = true;
+        current.infoData = { user_id: USER_DEFAULT_ID };
+      });
   }, []);
 
   useDidShow(() => {
@@ -156,9 +157,19 @@ const User = () => {
     console.log("helpClick :>> ", values);
     if (type === "logout") {
       loginOutHandler();
-    }  else {
+    } else if (type === "question") {
+      Taro.navigateTo({
+        url: `/pages/question/index?type=feed`,
+      });
+    } else {
       toast("开发中，敬请期待。");
     }
+  };
+
+  const onOpenCustomer = (values) => {
+    // const { type } = values;
+    // console.log("helpClick :>> ", values);
+    toast("开发中，敬请期待。");
   };
 
   return (
@@ -166,19 +177,31 @@ const User = () => {
       <View
         className="user_top"
         onClick={() => {
+          if (current.hideInfo) {
+            return;
+          }
           Taro.navigateTo({
             url: "/pagesWork/useEdit/index",
           });
         }}
       >
-        <View className="user_top-ava">
-          <Image
-            className="user_top-ava-img"
-            src={require("@/assets/logo.png")}
-          />
+        <View className="user_top-lef">
+          <View className="user_top-ava">
+            <Image
+              className="user_top-ava-img"
+              src={require("@/assets/logo.png")}
+            />
+          </View>
+          <View className="user_top-title">{data?.user_name || "未登录"}</View>
+          <View className="user_top-title"></View>
         </View>
-        <View className="user_top-title">{data?.user_name || "未登录"}</View>
-       
+        <View className="user_top-lef">
+          <Image
+            className="user_top-edit-img"
+            src={require("@/assets/edit.png")}
+          />
+          <Text className="user_top-edit">编辑资料</Text>
+        </View>
         <View className="user_top_list">
           {!isEmpty(dataCount) &&
             topData.map((item) => {
@@ -188,7 +211,7 @@ const User = () => {
                   className="user_top_list-item"
                   onClick={() => {
                     if (current.hideInfo) {
-                      return
+                      return;
                     }
                     Taro.navigateTo({
                       url: item.url,
@@ -196,11 +219,10 @@ const User = () => {
                   }}
                 >
                   <View className="user_top_list-item-cent">
-                    <Image
-                      className="user_top_list-item-img"
-                      src={item.icon}
-                    />
-                    <View className="user_top_list-item-text"> {current.hideInfo?0:dataCount[item.type]}</View>
+                    <Image className="user_top_list-item-img" src={item.icon} />
+                    <View className="user_top_list-item-text">
+                      {current.hideInfo ? 0 : dataCount[item.type]}
+                    </View>
                   </View>
                   <View className="user_top_list-item-tit"> {item.title}</View>
                 </View>
@@ -208,16 +230,19 @@ const User = () => {
             })}
         </View>
       </View>
-      {current.hideInfo && <View className="list_top-more">
+
+      {current.hideInfo && (
+        <View className="list_top-more">
           <LoginMore
             title="登录查看更多"
             text="登录解锁更多功能。"
             but="立即登录"
-            bc='#fa7272'
+            bc="#fa7272"
           />
-        </View> }
+        </View>
+      )}
       <TopTab />
-     
+
       <YTitleTask
         showIcon={false}
         className="user_tas"
@@ -230,7 +255,7 @@ const User = () => {
               key={item.title}
               className="user_ser-item"
               onClick={() => {
-                // onOpenCustomer(item);
+                onOpenCustomer(item);
               }}
             >
               <Image className="user_ser-item-img" src={item.img} alt="" />
@@ -247,19 +272,22 @@ const User = () => {
       <View className="user_ser">
         {helpData.map((item) => {
           return (
-            <View key={item.title} className="user_ser-help">
-               <Button
-                 className="user_ser-help-but"
-                 openType={item?.type === "share" ? "share" : ""}
-                 onClick={() => {
-                    helpClick(item);
-                  }}
-               >
-                <View className="user_ser-help-img">
-                  <Image className="user_ser-help-img-cen"  mode="aspectFit" src={item.img} alt="" />
-                </View>
-                <View className="user_ser-help-text">{item.title}</View>
-              </Button>
+            <View
+              key={item.title}
+              className="user_ser-help"
+              onClick={() => {
+                helpClick(item);
+              }}
+            >
+              <View className="user_ser-help-img">
+                <Image
+                  className="user_ser-help-img-cen"
+                  mode="aspectFit"
+                  src={item.img}
+                  alt=""
+                />
+              </View>
+              <View className="user_ser-help-text">{item.title}</View>
             </View>
           );
         })}
@@ -271,7 +299,6 @@ const User = () => {
 };
 
 const TopTab = (props) => {
-
   const serData = [
     { title: "名片", value: 0, url: "/", img: require("@/assets/7ae.png") },
     { title: "开票信息", value: 0, url: "/", img: require("@/assets/7ae.png") },

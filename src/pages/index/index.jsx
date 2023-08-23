@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 11:39:47
+ * @LastEditTime: 2023-08-23 15:13:41
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -18,7 +18,7 @@ import YTitleTask from "@/components/YTitleTask";
 import YNoData from "@/components/YNoData";
 import LoginMore from "@/components/LoginMore";
 // import YSafeAreaView from "@/components/YSafeAreaView";
-// import { toast } from "@/utils/tools";
+import { toast } from "@/utils/tools";
 import { getStorageData, isEmpty } from "@/utils/utils";
 // import { loginOutHandler } from "@/utils/loginHandler";
 import banner1 from "@/assets/banner1.jpg";
@@ -62,8 +62,8 @@ const Index = () => {
   };
 
   useEffect(() => {
-    // Taro.clearStorage(); //清理本地数据缓存
     // TODOO:
+    // Taro.clearStorage(); //清理本地数据缓存
     Taro.setStorage({
       key: `userInfo`,
       data: {
@@ -326,6 +326,7 @@ const ServiceTab = (props) => {
   // 打开微信客服
   const onOpenCustomer = async (values) => {
     console.log("打开微信客服 :>> ", values);
+    toast("开发中，敬请期待。");
     // toast("正在跳转客服，请稍等...");
     // console.log('打开微信客服 :>> ', values);
     // await Taro.openCustomerServiceChat({

@@ -2,7 +2,7 @@
  * @Author: Drlong drl1210@163.com
  * @Date: 2023-05-19 10:12:59
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 11:34:59
+ * @LastEditTime: 2023-08-23 16:00:36
  * @FilePath: \taro-rn-appd:\fanx\zqt-weapp\src\pages\list\index.jsx
  * @Description: 系统通知
  */
@@ -43,7 +43,7 @@ const NoticePages = () => {
   //     data: values,
   //   });
   //   Taro.navigateTo({
-  //     url: `/pagesWork/policyDetail/index?type=dis`,
+  //     url: `/pages/policyDetail/index?type=dis`,
   //   });
   // };
 
@@ -67,11 +67,11 @@ const NoticePages = () => {
             <View className="notice_list-item-cent">
               <View className="notice_list-item-cent-title">
                 <Text className="notice_list-item-cent-keynote">通知标题：</Text>
-                {item.source}
+                {item.title||'无'}
               </View>
               <View className="notice_list-item-cent-title">
               <Text className="notice_list-item-cent-keynote">通知内容：</Text>
-                {item.title}
+                {item.content||'无'}
               </View>
               <View className="notice_list-item-cent-title">
               <Text className="notice_list-item-cent-keynote">发布时间：</Text>
