@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 15:56:36
+ * @LastEditTime: 2023-08-23 17:07:09
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -300,10 +300,10 @@ const User = () => {
 
 const TopTab = (props) => {
   const serData = [
-    { title: "名片", value: 0, url: "/", img: require("@/assets/7ae.png") },
-    { title: "开票信息", value: 0, url: "/", img: require("@/assets/7ae.png") },
-    { title: "企业培训", value: 0, url: "/", img: require("@/assets/7ae.png") },
-    { title: "知识产权", value: 0, url: "/", img: require("@/assets/7ae.png") },
+    { title: "名片", value: 0, url: "/", img: require("@/assets/user_ming.png") },
+    { title: "开票信息", value: 0, url: "/", img: require("@/assets/user_kai.png") },
+    { title: "企业培训", value: 0, url: "/", img: require("@/assets/user_pei.png") },
+    { title: "知识产权", value: 0, url: "/", img: require("@/assets/user_ren.png") },
   ];
 
   return (
@@ -322,7 +322,7 @@ const TopTab = (props) => {
             >
               <View className="user_gut-item-text">{item.title}</View>
               <View className="user_gut-item-info">{item.value}条内容</View>
-              <Image className="user_gut-item-img" src={item.img} alt="" />
+              <Image style={index === 0?{height:40}:{}} className="user_gut-item-img" src={item.img} alt="" />
             </View>
           );
         })}
