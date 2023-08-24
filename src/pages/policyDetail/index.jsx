@@ -2,13 +2,13 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 09:57:18
+ * @LastEditTime: 2023-08-24 10:28:18
  * @Description: 政策详情
  */
 
 import Taro, { Current } from "@tarojs/taro";
 import { useState, useEffect, useRef } from "react";
-import { View } from "@tarojs/components";
+import { View,Image } from "@tarojs/components";
 import YButton from "@/components/YButton";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
@@ -85,7 +85,11 @@ const PolicyDetail = () => {
       <View className="policy_cent-info">{data?.create_time}</View>
       <View className="policy_cent-tag">{data?.tags}</View>
       <View className="policy_cent-cont">* 具体内容查看附件</View>
-
+      {/* <Image
+        className="policy_cent-img"
+        src={require("./lott.png")}
+      /> */}
+ 
       <View className="policy_but">
         {!current.hideInfo && (
           <View className="policy_but-i">
