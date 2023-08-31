@@ -2,14 +2,14 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-31 14:53:41
+ * @LastEditTime: 2023-08-31 16:29:16
  * @Description: 政策详情
  */
 
 // import { WebView } from 'react-native-webview';
 import Taro, { Current } from "@tarojs/taro";
 import { useState, useEffect, useRef } from "react";
-import { View, WebView } from "@tarojs/components";
+import { View, Text, WebView } from "@tarojs/components";
 import YButton from "@/components/YButton";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
@@ -27,6 +27,7 @@ const PolicyDetail = () => {
   });
 
   const [data, setData] = useState();
+  const [shWebView, setShWebView] = useState(false);
 
   useEffect(() => {
     getStorageData("userInfo")
@@ -71,25 +72,15 @@ const PolicyDetail = () => {
       url: values?.pdf,
       success: function (res) {
         toast("下载文档成功");
-        //     var filePath = res.tempFilePath;
-        //     Taro.openDocument({
-        //       filePath: filePath,
-        //       success: () => {
-        //         console.log("打开文档成功");
-        //         toast("打开文档成功");
-        //       },
-        //     });
       },
-      catch:(e)=>{
+      catch: (e) => {
         console.log("下载文档 catch:>> ", e);
-      }
+      },
     });
   };
 
   console.log("params :>> ", params);
-  // const Url = `https://view.officeapps.live.com/op/view.aspx?src=${encodeURI(
-  //   "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/%E6%B5%8B%E8%AF%95%E6%94%BF%E5%BA%9C%E6%96%87%E4%BB%B6.pdf"
-  // )}`;
+
   return (
     <View className="policy">
       <View className="policy_cent-title">{data?.title}</View>
@@ -115,23 +106,41 @@ const PolicyDetail = () => {
           <YButton
             yType="primary"
             onClick={() => {
-              cliLook(data);
+              // cliLook(data);
+              toast("开始下载文档，在状态栏中查看");
+              setShWebView(true);
+              setTimeout(() => {
+                setShWebView(false);
+              }, 2000);
             }}
           >
             <View className="policy_cent-but-t">下载附件</View>
           </YButton>
         </View>
       </View>
-      <View className="policy_cent-cont">* 具体内容查看附件</View>
-      {/* <Image
-        className="policy_cent-img"
-        src={require("./lott.png")}
-      /> */}
+      <View
+        className="policy_cent-cont"
+        onClick={() => {
+          // cliLook(data);
+          Taro.setClipboardData({
+            data: data?.pdf,
+          });
+        }}
+      >
+        * 具体内容下载附件查看，如果下载附件失败可点击
+        <Text className="policy_cent-cont-t"> &nbsp;复制附件地址</Text>
+        ，打开浏览器下载查看附件
+      </View>
       {/* <WebView
         style={{ height: windowHeight - 220, width: 350 }}
-        src={Url}
+        src={data?.pdf}
       /> */}
-      {/* <WebView src='https://www.baidu.com/'   /> */}
+      {shWebView && (
+        <WebView
+          src={decodeURIComponent(data?.pdf)}
+          // style={{ height: windowHeight - 220, width: 350 }}
+        />
+      )}
     </View>
   );
 };
