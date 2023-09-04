@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 15:55:30
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-04 09:56:18
+ * @LastEditTime: 2023-09-04 10:41:56
  * @Description:修改个人信息
  */
 import { useState, useEffect } from "react";
@@ -19,7 +19,7 @@ import "./index.scss";
 
 const UseEdit = () => {
   const [dataInfo, setDataInfo] = useState({});
-  const [butLoding, setButLoding] = useState(false);
+  // const [butLoding, setButLoding] = useState(false);
   const [data, setData] = useState({});
   const [showBottom, setShowBottom] = useState(false);
   const [popList, setPopList] = useState([]);
@@ -52,13 +52,13 @@ const UseEdit = () => {
       .then(() => {
         toast("修改成功，重新登陆");
         setTimeout(() => {
-          // loginOutHandler();
-          setButLoding(false);
+          loginOutHandler();
+          // setButLoding(false);
         }, 2000);
       })
       .catch(() => {
         setTimeout(() => {
-          setButLoding(false);
+          // setButLoding(false);
         }, 600);
       });
   };
@@ -146,9 +146,9 @@ const UseEdit = () => {
       <View className="useEdit-but">
         <YButton
           yType="default"
-          loading={butLoding}
+          // loading={butLoding}
           onClick={() => {
-            setButLoding(true);
+            // setButLoding(true);
             onSubmit();
           }}
         >
