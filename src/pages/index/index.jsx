@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 15:13:41
+ * @LastEditTime: 2023-09-04 14:59:12
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -64,17 +64,17 @@ const Index = () => {
   useEffect(() => {
     // TODOO:
     // Taro.clearStorage(); //清理本地数据缓存
-    Taro.setStorage({
-      key: `userInfo`,
-      data: {
-        contact_name: "龙大",
-        contact_phone: "13012345678",
-        id_code: "2023052677777",
-        tag: "互联网,农业,中小微企业,房地产,教育行业,退役军人创业",
-        user_id: "U426729141445162062",
-        user_name: "云通政企有限公司",
-      },
-    });
+    // Taro.setStorage({
+    //   key: `userInfo`,
+    //   data: {
+    //     contact_name: "龙大",
+    //     contact_phone: "13012345678",
+    //     id_code: "2023052677777",
+    //     tag: "互联网,农业,中小微企业,房地产,教育行业,退役军人创业",
+    //     user_id: "U426729141445162062",
+    //     user_name: "云通政企有限公司",
+    //   },
+    // });
 
     getStorageData("userInfo")
       .then((values) => {

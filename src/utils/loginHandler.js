@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-05-25 16:31:26
+ * @LastEditTime: 2023-09-04 10:57:21
  * @Description:
  */
 import Taro from "@tarojs/taro";
@@ -56,6 +56,10 @@ export function loginHandler(data = {}) {
 
 export function loginOutHandler() {
   session = null;
+  Taro.removeStorage({
+    key: "userInfo",
+    success: function() {}
+  });
   Taro.clearStorage(); //清理本地数据缓存
   Taro.reLaunch({ url: LOGIN_PAGE });
 }

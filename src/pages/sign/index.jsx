@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 14:57:16
+ * @LastEditTime: 2023-09-04 14:56:49
  * @Description:账号注册
  */
 import Taro from "@tarojs/taro";
@@ -17,6 +17,7 @@ import selectNo from "@/assets/select_no.png";
 import selectItem from "@/assets/select_yes.png";
 import close_b from "@/assets/close_b.png";
 import rightImg from "@/assets/right.png";
+import {  isEmpty } from "@/utils/utils";
 import { Register, getList } from "./service";
 
 import "./index.scss";
@@ -38,13 +39,14 @@ const Sign = () => {
   const [popList, setPopList] = useState([]);
   const [checked, setChecked] = useState(false);
   const [check, setCheck] = useState(false);
+  const [listValue, setListValue] = useState({});
 
   useEffect(() => {
     onGetList({ key: "" });
   }, []);
 
   const onLog = () => {
-    console.log("current :>> ", current);
+    console.log("提交--current :>> ", current);
     const {
       user_name,
       contact_phone,
@@ -55,23 +57,23 @@ const Sign = () => {
       value6,
       value7,
     } = current;
-    if (!user_name) {
+    if (isEmpty(user_name)) {
       return toast("请输入企业名称");
     }
-    if (!contact_phone) {
+    if (isEmpty(contact_phone)) {
       return toast("请输入手机号");
     }
-    if (!contact_name) {
+    if (isEmpty(contact_name)) {
       return toast("请输入联系人");
     }
-    if (!id_code) {
+    if (isEmpty(id_code)) {
       return toast("请输入社会信用码");
     }
     // if (!checked) {
     //   return toast("请阅读并同意用户协议和隐私协议");
     // }
 
-    if (popList.length === 0) {
+    if (isEmpty(popList)) {
       return toast("请选择产业领域");
     }
     const param = {
@@ -158,7 +160,7 @@ const Sign = () => {
   //   });
   // };
 
-  console.log("popList :>> ", popList);
+  // console.log("listValue :>> ", listValue);
   return (
     <View className="sign">
       <View className="sign_center">
@@ -170,10 +172,13 @@ const Sign = () => {
             name={"user_name"}
             placeholder="输入企业名称"
             type="text"
-            value={current.user_name}
+            // value={listValue?.["user_name"]}
             onInput={(e) => {
-              // setPhone(e.detail.value);
+              console.log('onInput :>> ', listValue);
+              const newData = { ...listValue };
+              newData["user_name"] = e.detail.value;
               current.user_name = e.detail.value;
+              setListValue(newData);
             }}
           />
         </View>
@@ -184,10 +189,13 @@ const Sign = () => {
             name={"id_code"}
             placeholder="输入社会信用码"
             type="text"
-            value={current.id_code}
+            // value={listValue?.["id_code"]}
             onInput={(e) => {
-              // setPhone(e.detail.value);
+              console.log('onInput :>> ', listValue);
+              const newData = { ...listValue };
+              newData["id_code"] = e.detail.value;
               current.id_code = e.detail.value;
+              setListValue(newData);
             }}
           />
         </View>
@@ -198,10 +206,12 @@ const Sign = () => {
             name={"contact_name"}
             placeholder="输入联系人"
             type="text"
-            value={current.contact_name}
+            // value={listValue?.["contact_name"]}
             onInput={(e) => {
-              // setPhone(e.detail.value);
+              const newData = { ...listValue };
+              newData["contact_name"] = e.detail.value;
               current.contact_name = e.detail.value;
+              setListValue(newData);
             }}
           />
         </View>
@@ -212,10 +222,13 @@ const Sign = () => {
             name={"contact_phone"}
             placeholder="输入手机号"
             type="number"
-            value={current.contact_phone}
+            // value={listValue?.["contact_phone"]}
             maxlength={11}
             onInput={(e) => {
+              const newData = { ...listValue };
+              newData["contact_phone"] = e.detail.value;
               current.contact_phone = e.detail.value;
+              setListValue(newData);
             }}
           />
         </View>
@@ -226,9 +239,12 @@ const Sign = () => {
             name={"phone"}
             placeholder="输入登陆密码"
             type="text"
-            value={current.password}
+            value={listValue?.["password"]}
             onInput={(e) => {
+              const newData = { ...listValue };
+              newData["password"] = e.detail.value;
               current.password = e.detail.value;
+              setListValue(newData);
             }}
           />
         </View>
@@ -238,6 +254,7 @@ const Sign = () => {
             onChange={(e) => {
               console.log("e :>> ", e);
               current.value5 = e;
+              
             }}
           />
           <Text className="sign_center-tas-info">&nbsp;是</Text>
