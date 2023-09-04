@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 15:55:30
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 15:56:46
+ * @LastEditTime: 2023-09-04 09:56:18
  * @Description:修改个人信息
  */
 import { useState, useEffect } from "react";
@@ -40,9 +40,9 @@ const UseEdit = () => {
   const onSubmit = () => {
     console.log("onSubmit :>> ", data);
     if (isEmpty(data)) {
-      setTimeout(() => {
-        setButLoding(false);
-      }, 600);
+      // setTimeout(() => {
+      //   setButLoding(false);
+      // }, 600);
       return toast("最少修改一项内容");
     }
     getEditInfo({
@@ -52,7 +52,7 @@ const UseEdit = () => {
       .then(() => {
         toast("修改成功，重新登陆");
         setTimeout(() => {
-          loginOutHandler();
+          // loginOutHandler();
           setButLoding(false);
         }, 2000);
       })
