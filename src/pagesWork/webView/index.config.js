@@ -8,7 +8,7 @@
  */
 /* eslint-disable no-undef */
 export default definePageConfig({
-  navigationBarTitleText: '查看文件',
+  navigationBarTitleText: '客服服务',
   navigationBarBackgroundColor: '#ffffff',
   navigationBarTextStyle: 'white',
   // 当 `onShareAppMessage` 没有触发时，可以尝试配置此选项

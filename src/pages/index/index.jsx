@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-04 14:59:12
+ * @LastEditTime: 2023-09-06 17:30:48
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -330,7 +330,11 @@ const ServiceTab = (props) => {
   // 打开微信客服
   const onOpenCustomer = async (values) => {
     console.log("打开微信客服 :>> ", values);
-    toast("开发中，敬请期待。");
+    // toast("开发中，敬请期待。");
+    
+    Taro.navigateTo({
+      url: `/pagesWork/webView/index`,
+    });
     // toast("正在跳转客服，请稍等...");
     // console.log('打开微信客服 :>> ', values);
     // await Taro.openCustomerServiceChat({
