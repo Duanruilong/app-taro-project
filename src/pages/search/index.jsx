@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 11:47:36
+ * @LastEditTime: 2023-09-06 15:17:55
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
@@ -129,9 +129,10 @@ const SearchPage = () => {
                 {item.title}
               </View>
               <View>
-                <View className="searchPage_list-item-cont-tags">
+                {item.tags &&  <View className="searchPage_list-item-cont-tags">
                   {item.tags}
-                </View>
+                </View>}
+               
                 <View className="searchPage_list-item-cont-info">
                   {item.create_time}
                 </View>

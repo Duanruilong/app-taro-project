@@ -9,11 +9,9 @@ import http from "@/utils/http";
 
 const { get } = new http("user");
 
-
-//  统计阅读
 export function getInfo(params) {
   return get("/policy_info", params, {
-    loading: { title: "加载中...", mask: false }
+    loading:false
   });
 }
 //  申请

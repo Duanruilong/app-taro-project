@@ -157,9 +157,13 @@ const Index = () => {
                   <View className="index_list_list-item-cent-title">
                     {item.title}
                   </View>
+                  {
+                    item.tags&&
+                  
                   <View className="index_list_list-item-cent-tags">
                     {item.tags}
                   </View>
+                  }
                   <View className="index_list_list-item-cent-info">
                     {item.create_time}
                   </View>
