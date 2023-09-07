@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-06 17:30:48
+ * @LastEditTime: 2023-09-07 10:23:06
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -307,22 +307,22 @@ const ServiceTab = (props) => {
   const serData = [
     {
       title: "法律服务",
-      url: "https://work.weixin.qq.com/kfid/kfc8cbb3383fe5e17cc",
+      key: "kfc8cbb3383fe5e17cc",
       img: require("@/assets/serve/falv.png"),
     },
     {
       title: "财税服务",
-      url: "https://work.weixin.qq.com/kfid/kfc11914429a6346b01",
+      key: "kfc0bb4e48975825e87",
       img: require("@/assets/serve/caishui.png"),
     },
     {
       title: "企业培训",
-      url: "https://work.weixin.qq.com/kfid/kfc8cbb3383fe5e17cc",
+      key: "kfcf1dae5da2f9bfff6",
       img: require("@/assets/serve/peixun.png"),
     },
     {
       title: "知识产权",
-      url: "https://work.weixin.qq.com/kfid/kfc184e62d581ad5f34",
+      key: "kfc0e48e59f2d23d6ed",
       img: require("@/assets/serve/zhishi.png"),
     },
   ];
@@ -330,21 +330,10 @@ const ServiceTab = (props) => {
   // 打开微信客服
   const onOpenCustomer = async (values) => {
     console.log("打开微信客服 :>> ", values);
-    // toast("开发中，敬请期待。");
-    
+    toast("正在打开微信客服，请稍等...");
     Taro.navigateTo({
-      url: `/pagesWork/webView/index`,
+      url: `/pagesWork/webView/index?key=${values.key}`,
     });
-    // toast("正在跳转客服，请稍等...");
-    // console.log('打开微信客服 :>> ', values);
-    // await Taro.openCustomerServiceChat({
-    //   extInfo: {
-    //     url: values?.url || "https://work.weixin.qq.com/kfid/kfc11914429a6346b01",
-    //   }, //客服链接
-    //   corpId: CORP_ID,
-    //   showMessageCard: true,
-    //   success: () => {},
-    // });
   };
 
   return (

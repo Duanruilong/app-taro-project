@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 17:07:09
+ * @LastEditTime: 2023-09-07 15:42:39
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -44,42 +44,42 @@ const User = () => {
   const serListData = [
     {
       title: "法律服务",
-      url: "https://work.weixin.qq.com/kfid/kfc8cbb3383fe5e17cc",
+      key: "kfc8cbb3383fe5e17cc",
       img: require("@/assets/serve/falv.png"),
     },
     {
       title: "财税服务",
-      url: "https://work.weixin.qq.com/kfid/kfc11914429a6346b01",
+      key: "kfc0bb4e48975825e87",
       img: require("@/assets/serve/caishui.png"),
     },
     {
       title: "企业培训",
-      url: "https://work.weixin.qq.com/kfid/kfc8cbb3383fe5e17cc",
+      key: "kfcf1dae5da2f9bfff6",
       img: require("@/assets/serve/peixun.png"),
     },
     {
       title: "知识产权",
-      url: "https://work.weixin.qq.com/kfid/kfc184e62d581ad5f34",
+      key: "kfc0e48e59f2d23d6ed",
       img: require("@/assets/serve/zhishi.png"),
     },
     {
       title: "金融服务",
-      url: "https://work.weixin.qq.com/kfid/kfc184e62d581ad5f34",
+      key: "kfc184e62d581ad5f34",
       img: require("@/assets/serve/jinrong.png"),
     },
     {
       title: "管理咨询",
-      url: "https://work.weixin.qq.com/kfid/kfc11914429a6346b01",
+      key: "kfc9dda3f3c667b9b5b",
       img: require("@/assets/serve/gli.png"),
     },
     {
       title: "企业采购",
-      url: "https://work.weixin.qq.com/kfid/kfc11914429a6346b01",
+      key: "kfc9a11122109ac3059",
       img: require("@/assets/serve/caig.png"),
     },
     {
       title: "其他",
-      url: "https://work.weixin.qq.com/kfid/kfc11914429a6346b01",
+      key: "kfc7615dff40a4c9dea",
       img: require("@/assets/serve/qta.png"),
     },
   ];
@@ -166,10 +166,13 @@ const User = () => {
     }
   };
 
-  const onOpenCustomer = (values) => {
-    // const { type } = values;
-    // console.log("helpClick :>> ", values);
-    toast("开发中，敬请期待。");
+  // 打开微信客服
+  const onOpenCustomer = async (values) => {
+    console.log("打开微信客服 :>> ", values);
+    toast("正在打开微信客服，请稍等...");
+    Taro.navigateTo({
+      url: `/pagesWork/webView/index?key=${values.key}`,
+    });
   };
 
   return (
@@ -300,10 +303,30 @@ const User = () => {
 
 const TopTab = (props) => {
   const serData = [
-    { title: "名片", value: 0, url: "/", img: require("@/assets/user_ming.png") },
-    { title: "开票信息", value: 0, url: "/", img: require("@/assets/user_kai.png") },
-    { title: "企业培训", value: 0, url: "/", img: require("@/assets/user_pei.png") },
-    { title: "知识产权", value: 0, url: "/", img: require("@/assets/user_ren.png") },
+    {
+      title: "名片",
+      value: 0,
+      url: "/",
+      img: require("@/assets/user_ming.png"),
+    },
+    {
+      title: "开票信息",
+      value: 0,
+      url: "/",
+      img: require("@/assets/user_kai.png"),
+    },
+    {
+      title: "企业培训",
+      value: 0,
+      url: "/",
+      img: require("@/assets/user_pei.png"),
+    },
+    {
+      title: "知识产权",
+      value: 0,
+      url: "/",
+      img: require("@/assets/user_ren.png"),
+    },
   ];
 
   return (
@@ -322,7 +345,12 @@ const TopTab = (props) => {
             >
               <View className="user_gut-item-text">{item.title}</View>
               <View className="user_gut-item-info">{item.value}条内容</View>
-              <Image style={index === 0?{height:40}:{}} className="user_gut-item-img" src={item.img} alt="" />
+              <Image
+                style={index === 0 ? { height: 40 } : {}}
+                className="user_gut-item-img"
+                src={item.img}
+                alt=""
+              />
             </View>
           );
         })}
