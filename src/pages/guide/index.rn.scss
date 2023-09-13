@@ -1,0 +1,115 @@
+
+.guide {
+  background-color: #f1f1f1;
+  height: 100vh;
+  position: relative;
+}
+
+.guide_banner{
+  &-swipe{
+    height: 103vh;
+    width: 100%;
+  }
+  &-img{
+    width: 100%;
+    height: 105vh;
+  }
+  &-item{
+    position: relative;
+    height: 105vh;
+    width: 100%;
+  
+
+    &-new{
+      position: absolute;
+      bottom: 240px;
+      left: 50%;
+      width: 300px;
+      margin-left: -150px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      background-color: #05aa9c;
+      border-radius: 62px;
+
+     
+      &-text{
+        font-size: 42px;
+        color: #fff;
+        font-weight: 700;
+        margin-left: 12px;
+        padding: 16px 0;
+      }
+    }
+    &-text{
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 750px;
+      height: 120px;
+      background:rgba(1,1,1,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+    &-tit{
+      color: #fff;
+      font-size: 30px;
+      padding: 20px 40px 10px;
+      width: 650px;
+      font-weight: 700;
+    }
+    &-info{
+      color: #c0c0c0;
+      font-size: 20px;
+      padding: 0px 40px 20px;
+      width: 500px;
+      font-weight: 700;
+    }
+  }
+}
+
+.guide_top{
+  position: absolute;
+  top: 80px;
+  right: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+ 
+  &-text{
+    font-size: 28px;
+    color: #5c5c5c;
+    font-weight: 700;
+    border: 0px solid #5c5c5c;
+    border-width: 1px;
+    border-radius: 50px;
+    padding: 4px 24px;
+  }
+}
+
+.guide_indicator{
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  width: 300px;
+  margin-left: -150px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  &-item{
+    width: 90px;
+    height: 20px;
+    background-color: #e7e6e6;
+    margin-right: 20px;
+    border-radius: 50px;
+    &-active{
+      background-color: #34dacc;
+    }
+  }
+  
+}

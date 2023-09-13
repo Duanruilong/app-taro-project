@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-06 16:17:40
+ * @LastEditTime: 2023-09-13 17:21:32
  * @Description: 政策详情
  */
 
@@ -28,7 +28,7 @@ const PolicyDetail = () => {
 
   const [data, setData] = useState();
   const [showL, setShowL] = useState(true);
-  const [shWebView, setShWebView] = useState(false);
+  const [shWebView, setShWebView] = useState();
 
   useEffect(() => {
     getStorageData("userInfo")
@@ -47,9 +47,9 @@ const PolicyDetail = () => {
           getInfo({ user_id: userData?.user_id, policy_id: values?.policy_id })
             .then(() => {})
             .catch(() => {});
-            setTimeout(() => {
-              setShowL(false)
-            }, 800);
+          setTimeout(() => {
+            setShowL(false);
+          }, 800);
         });
       })
       .catch(() => {
@@ -85,17 +85,17 @@ const PolicyDetail = () => {
 
   const webHeight = () => {
     if (data?.title.length < 20) {
-      return 150;
+      return data?.annex && (data?.annex).split(",").length > 3 ? 200 : 160;
     } else if (20 < data?.title.length >= 40) {
-      return 170;
+      return data?.annex && (data?.annex).split(",").length > 3 ? 220 : 10;
     } else if (data?.title.length > 40) {
-      return 190;
+      return data?.annex && (data?.annex).split(",").length > 3 ? 240 : 210;
     } else {
-      return 180;
+      return data?.annex && (data?.annex).split(",").length > 3 ? 230 : 190;
     }
   };
 
-  console.log("params :>> ", params);
+  console.log("data :>> ", data);
   return (
     <View className="policy">
       <View className="policy_cent-title">{data?.title}</View>
@@ -116,23 +116,36 @@ const PolicyDetail = () => {
           </View>
         )}
       </View>
-      <View className="policy_cent-clik">
-        {/* <View className="policy_cent-but" style={{ marginLeft: 40 }}>
-          <YButton
-            yType="primary"
-            onClick={() => {
-              // cliLook(data);
-              toast("开始下载文档，在状态栏中查看");
-              setShWebView(true);
-              setTimeout(() => {
-                setShWebView(false);
-              }, 2000);
-            }}
-          >
-            <View className="policy_cent-but-t">下载附件</View>
-          </YButton>
-        </View> */}
-      </View>
+      {data?.annex && (
+        <View className="policy_cent-clik">
+          {(data?.annex).split(",").map((item, index) => {
+            return (
+              <View
+                className="policy_cent-down"
+                style={{ marginRight: 10, marginBottom: 2 }}
+                key={item}
+                onClick={() => {
+                  // cliLook(data);
+                  toast("开始下载，请在状态栏中查看");
+                  setShWebView(item);
+                  setTimeout(() => {
+                    setShWebView();
+                  }, 2000);
+                }}
+              >
+                <Image
+                  className="policy_cent-down-img"
+                  src={require("@/assets/download.png")}
+                />
+                <View className="policy_cent-down-t">{`下载附件${
+                  index + 1
+                }`}</View>
+              </View>
+            );
+          })}
+        </View>
+      )}
+
       {/* <View
         className="policy_cent-cont"
         onClick={() => {
@@ -146,8 +159,7 @@ const PolicyDetail = () => {
         <Text className="policy_cent-cont-t"> &nbsp;复制附件地址</Text>
         ，打开浏览器下载查看附件
       </View> */}
-      {
-        showL ?
+      {showL ? (
         <View className={"policy_cent-load"}>
           <Image
             className={"policy_cent-load-img"}
@@ -156,22 +168,22 @@ const PolicyDetail = () => {
           />
           资源加载中...
         </View>
-        :
-      <WebView
-        style={{ height: windowHeight - webHeight(), width: 350 }}
-        src={
-          `http://base.zhsq.work:8022/onlinePreview?url=` +
-          encodeURIComponent(Base64.encode(data?.pdf))
-        }
-      />
-      }
-     
-      {/* {shWebView && (
+      ) : (
         <WebView
-          src={decodeURIComponent(data?.pdf)}
+          style={{ height: windowHeight - webHeight(), width: 350 }}
+          src={
+            `https://ysxz.yqybarter.com:8035/onlinePreview?url=` +
+            encodeURIComponent(Base64.encode(data?.pdf))
+          }
+        />
+      )}
+      {/* 下载附件 */}
+      {shWebView && (
+        <WebView
+          src={decodeURIComponent(shWebView)}
           // style={{ height: windowHeight - 220, width: 350 }}
         />
-      )} */}
+      )}
     </View>
   );
 };
