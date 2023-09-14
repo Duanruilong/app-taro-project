@@ -4,10 +4,10 @@ name: Assemble Ios Release
 # 触发工作流程的事件
 on:
   push:
-    # branches: [ master ]
+    branches: [ dev ]
     tags: [ v* ]
   pull_request:
-    branches: [ master ]
+    branches: [ dev ]
 
   workflow_dispatch:
 
@@ -19,7 +19,7 @@ env:
   VERSION_NUMBER: 1.0.0
   BUILD_NUMBER: 1.0.0.0
   BUILD_TYPE: release
-  TEAM_ID: ${{secrets.TEAM_ID}}
+  TEAM_ID: ${{secrets.TEAM_ID}} # fanxin.com
   PROVISIONING_PROFILE_SPECIFIER: ${{secrets.RELEASE_PROVISIONING_PROFILE_SPECIFIER}}
   CODE_SIGN_IDENTITY: Apple Distribution
   SIGNING_CERTIFICATE_P12_DATA: ${{secrets.RELEASE_SIGNING_CERTIFICATE_P12_DATA}}
