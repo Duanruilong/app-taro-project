@@ -2,18 +2,22 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-11 15:12:45
+ * @LastEditTime: 2023-09-19 16:43:14
  * @Description:登陆
  */
 import Taro from "@tarojs/taro";
 import { useState } from "react";
 import { View, Image, Swiper, SwiperItem } from "@tarojs/components";
-import banner1 from "./g.png";
-
 import "./index.scss";
 
 const GuidePage = () => {
   const [active, setActive] = useState(0);
+
+  const guide=[
+    'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page1.png',
+    'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page2.png',
+    'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page3.png'
+  ]
 
   const cliLook = (values) => {
     Taro.switchTab({
@@ -37,12 +41,12 @@ const GuidePage = () => {
           setActive(detail?.current);
         }}
       >
-        {[1, 11, 2, 3].map((item, index) => {
+        {guide.map((item, index) => {
           return (
             <SwiperItem key={Date.now() + index}>
               <View className="guide_banner-item">
-                <Image className="guide_banner-img" src={banner1} alt="" />
-                {index + 1 === [1, 11, 2, 3].length && (
+                <Image className="guide_banner-img" src={item} alt="" />
+                {index + 1 === guide.length && (
                   <View
                     className="guide_banner-item-new"
                     onClick={() => {
@@ -71,7 +75,7 @@ const GuidePage = () => {
           cliLook();
         }}
       >
-        {[1, 11, 2, 3].map((item, index) => {
+        {guide.map((item, index) => {
           return (
             <View
               key={Date.now() + index}

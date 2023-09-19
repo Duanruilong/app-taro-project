@@ -22,7 +22,7 @@
 
     &-new{
       position: absolute;
-      bottom: 240px;
+      bottom:120px;
       left: 50%;
       width: 300px;
       margin-left: -150px;
@@ -93,7 +93,7 @@
 
 .guide_indicator{
   position: absolute;
-  bottom: 30px;
+  bottom: 0px;
   left: 50%;
   width: 300px;
   margin-left: -150px;
@@ -108,7 +108,7 @@
     margin-right: 20px;
     border-radius: 50px;
     &-active{
-      background-color: #34dacc;
+      background-color: #5dccc3;
     }
   }
   

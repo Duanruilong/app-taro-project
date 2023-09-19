@@ -64,6 +64,9 @@
 
 
 .index_top{
+  &-more{
+    margin-top: 20px;
+  }
   
   &-tit {
       font-weight: 700;

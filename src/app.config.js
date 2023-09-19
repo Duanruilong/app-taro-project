@@ -9,7 +9,7 @@
 // eslint-disable-next-line no-undef
 export default defineAppConfig({
   pages: [
-    // 'pages/guide/index',
+    'pages/guide/index',
     'pages/index/index',
     'pages/search/index',
     'pages/list/index',

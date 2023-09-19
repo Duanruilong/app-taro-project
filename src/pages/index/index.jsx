@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-07 10:23:06
+ * @LastEditTime: 2023-09-19 16:41:34
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -120,18 +120,18 @@ const Index = () => {
 
   const showImgUrl = (values) => {
     if (values === 0) {
-      return banner1;
+      return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner1.jpg';
     }
     if (values === 1) {
-      return banner2;
+      return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner2.jpg';
     }
     if (values === 2) {
-      return banner3;
+      return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner3.jpg';
     }
     if (values === 3) {
-      return banner4;
+      return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner4.jpg';
     }
-    return banner1;
+    return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner1.jpg';
   };
 
   const renderList = (data) => {
@@ -236,6 +236,14 @@ const Index = () => {
         )}
       </View>
 
+     
+      <YTitleTask
+        showIcon={false}
+        className="index_top-tas"
+        title={<View className="index_top-tit">特色服务 </View>}
+      />
+      <ServiceTab />
+
       {current.hideInfo && (
         <View className="index_top-more">
           <LoginMore
@@ -247,12 +255,6 @@ const Index = () => {
         </View>
       )}
 
-      <YTitleTask
-        showIcon={false}
-        className="index_top-tas"
-        title={<View className="index_top-tit">特色服务 </View>}
-      />
-      <ServiceTab />
       <YTitleTask
         style={{ marginTop: 10 }}
         showIcon={false}

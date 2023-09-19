@@ -103,15 +103,15 @@ Modify the following configuration items for package and publish your app.
 
 ```yml
 env:
-  APP_ID: com.taro.demo # Application Product Bundle Identifier
+  APP_ID: com.ytzq # Application Product Bundle Identifier
   APP_NAME: Taro Demo # The Display Name of your app
   VERSION_NUMBER: 1.0.0 # Application version number
   BUILD_NUMBER: 1.0.0.0 # Application build number, used by release only.
-  TEAM_ID: XXXXXXXXXX # Team ID, is used when upgrading project
-  PROVISIONING_PROFILE_SPECIFIER: Product_profile # Provisioning profile name to use for code signing
+  TEAM_ID: fanxin.com # Team ID, is used when upgrading project
+  PROVISIONING_PROFILE_SPECIFIER: taroDemo # Provisioning profile name to use for code signing
   CODE_SIGN_IDENTITY: iPhone Distribution # Code signing identity type (iPhone Developer, iPhone Distribution)
   SIGNING_CERTIFICATE_P12_DATA: ${{secrets.RELEASE_SIGNING_CERTIFICATE_P12_DATA}}
-  SIGNING_CERTIFICATE_PASSWORD: ${{secrets.RELEASE_SIGNING_CERTIFICATE_PASSWORD}}
+  SIGNING_CERTIFICATE_PASSWORD: ${{secrets.RELEASE_SIGNING_CERTIFICATE_PASSWORD}} #ytzqapp
   PROVISIONING_PROFILE_DATA: ${{secrets.RELEASE_PROVISIONING_PROFILE_DATA}}
   APP_STORE_CONNECT_USERNAME: ${{secrets.APP_STORE_CONNECT_USERNAME}} # This secret should be set to the Apple ID of your developer account, used by release only.
   APP_STORE_CONNECT_PASSWORD: ${{secrets.APP_STORE_CONNECT_PASSWORD}} # used by release only.
