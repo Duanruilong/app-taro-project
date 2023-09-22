@@ -2,14 +2,14 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-13 17:21:32
+ * @LastEditTime: 2023-09-21 15:20:19
  * @Description: 政策详情
  */
 
 import Base64 from "base-64";
 import Taro, { Current } from "@tarojs/taro";
 import { useState, useEffect, useRef } from "react";
-import { View, Image, WebView } from "@tarojs/components";
+import { View, Image, WebView,RichText } from "@tarojs/components";
 import YButton from "@/components/YButton";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
@@ -96,6 +96,7 @@ const PolicyDetail = () => {
   };
 
   console.log("data :>> ", data);
+  const rat=`<h1>一、增值税小规模纳税人月销售额10 万元以下免征增值税政策</h1><img ossid=\"rc-upload-1695267995106-4\" src=\"https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/rc-upload-1695267995106-4.png\"><img ossid=\"rc-upload-1695267995106-7\" src=\"https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/rc-upload-1695267995106-7.png\"><img ossid=\"rc-upload-1695267995106-9\" src=\"https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/rc-upload-1695267995106-9.png\"><p><br></p>`
   return (
     <View className="policy">
       <View className="policy_cent-title">{data?.title}</View>
@@ -145,45 +146,39 @@ const PolicyDetail = () => {
           })}
         </View>
       )}
-
-      {/* <View
-        className="policy_cent-cont"
-        onClick={() => {
-          // cliLook(data);
-          Taro.setClipboardData({
-            data: data?.pdf,
-          });
-        }}
-      >
-        * 具体内容下载附件查看，如果下载附件失败可点击
-        <Text className="policy_cent-cont-t"> &nbsp;复制附件地址</Text>
-        ，打开浏览器下载查看附件
-      </View> */}
-      {showL ? (
-        <View className={"policy_cent-load"}>
-          <Image
-            className={"policy_cent-load-img"}
-            src={require("@/components/YListView/loading4.gif")}
-            mode="aspectFill"
-          />
-          资源加载中...
-        </View>
-      ) : (
-        <WebView
-          style={{ height: windowHeight - webHeight(), width: 350 }}
-          src={
-            `https://ysxz.yqybarter.com:8035/onlinePreview?url=` +
-            encodeURIComponent(Base64.encode(data?.pdf))
-          }
-        />
-      )}
+      
+      <RichText  style={{ padding:10 }} nodes={data?.content} />
+        {/* 在线预览 */}
+        {/* 
+          {showL ? (
+            <View className={"policy_cent-load"}>
+              <Image
+                className={"policy_cent-load-img"}
+                src={require("@/components/YListView/loading4.gif")}
+                mode="aspectFill"
+              />
+              资源加载中...
+            </View>
+          ) : (
+            <WebView
+              style={{ height: windowHeight - webHeight(), width: 350 }}
+              src={
+                `https://ysxz.yqybarter.com:8035/onlinePreview?url=` +
+                encodeURIComponent(Base64.encode(data?.pdf))
+              }
+            />
+          )}
+       */}
       {/* 下载附件 */}
+       {/*
       {shWebView && (
         <WebView
           src={decodeURIComponent(shWebView)}
           // style={{ height: windowHeight - 220, width: 350 }}
         />
       )}
+       */}
+
     </View>
   );
 };

@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-19 16:41:34
+ * @LastEditTime: 2023-09-21 10:22:29
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -63,7 +63,7 @@ const Index = () => {
 
   useEffect(() => {
     // TODOO:
-    // Taro.clearStorage(); //清理本地数据缓存
+    Taro.clearStorage(); //清理本地数据缓存
     // Taro.setStorage({
     //   key: `userInfo`,
     //   data: {
@@ -242,7 +242,7 @@ const Index = () => {
         className="index_top-tas"
         title={<View className="index_top-tit">特色服务 </View>}
       />
-      <ServiceTab />
+      <ServiceTab current={current} />
 
       {current.hideInfo && (
         <View className="index_top-more">
@@ -306,6 +306,7 @@ const TagTab = (props) => {
 };
 
 const ServiceTab = (props) => {
+  const {current}=props
   const serData = [
     {
       title: "法律服务",
@@ -332,6 +333,7 @@ const ServiceTab = (props) => {
   // 打开微信客服
   const onOpenCustomer = async (values) => {
     console.log("打开微信客服 :>> ", values);
+   
     toast("正在打开微信客服，请稍等...");
     Taro.navigateTo({
       url: `/pagesWork/webView/index?key=${values.key}`,
@@ -358,7 +360,12 @@ const ServiceTab = (props) => {
                   : ""
               }
               onClick={() => {
-                onOpenCustomer(item);
+                if (current.hideInfo) {
+                  toast("注册登录查看更多");
+                  return;
+                }else{
+                  onOpenCustomer(item);
+                }
               }}
             >
               <Image className="index_sev-item-img" src={item.img} alt="" />

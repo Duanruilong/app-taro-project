@@ -2,7 +2,7 @@
  * @Author: Drlong drl1210@163.com
  * @Date: 2023-08-09 10:53:12
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-13 17:20:04
+ * @LastEditTime: 2023-09-22 16:03:06
  * @FilePath: \app-taro-project\src\app.config.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,12 +12,14 @@ export default defineAppConfig({
     'pages/guide/index',
     'pages/index/index',
     'pages/search/index',
+    'pages/enterprise/index',
     'pages/list/index',
     'pages/user/index',
     "pages/login/index",
     "pages/sign/index",
     "pages/question/index",
     "pages/policyDetail/index",
+    "pages/enterDetail/index",
     // "follow/index",
     // "apply/index",
     // "history/index",
@@ -64,6 +66,12 @@ export default defineAppConfig({
         text: "政策",
         iconPath: "assets/search.png",
         selectedIconPath: "assets/search_sel.png"
+      },
+      {
+        pagePath: "pages/enterprise/index",
+        text: "企业",
+        iconPath: "assets/enterprise.png",
+        selectedIconPath: "assets/enterprise_sel.png"
       },
       {
         pagePath: "pages/list/index",

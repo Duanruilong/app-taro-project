@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-07 15:42:39
+ * @LastEditTime: 2023-09-21 10:26:38
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -158,6 +158,10 @@ const User = () => {
     if (type === "logout") {
       loginOutHandler();
     } else if (type === "question") {
+      if (current.hideInfo) {
+        toast("注册登录查看更多");
+        return;
+      }
       Taro.navigateTo({
         url: `/pages/question/index?type=feed`,
       });
@@ -169,6 +173,7 @@ const User = () => {
   // 打开微信客服
   const onOpenCustomer = async (values) => {
     console.log("打开微信客服 :>> ", values);
+    
     toast("正在打开微信客服，请稍等...");
     Taro.navigateTo({
       url: `/pagesWork/webView/index?key=${values.key}`,
@@ -181,6 +186,7 @@ const User = () => {
         className="user_top"
         onClick={() => {
           if (current.hideInfo) {
+            toast("注册登录查看更多");
             return;
           }
           Taro.navigateTo({
@@ -214,6 +220,7 @@ const User = () => {
                   className="user_top_list-item"
                   onClick={() => {
                     if (current.hideInfo) {
+                      toast("注册登录查看更多");
                       return;
                     }
                     Taro.navigateTo({
@@ -258,7 +265,12 @@ const User = () => {
               key={item.title}
               className="user_ser-item"
               onClick={() => {
-                onOpenCustomer(item);
+                if (current.hideInfo) {
+                  toast("注册登录查看更多");
+                  return;
+                }else{
+                  onOpenCustomer(item);
+                }
               }}
             >
               <Image className="user_ser-item-img" src={item.img} alt="" />
