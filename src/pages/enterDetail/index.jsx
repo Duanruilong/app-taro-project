@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-25 16:40:01
+ * @LastEditTime: 2023-09-25 17:28:08
  * @Description: 企业信息详情
  */
 
@@ -192,14 +192,14 @@ const EnterDetail = () => {
                     {item?.quota || "暂无信息"}
                   </View>
                 </View>
-                {/* <View className="enterDet_personnel-list">
+                <View className="enterDet_personnel-list">
                   <View className="enterDet_personnel-list-info">
                     认缴出资日期
                   </View>
                   <View className="enterDet_personnel-list-item">
-                    {data?.ddd || "暂无信息"}
+                    {item?.date || "暂无信息"}
                   </View>
-                </View> */}
+                </View>
               </View>
             </View>
           );
