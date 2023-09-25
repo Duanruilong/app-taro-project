@@ -2,11 +2,11 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-22 17:51:30
+ * @LastEditTime: 2023-09-25 17:20:09
  * @Description: 企业信息查询
  */
 import { useState, useRef, useEffect } from "react";
-import Taro from "@tarojs/taro";
+import Taro,{ useDidShow } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import YInputSearch from "@/components/YInputSearch";
 // import YButton from "@/components/YButton";
@@ -16,7 +16,7 @@ import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
 import listIMG from "@/assets/policy3.png";
 import { USER_DEFAULT_ID } from "@/constants";
-import { getList, getFollow } from "./service";
+import { getList } from "./service";
 import "./index.scss";
 
 const EnterprisePage = () => {
@@ -33,7 +33,12 @@ const EnterprisePage = () => {
     });
   };
 
-  useEffect(() => {
+  // useEffect(() => {
+    
+  // }, []);
+
+
+  useDidShow(() => {
     getStorageData("userInfo")
       .then((values) => {
         console.log("userInfo :>> ", values);
@@ -52,7 +57,7 @@ const EnterprisePage = () => {
         current.hideInfo = true;
         current.infoData = { user_id: USER_DEFAULT_ID };
       });
-  }, []);
+  });
 
   const onChange = (values) => {
     console.log("onChange :>> ", values);
@@ -83,22 +88,7 @@ const EnterprisePage = () => {
     const searchPageValue = values.detail?.value || undefined;
     onSearchGoods(searchPageValue);
   };
-
-  const cliTip = (values) => {
-    if (values?.follow && values.follow === 1) {
-      toast("已关注关注该政策!");
-      return;
-    }
-    getFollow({
-      user_id: current.infoData?.user_id,
-      policy_id: values?.policy_id,
-    })
-      .then(() => {
-        toast("关注该政策成功!");
-        onClearClick();
-      })
-      .catch(() => {});
-  };
+ 
 
   const onEditData = async (values) => {
     await Taro.setStorage({
@@ -121,7 +111,7 @@ const EnterprisePage = () => {
       return records.map((item, index) => {
         return (
           <View
-            key={Date.now() + index}
+            key={Date.now() + index+1}
             className="enterprise_list-item"
             onClick={() => {
               onEditData(item);
@@ -132,46 +122,27 @@ const EnterprisePage = () => {
                 {item.enterprise_name || "XXX有限公司"}
               </View>
               <View className="enterprise_list-item-cont-info">
-                企业法人：{item.juridical_person}
+                企业法人：{item.juridical_person||'暂无'}
               </View>
               <View className="enterprise_list-item-cont-info">
-                企业注册资本：{item.enterprise_register_capital}
+                企业注册资本：{item.enterprise_register_capital||'暂无'}
               </View>
               <View className="enterprise_list-item-cont-info">
-                企业注册时间：{item.enterprise_register_time}
+                企业注册时间：{item.enterprise_register_time||'暂无'}
               </View>
               <View className="enterprise_list-item-cont-tag_list">
-              {item?.tag.split(",").map((item) => {
+              {item?.tag.split(",").map((news) => {
                 return (
-                  <View key={item} className="enterprise_list-item-cont-tags">
-                    {item}
+                  <View key={Date.now() + news} className="enterprise_list-item-cont-tags">
+                    {news}
                   </View>
                 );
               })}
               </View>
-             
-             
             </View>
             <View className="enterprise_list-item-img">
               <Image className="enterprise_list-item-img-cont" src={listIMG} />
             </View>
-            {!current.hideInfo && (
-              <View
-                className="enterprise_list-item-follow"
-                onClick={() => {
-                  cliTip(item);
-                }}
-              >
-                <Image
-                  className="enterprise_list-item-follow-img"
-                  src={
-                    item?.follow && item.follow === 1
-                      ? require("@/assets/follow_yes.png")
-                      : require("@/assets/follow_no.png")
-                  }
-                />
-              </View>
-            )}
           </View>
         );
       });

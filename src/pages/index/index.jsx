@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-21 10:22:29
+ * @LastEditTime: 2023-09-25 16:04:51
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -120,18 +120,18 @@ const Index = () => {
 
   const showImgUrl = (values) => {
     if (values === 0) {
-      return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner1.jpg';
+      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner1.jpg";
     }
     if (values === 1) {
-      return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner2.jpg';
+      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner2.jpg";
     }
     if (values === 2) {
-      return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner3.jpg';
+      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner3.jpg";
     }
     if (values === 3) {
-      return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner4.jpg';
+      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner4.jpg";
     }
-    return 'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner1.jpg';
+    return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner1.jpg";
   };
 
   const renderList = (data) => {
@@ -157,13 +157,11 @@ const Index = () => {
                   <View className="index_list_list-item-cent-title">
                     {item.title}
                   </View>
-                  {
-                    item.tags&&
-                  
-                  <View className="index_list_list-item-cent-tags">
-                    {item.tags}
-                  </View>
-                  }
+                  {item.tags && (
+                    <View className="index_list_list-item-cent-tags">
+                      {item.tags}
+                    </View>
+                  )}
                   <View className="index_list_list-item-cent-info">
                     {item.create_time}
                   </View>
@@ -212,18 +210,19 @@ const Index = () => {
                     />
                     <View className="index_banner-item-text">
                       <View className="index_banner-item-tit">
-                        {item.title}
+                        {item.title.slice(0,20)}
+                        {item.title.length>19?'...':''}
                       </View>
                       <View className="index_banner-item-info">
                         {item?.create_time}
                       </View>
                     </View>
                     <View className="index_banner-item-new">
-                      <Image
+                      {/* <Image
                         className="index_banner-item-new-img"
                         src={require("@/assets/new.png")}
                         alt="最新发布"
-                      />
+                      /> */}
                       <View className="index_banner-item-new-text">
                         最新发布
                       </View>
@@ -236,7 +235,6 @@ const Index = () => {
         )}
       </View>
 
-     
       <YTitleTask
         showIcon={false}
         className="index_top-tas"
@@ -306,7 +304,7 @@ const TagTab = (props) => {
 };
 
 const ServiceTab = (props) => {
-  const {current}=props
+  const { current } = props;
   const serData = [
     {
       title: "法律服务",
@@ -333,7 +331,7 @@ const ServiceTab = (props) => {
   // 打开微信客服
   const onOpenCustomer = async (values) => {
     console.log("打开微信客服 :>> ", values);
-   
+
     toast("正在打开微信客服，请稍等...");
     Taro.navigateTo({
       url: `/pagesWork/webView/index?key=${values.key}`,
@@ -363,7 +361,7 @@ const ServiceTab = (props) => {
                 if (current.hideInfo) {
                   toast("注册登录查看更多");
                   return;
-                }else{
+                } else {
                   onOpenCustomer(item);
                 }
               }}

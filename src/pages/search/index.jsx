@@ -2,11 +2,11 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-06 15:17:55
+ * @LastEditTime: 2023-09-25 16:08:50
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
-import Taro from "@tarojs/taro";
+import Taro,{useDidShow} from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import YInputSearch from "@/components/YInputSearch";
 // import YButton from "@/components/YButton";
@@ -33,7 +33,11 @@ const SearchPage = () => {
     });
   };
 
-  useEffect(() => {
+  // useEffect(() => {
+   
+  // }, []);
+
+  useDidShow(() => {
     getStorageData("userInfo").then((values) => {
       console.log('userInfo :>> ', values);
       let userData = {};
@@ -49,7 +53,8 @@ const SearchPage = () => {
       current.hideInfo = true;
       current.infoData = {user_id:USER_DEFAULT_ID};
     });
-  }, []);
+  });
+
 
   const onChange = (values) => {
     console.log("onChange :>> ", values);

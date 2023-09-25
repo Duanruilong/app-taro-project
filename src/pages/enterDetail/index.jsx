@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-22 17:42:04
+ * @LastEditTime: 2023-09-25 16:40:01
  * @Description: 企业信息详情
  */
 
@@ -72,9 +72,9 @@ const EnterDetail = () => {
       <View className="enterDet_top">
         <View className="enterDet_top-title">
           {data?.enterprise_name || "xxx有限公司"}
-          <View className="enterDet_top-type">续存</View>
+          {data?.operate_state && <View className="enterDet_top-type">{data?.operate_state}</View>}
         </View>
-        <View className="enterDet_top-tag">
+        {/* <View className="enterDet_top-tag">
           {data?.tag.split(",").map((item) => {
             return (
               <View key={item} className="enterDet_top-tag-item">
@@ -82,23 +82,26 @@ const EnterDetail = () => {
               </View>
             );
           })}
-        </View>
+        </View> */}
         <View className="enterDet_top-tag">
-          {data?.tag.split(",").map((item) => {
-            return (
-              <View key={item} className="enterDet_top-tag-items">
-                {item}
-              </View>
-            );
-          })}
+          {data?.tag &&
+            data?.tag.split(",").map((item) => {
+              return (
+                <View key={item} className="enterDet_top-tag-items">
+                  {item}
+                </View>
+              );
+            })}
         </View>
         <View className="enterDet_top-brief">
           <View className="enterDet_top-brief-info">简介：</View>
-          <View className="enterDet_top-brief-item">{mock || "暂无信息"}</View>
+          <View className="enterDet_top-brief-item">{data?.introduction || "暂无信息"}</View>
         </View>
         <View className="enterDet_top-brief">
           <View className="enterDet_top-brief-info">经营范围：</View>
-          <View className="enterDet_top-brief-item">{mock || "暂无信息"}</View>
+          <View className="enterDet_top-brief-item">
+            {data?.scope || "暂无信息"}
+          </View>
         </View>
       </View>
       {/* time */}
@@ -147,7 +150,7 @@ const EnterDetail = () => {
       {/* 股东信息 */}
       <View className="enterDet_personnel">
         <View className="enterDet_personnel-title">工商股东信息</View>
-        {data?.shareholder.split(";").map((item, index) => {
+        {!isEmpty(data?.shareholder)  ? data?.shareholder.map((item, index) => {
           return (
             <View key={item} className="enterDet_personnel-box">
               <View className="enterDet_personnel-cent">
@@ -155,11 +158,11 @@ const EnterDetail = () => {
                   className="enterDet_personnel-cent-logo"
                   style={{ backgroundColor: ColoData[index > 5 ? 2 : index] }}
                 >
-                  {item.split(",")[0].slice(0, 1) || "企"}
+                  {item.name.slice(0, 1) || "企"}
                 </View>
                 <View className="enterDet_personnel-cent-title">
-                  {item.split(",")[0] || "暂无信息"}
-                  {true && (
+                  {item.name || "暂无信息"}
+                  {false && (
                     <View className="enterDet_personnel-cent-tag">大股东</View>
                   )}
                 </View>
@@ -168,7 +171,7 @@ const EnterDetail = () => {
                 <View className="enterDet_personnel-list">
                   <View className="enterDet_personnel-list-info">持股比例</View>
                   <View className="enterDet_personnel-list-item">
-                    {data?.ddd || "暂无信息"}
+                    {item?.ratio || "暂无信息"}
                   </View>
                 </View>
                 <View className="enterDet_personnel-list">
@@ -176,7 +179,7 @@ const EnterDetail = () => {
                     工商股东类型
                   </View>
                   <View className="enterDet_personnel-list-item">
-                    {data?.ddd || "暂无信息"}
+                    {item?.type || "暂无信息"}
                   </View>
                 </View>
               </View>
@@ -186,21 +189,31 @@ const EnterDetail = () => {
                     认缴出资额
                   </View>
                   <View className="enterDet_personnel-list-item">
-                    {data?.ddd || "暂无信息"}
+                    {item?.quota || "暂无信息"}
                   </View>
                 </View>
-                <View className="enterDet_personnel-list">
+                {/* <View className="enterDet_personnel-list">
                   <View className="enterDet_personnel-list-info">
                     认缴出资日期
                   </View>
                   <View className="enterDet_personnel-list-item">
                     {data?.ddd || "暂无信息"}
                   </View>
-                </View>
+                </View> */}
               </View>
             </View>
           );
-        })}
+        }):<View className="enterDet_personnel-cent" style={{marginTop:10}}>
+        <View
+          className="enterDet_personnel-cent-logo"
+          style={{ backgroundColor: ColoData[3] }}
+        >
+          企
+        </View>
+        <View className="enterDet_personnel-cent-title">
+          暂无信息
+        </View>
+      </View>}
       </View>
       {/* 主要人员 */}
       <View className="enterDet_personnel">
@@ -222,14 +235,16 @@ const EnterDetail = () => {
                     {item.split(",")[0] || "暂无信息"}
                   </View>
                   <View className="enterDet_personnel-cent-tags">
-                    {true && (
+                    {false && (
                       <View className="enterDet_personnel-cent-tag">
                         大股东
                       </View>
                     )}
-                    <View className="enterDet_personnel-cent-tag enterDet_personnel-cent-tag1">
-                      疑似实控人
-                    </View>
+                    {false && (
+                      <View className="enterDet_personnel-cent-tag enterDet_personnel-cent-tag1">
+                        疑似实控人
+                      </View>
+                    )}
                   </View>
                   <View className="enterDet_personnel-cent-info">
                     {item.split(",")[1]}

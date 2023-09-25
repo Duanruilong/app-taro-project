@@ -25,9 +25,10 @@
   }
   &-type {
     font-size: 24px;
-    color: #66e99a;
-    border: 0px solid #d6d5d5;
-    border-radius: 20px;
+    color: #c41d7f;
+    background-color: #fff0f6;
+    border: 0px solid #ffadd2;
+    border-radius: 12px;
     padding: 4px 20px;
     border-width: 2px;
     margin-left: 20px;
@@ -127,7 +128,7 @@
   }
 
   &-title{
-    font-size: 26px;
+    font-size: 28px;
     color: #000000;
     font-weight: 700;
     margin-top: 24px;
@@ -151,7 +152,7 @@
 
     }
     &-title{
-      font-size: 24px;
+      font-size: 28px;
       color: #000000;
       font-weight: 700;
     }
@@ -202,7 +203,8 @@
       margin-bottom: 2px;
     }
     &-item{
-      font-size: 26px;
+      font-size: 28px;
+      padding-left: 10px;
       color: #000000;
       font-weight: 700;
       display: flex;

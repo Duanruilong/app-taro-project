@@ -11,18 +11,15 @@ const { get } = new http("user");
 
 // 最新
 export function getNewList(params) {
-  return get("/policy_new", params, {loading:false
-  });
+  return get("/policy_new", params, { loading: false });
 }
 
 // 与我相关
 export function getOrderPay(params) {
-  return get("/policy_about", params, {loading:false
-  });
+  return get("/policy_about", params, { loading: false });
 }
 
 // getOrderChange
 export function getOrderChange(params) {
-  return get("/steamer_change", params, {loading:false
-  });
+  return get("/steamer_change", params, { loading: false });
 }
