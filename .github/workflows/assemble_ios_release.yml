@@ -4,7 +4,7 @@ name: Assemble Ios Release
 # 触发工作流程的事件
 on:
   push:
-    branches: [ dev ]
+    # branches: [ dev ]
     tags: [ v* ]
   pull_request:
     branches: [ dev ]
