@@ -6,7 +6,7 @@
  * @Description: 消息通知
  */
 import { useState, useRef, useEffect } from "react";
-import Taro from "@tarojs/taro";
+import Taro,{useDidShow} from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
 import TMask from "@/components/tinker/TMask";
 import YNoData from "@/components/YNoData";
@@ -31,7 +31,7 @@ const List = () => {
     });
   };
 
-  useEffect(() => {
+  useDidShow(() => {
     getStorageData("userInfo")
       .then((values) => {
         let userData = {};

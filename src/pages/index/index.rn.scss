@@ -1,8 +1,22 @@
 
 
 .index_banner{
+  position: relative;
+  &-top{
+    position: absolute;
+    top: 80px;
+    left: 40px;
+    // margin-left: -60px;
+    font-size: 38px;
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
   &-swipe{
-    height: 300px;
+    height: 460px;
     width: 100%;
   }
   &-img{
@@ -10,14 +24,14 @@
   }
   &-item{
     position: relative;
-    height: 300px;
+    height: 470px;
     width: 100%;
   
 
     &-new{
       position: absolute;
-      top: 0px;
-      left: 20px;
+      top: 130px;
+      right: 30px;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -30,11 +44,12 @@
         background-color: #d81e06;
         font-size: 26px;
         color: #fff;
-        // font-weight: 700;
+        font-weight: 700;
         margin-left: 12px;
-        padding: 8px 12px;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        // border-bottom-left-radius: 10px;
+        // border-bottom-right-radius: 10px;
       }
     }
     &-text{
@@ -80,9 +95,9 @@
       font-size: 30px;
       color: $color-text;
       border: 0 solid $color-brand;
-      border-left-width: 8px;
-      padding-left: 20px;
-      padding-top: 6px;
+      border-left-width: 6px;
+      padding-left: 10px;
+      // padding-top: 6px;
       // padding-bottom: 6px;
   }
 

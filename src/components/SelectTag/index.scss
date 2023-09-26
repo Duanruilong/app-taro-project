@@ -127,9 +127,9 @@
   justify-content: center;
   padding: 20px 20px;
   background-color: #fff;
-  width: 90%;
-  height: 70%;
-  margin-bottom: 200px;
+  width: 92%;
+  height: 75%;
+  margin-top: -200px;
   border-radius: 32px;
   position: relative;
 
@@ -147,14 +147,14 @@
     font-weight: 700;
     text-align: center;
     margin: 20px auto 30px;
+    color: #000000;
   }
 
   &-scroll{
-    background-color: #f1f1f1;
+    background-color: #f3f3f3;
     border-radius: 20px;
-    margin-top: 20px;
+    margin-top: 12px;
     width: 100%;
-    
   }
 
   &-list{
@@ -163,24 +163,27 @@
     align-items: center;
     justify-content: flex-start;
     flex-wrap: wrap;
-    margin-top: 20px;
-    padding: 0 30px;
+    margin-top: 12px;
+    padding: 0 12px;
     width: 100%;
   }
 
   &-item{
-    margin-right: 30px;
-    margin-bottom: 20px;
-    background-color: #4fc08d;
-    border-radius: 24px;
-    padding: 9px 20px;
+    margin-right: 12px;
+    margin-bottom: 10px;
+    background-color: #08979c;
+    // background-color: #e6fffb;
+    border: 0px solid #87e8de;
+    border-width: 1px;
+    border-radius: 12px;
+    padding: 6px 20px;
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: flex-start;
     &-text {
       font-size: 24px;
-      color: #ffffff;
+      color: #e6fffb;
     }
 
     &-img {
@@ -190,10 +193,17 @@
     }
   }
   &-select{
-    background-color: #3460fa;
+    background-color: #e6f4ff;
+    border: 0px solid #87b7fa;
+    border-width: 1px;
+    padding: 6px 20px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    &-text {
+      font-size: 24px;
+      color: #1677ff;
+    }
   }
 
 

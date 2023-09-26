@@ -2,11 +2,11 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-25 16:04:51
+ * @LastEditTime: 2023-09-26 15:54:13
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
-import Taro from "@tarojs/taro";
+import Taro,{useDidShow} from "@tarojs/taro";
 import {
   View,
   Image,
@@ -21,10 +21,6 @@ import LoginMore from "@/components/LoginMore";
 import { toast } from "@/utils/tools";
 import { getStorageData, isEmpty } from "@/utils/utils";
 // import { loginOutHandler } from "@/utils/loginHandler";
-import banner1 from "@/assets/banner1.jpg";
-import banner2 from "@/assets/banner2.jpg";
-import banner3 from "@/assets/banner3.jpg";
-import banner4 from "@/assets/banner4.jpg";
 import { USER_DEFAULT_ID, USER_DEFAULT_TAG } from "@/constants";
 import { getNewList, getOrderPay } from "./service";
 import "./index.scss";
@@ -61,9 +57,9 @@ const Index = () => {
       .catch(() => {});
   };
 
-  useEffect(() => {
+  useDidShow(() => {
     // TODOO:
-    Taro.clearStorage(); //清理本地数据缓存
+    // Taro.clearStorage(); //清理本地数据缓存
     // Taro.setStorage({
     //   key: `userInfo`,
     //   data: {
@@ -75,6 +71,8 @@ const Index = () => {
     //     user_name: "云通政企有限公司",
     //   },
     // });
+    // TODOO: end
+
 
     getStorageData("userInfo")
       .then((values) => {
@@ -120,18 +118,18 @@ const Index = () => {
 
   const showImgUrl = (values) => {
     if (values === 0) {
-      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner1.jpg";
-    }
-    if (values === 1) {
-      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner2.jpg";
-    }
-    if (values === 2) {
-      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner3.jpg";
-    }
-    if (values === 3) {
       return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner4.jpg";
     }
-    return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner1.jpg";
+    if (values === 1) {
+      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner3.jpg";
+    }
+    if (values === 2) {
+      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner2.jpg";
+    }
+    if (values === 3) {
+      return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner1.jpg";
+    }
+    return "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/banner4.jpg";
   };
 
   const renderList = (data) => {
@@ -182,7 +180,8 @@ const Index = () => {
 
   return (
     <View className="index">
-      <View className="index_banner" style={{ height: 160 }}>
+      <View className="index_banner" style={{ height: 230 }}>
+      
         {swiperList && swiperList.length > 0 && (
           <Swiper
             className="index_banner-swipe"
@@ -218,11 +217,6 @@ const Index = () => {
                       </View>
                     </View>
                     <View className="index_banner-item-new">
-                      {/* <Image
-                        className="index_banner-item-new-img"
-                        src={require("@/assets/new.png")}
-                        alt="最新发布"
-                      /> */}
                       <View className="index_banner-item-new-text">
                         最新发布
                       </View>
@@ -233,8 +227,12 @@ const Index = () => {
             })}
           </Swiper>
         )}
-      </View>
 
+        <View className="index_banner-top">
+          云通政企
+        </View>
+      </View>
+      
       <YTitleTask
         showIcon={false}
         className="index_top-tas"

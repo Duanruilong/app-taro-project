@@ -69,18 +69,21 @@
             }
           }
           &-item{
-            margin-right: 30px;
-            margin-bottom: 20px;
-            background-color: #4fc08d;
-            border-radius: 24px;
-            padding: 9px 20px;
+            margin-right: 10px;
+            margin-bottom: 12px;
+            background-color: #08979c;
+            // background-color: #e6fffb;
+            border: 0px solid #87e8de;
+            border-width: 1px;
+            border-radius: 12px;
+            padding: 6px 18px;
             display: flex;
             align-items: center;
             flex-direction: row;
             justify-content: flex-start;
             &-text {
               font-size: 24px;
-              color: #ffffff;
+              color: #e6fffb;
             }
         
             &-img {

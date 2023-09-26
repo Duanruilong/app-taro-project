@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 17:40:12
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-18 15:57:22
+ * @LastEditTime: 2023-09-26 15:21:29
  * @Description: SelectTag
  */
 import { useState, useRef, useEffect } from "react";
@@ -85,7 +85,7 @@ const SelectTag = (props) => {
           <YTitleBorder title="已选择：" />
           <ScrollView
             className="select_tag_popup-scroll"
-            style={{ height: 50 }}
+            style={{ height: 110 }}
             scrollY
             scrollWithAnimation
           >
@@ -115,7 +115,7 @@ const SelectTag = (props) => {
           <YTitleBorder title="选择数据：" />
           <ScrollView
             className="select_tag_popup-scroll"
-            style={{ height: 200 }}
+            style={{ height: 120 }}
             scrollY
             scrollWithAnimation
           >
@@ -128,7 +128,7 @@ const SelectTag = (props) => {
                       key={index}
                       onClick={() => onPopClick(item)}
                     >
-                      <View className="select_tag_popup-item-text">{item}</View>
+                      <View className="select_tag_popup-select-text">{item}</View>
                     </View>
                   );
                 })

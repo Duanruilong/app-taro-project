@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-25 16:13:14
+ * @LastEditTime: 2023-09-26 11:38:51
  * @Description: 政策详情
  */
 
@@ -14,6 +14,7 @@ import YButton from "@/components/YButton";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
 import { USER_DEFAULT_ID } from "@/constants";
+import ApplyModal from "./ApplyModal";
 import { getInfo, getApply } from "./service";
 import "./index.scss";
 
@@ -29,6 +30,7 @@ const PolicyDetail = () => {
   const [data, setData] = useState();
   const [showL, setShowL] = useState(true);
   const [shWebView, setShWebView] = useState();
+  const [modalAdd, setModalAdd] = useState(false);
 
   useEffect(() => {
     getStorageData("userInfo")
@@ -64,6 +66,7 @@ const PolicyDetail = () => {
     getApply({ user_id: current.infoData?.user_id, policy_id: data?.policy_id })
       .then(() => {
         toast("申请政策成功！");
+        setModalAdd(false);
       })
       .catch(() => {});
   };
@@ -108,7 +111,7 @@ const PolicyDetail = () => {
               yType="primary"
               disabled={params?.type === "dis"}
               onClick={() => {
-                cliTip();
+                setModalAdd(true);
               }}
             >
               <View className="policy_cent-but-t">申 请</View>
@@ -116,7 +119,7 @@ const PolicyDetail = () => {
           </View>
         )}
       </View>
-      {data?.pdf && (
+      {!current.hideInfo && data?.pdf && (
         <View className="policy_cent-clik">
           {(data?.pdf).split(",").map((item, index) => {
             return (
@@ -145,7 +148,7 @@ const PolicyDetail = () => {
           })}
         </View>
       )}
-      {data?.annex && (
+      {!current.hideInfo && data?.annex && (
         <View className="policy_cent-clik">
           {(data?.annex).split(",").map((item, index) => {
             return (
@@ -209,6 +212,16 @@ const PolicyDetail = () => {
         <WebView
           src={decodeURIComponent(shWebView)}
           // style={{ height: windowHeight - 220, width: 350 }}
+        />
+      )}
+      {/* 申请弹窗 */}
+      {modalAdd && (
+        <ApplyModal
+          data={data}
+          onConfirm={() => {cliTip()}}
+          onClose={() => {
+            setModalAdd(false);
+          }}
         />
       )}
     </View>
