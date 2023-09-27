@@ -8,10 +8,11 @@
   position: relative;
 }
 
-.enterDet_top{
+.enterDet_top {
   background-color: #ffffff;
   padding: 0 30px;
   width: 100%;
+
   &-title {
     font-weight: 700;
     font-size: 34px;
@@ -20,9 +21,9 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
 
   }
+
   &-type {
     font-size: 24px;
     color: #c41d7f;
@@ -33,12 +34,15 @@
     border-width: 2px;
     margin-left: 20px;
   }
-  &-tag{
+
+  &-tag {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    margin-top: 10px;
+
     &-item {
       font-size: 24px;
       color: #000000;
@@ -49,6 +53,7 @@
       margin-right: 20px;
       margin-bottom: 20px;
     }
+
     &-items {
       font-size: 24px;
       color: #08979c;
@@ -59,46 +64,51 @@
       margin-bottom: 20px;
     }
   }
-  &-brief{
+
+  &-brief {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
     font-size: 24px;
-        color: #000000;
-        margin-top: 20px;
-        margin-bottom: 24px;
-      &-info{
-        font-size: 24px;
-        color: #6d6d6d;
-        margin-bottom: 12px;
-      }
-      &-item{
-        font-size: 25px;
-        color: #000000;
-        line-height: 34px;
-      }
+    color: #000000;
+    margin-top: 10px;
+
+    &-info {
+      font-size: 24px;
+      color: #6d6d6d;
+      margin-bottom: 12px;
+    }
+
+    &-item {
+      font-size: 25px;
+      color: #000000;
+      line-height: 34px;
+    }
   }
 }
 
-.enterDet_time{
+.enterDet_time {
   background-color: #ffffff;
   padding: 0 30px;
   width: 100%;
   margin-top: 12px;
   padding-bottom: 12px;
-  &-list{
+
+  &-list {
     border: 0px solid #dddddd;
     border-bottom-width: 1px;
     padding: 22px 0;
-    &-info{
+
+    &-info {
       font-size: 26px;
       color: #5f5f5f;
       font-weight: 700;
       margin-bottom: 12px;
     }
-    &-item{
+
+    &-item {
       font-size: 26px;
       color: #000000;
       font-weight: 700;
@@ -108,37 +118,40 @@
       align-items: center;
       flex-wrap: wrap;
     }
-    &-col{
+
+    &-col {
       color: #434d8b;
     }
   }
 }
 
-.enterDet_personnel{
+.enterDet_personnel {
   background-color: #ffffff;
   padding: 0 30px;
   width: 100%;
   margin-top: 12px;
   padding-bottom: 12px;
 
-  &-box{
+  &-box {
     border: 0px solid #dddddd;
     border-bottom-width: 1px;
     padding: 20px 0 20px 0;
   }
 
-  &-title{
+  &-title {
     font-size: 28px;
     color: #000000;
     font-weight: 700;
     margin-top: 24px;
   }
-  &-cent{
+
+  &-cent {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    &-logo{
+
+    &-logo {
       width: 70px;
       height: 70px;
       background-color: #7ca4df;
@@ -151,18 +164,21 @@
       align-items: center;
 
     }
-    &-title{
+
+    &-title {
       font-size: 28px;
       color: #000000;
       font-weight: 700;
     }
-    &-tags{
+
+    &-tags {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
     }
-    &-tag{
+
+    &-tag {
       color: #007acc;
       background: #bddef5;
       border-radius: 20px;
@@ -171,38 +187,45 @@
       margin-top: 12px;
       margin-right: 12px;
     }
-    &-tag1{
+
+    &-tag1 {
       color: #e48935;
       background: #f5e4cd;
     }
-    &-tit{
+
+    &-tit {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
     }
-    &-info{
+
+    &-info {
       font-size: 20px;
       color: #5f5f5f;
       margin-top: 10px;
     }
   }
-  &-li{
+
+  &-li {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    
+
   }
-  &-list{
+
+  &-list {
     margin-top: 20px;
     width: 50%;
-    &-info{
+
+    &-info {
       font-size: 26px;
       color: #5f5f5f;
       margin-bottom: 2px;
     }
-    &-item{
+
+    &-item {
       font-size: 28px;
       padding-left: 10px;
       color: #000000;
@@ -217,5 +240,3 @@
 
 
 }
-
-
