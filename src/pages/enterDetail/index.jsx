@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-25 17:28:08
+ * @LastEditTime: 2023-09-27 10:21:02
  * @Description: 企业信息详情
  */
 
@@ -109,8 +109,7 @@ const EnterDetail = () => {
         <View className="enterDet_time-list">
           <View className="enterDet_time-list-info">营业期限</View>
           <View className="enterDet_time-list-item">
-            {data?.enterprise_register_time || "暂无"}&nbsp;至&nbsp;
-            {data?.allow_date || "无固定期限"}
+            {data?.operate_term || "暂无"}
           </View>
         </View>
         <View className="enterDet_time-list">
