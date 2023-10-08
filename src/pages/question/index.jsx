@@ -2,7 +2,7 @@
  * @Author: Drlong drl1210@163.com
  * @Date: 2023-08-10 17:56:04
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 10:57:31
+ * @LastEditTime: 2023-10-08 17:16:16
  * @FilePath: \app-taro-project\src\pages\question\index.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,7 +16,7 @@ import { toast } from "@/utils/tools";
 import { getSetQue, getFeedback } from "./service";
 import "./index.scss";
 
-const langPicker = ["未分类", "系统优化", "问题1", "问题2"];
+const langPicker = ["默认", "系统优化", "建议", "问题"];
 
 const Question = () => {
   const { current } = useRef({

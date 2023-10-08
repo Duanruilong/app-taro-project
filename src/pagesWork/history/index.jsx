@@ -2,7 +2,7 @@
  * @Author: Drlong drl1210@163.com
  * @Date: 2023-05-19 10:12:59
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-23 15:59:53
+ * @LastEditTime: 2023-10-08 17:06:04
  * @FilePath: \taro-rn-appd:\fanx\zqt-weapp\src\pages\list\index.jsx
  * @Description: HistoryPages
  */
@@ -43,7 +43,7 @@ const HistoryPages = () => {
       data: values,
     });
     Taro.navigateTo({
-      url: `/pages/policyDetail/index?type=dis`,
+      url: `/pages/policyDetail/index`,
     });
   };
 

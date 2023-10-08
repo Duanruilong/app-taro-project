@@ -2,12 +2,13 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-19 16:43:14
+ * @LastEditTime: 2023-10-07 10:33:40
  * @Description:登陆
  */
 import Taro from "@tarojs/taro";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { View, Image, Swiper, SwiperItem } from "@tarojs/components";
+import { getStorageData, isEmpty } from "@/utils/utils";
 import "./index.scss";
 
 const GuidePage = () => {
@@ -19,7 +20,26 @@ const GuidePage = () => {
     'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page3.png'
   ]
 
-  const cliLook = (values) => {
+  useEffect(() => {
+    getUserInfo()
+  }, []);
+
+  const getUserInfo = async () => {
+    const userData = await getStorageData("userInfo");
+    const userGuide = await getStorageData("userGuide");
+    console.log("userGuide :>> ", userGuide);
+    console.log("userData :>> ", userData);
+    if (isEmpty(userGuide) ||isEmpty(userData)) {
+      Taro.setStorage({
+        key: "userGuide",
+        data: true
+      });
+    } else {
+      cliLook()
+    }
+  };
+
+  const cliLook = () => {
     Taro.switchTab({
       url: `/pages/index/index`,
     });

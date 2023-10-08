@@ -10,20 +10,9 @@ import http from "@/utils/http";
 const { get } = new http("user");
 
 export function getList(params) {
-  return get("/search", params,{ loading: false });
-}
-
-export function getListNew(params) {
   return get("/new_list", params,{ loading: false });
 }
 
 
-
-// 关注
-export function getFollow(params) {
-  return get("/follow", params, {
-    loading: { title: "加载中...", mask: false }
-  });
-}
-
+ 
  

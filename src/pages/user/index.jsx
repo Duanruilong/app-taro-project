@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-21 10:26:38
+ * @LastEditTime: 2023-10-08 17:15:17
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -186,12 +186,12 @@ const User = () => {
         className="user_top"
         onClick={() => {
           if (current.hideInfo) {
-            toast("注册登录查看更多");
-            return;
+            loginOutHandler();
+          }else{
+            Taro.navigateTo({
+              url: "/pagesWork/useEdit/index",
+            });
           }
-          Taro.navigateTo({
-            url: "/pagesWork/useEdit/index",
-          });
         }}
       >
         <View className="user_top-lef">
@@ -209,7 +209,7 @@ const User = () => {
             className="user_top-edit-img"
             src={require("@/assets/edit.png")}
           />
-          <Text className="user_top-edit">编辑资料</Text>
+          <Text className="user_top-edit">编辑</Text>
         </View>
         <View className="user_top_list">
           {!isEmpty(dataCount) &&
@@ -354,6 +354,9 @@ const TopTab = (props) => {
               key={item.title}
               className="user_gut-item"
               style={index === 0 ? "marginLeft:20px" : ""}
+              onClick={() => {
+                toast("开发中，敬请期待。");
+              }}
             >
               <View className="user_gut-item-text">{item.title}</View>
               <View className="user_gut-item-info">{item.value}条内容</View>

@@ -2,21 +2,20 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-25 16:08:50
+ * @LastEditTime: 2023-10-08 16:39:46
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
-import Taro,{useDidShow} from "@tarojs/taro";
-import { View, Image } from "@tarojs/components";
+import Taro, { useDidShow } from "@tarojs/taro";
+import { View, Image,ScrollView } from "@tarojs/components";
 import YInputSearch from "@/components/YInputSearch";
-// import YButton from "@/components/YButton";
 import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
 import listIMG from "@/assets/policy2.png";
 import { USER_DEFAULT_ID } from "@/constants";
-import { getList, getFollow } from "./service";
+import { getList, getFollow,getListNew } from "./service";
 import "./index.scss";
 
 const SearchPage = () => {
@@ -25,6 +24,8 @@ const SearchPage = () => {
     infoData: "",
     hideInfo: false,
   });
+  const [newData, setNewData] = useState([]);
+
 
   const requestList = (param) => {
     listViewRef.current.load({
@@ -34,27 +35,46 @@ const SearchPage = () => {
   };
 
   // useEffect(() => {
-   
+
   // }, []);
 
   useDidShow(() => {
-    getStorageData("userInfo").then((values) => {
-      console.log('userInfo :>> ', values);
-      let userData = {};
-      if (isEmpty(values)) {
-        userData.user_id = USER_DEFAULT_ID;
+    getStorageData("userInfo")
+      .then((values) => {
+        console.log("userInfo :>> ", values);
+        let userData = {};
+        if (isEmpty(values)) {
+          userData.user_id = USER_DEFAULT_ID;
+          current.hideInfo = true;
+        } else {
+          userData = values;
+        }
+        current.infoData = userData;
+        newList(values)
+        requestList({ user_id: userData?.user_id });
+      })
+      .catch(() => {
         current.hideInfo = true;
-      } else {
-        userData = values;
-      }
-      current.infoData = userData;
-      requestList({ user_id: userData?.user_id });
-    }).catch(() => {
-      current.hideInfo = true;
-      current.infoData = {user_id:USER_DEFAULT_ID};
-    });
+        current.infoData = { user_id: USER_DEFAULT_ID };
+      });
   });
 
+  // 新闻数据
+  const newList=(values)=>{
+    getListNew({
+      user_id: values?.user_id,
+      pn:1,
+      ps:5
+    })
+      .then((res) => {
+        console.log('新闻数据 :>> ', res);
+        
+        if (!isEmpty(res?.records)) {
+          setNewData(res?.records)
+        }
+      })
+      .catch(() => {});
+  }
 
   const onChange = (values) => {
     console.log("onChange :>> ", values);
@@ -88,7 +108,7 @@ const SearchPage = () => {
 
   const cliTip = (values) => {
     if (values?.follow && values.follow === 1) {
-      toast("已关注关注该政策!");
+      toast("您已关注过该政策!");
       return;
     }
     getFollow({
@@ -120,52 +140,74 @@ const SearchPage = () => {
       return <YNoData desc={"暂无数据"} />;
     }
     if (records && records.length > 0) {
-      return records.map((item, index) => {
-        return (
-          <View
-            key={Date.now() + index}
-            className="searchPage_list-item"
+      return (
+        <View>
+          <View className="searchPage_list-top-tit">最新发布</View>
+          <ServiceTab newData={newData}  />
+          <View 
+            className="searchPage_list-top-more"
             onClick={() => {
-              onEditData(item);
+              Taro.navigateTo({
+                url: `/pages/new/index`,
+              });
             }}
           >
-            <View className="searchPage_list-item-cont">
-              <View className="searchPage_list-item-cont-title">
-                {item.title}
-              </View>
-              <View>
-                {item.tags &&  <View className="searchPage_list-item-cont-tags">
-                  {item.tags}
-                </View>}
-               
-                <View className="searchPage_list-item-cont-info">
-                  {item.create_time}
-                </View>
-              </View>
-            </View>
-            <View className="searchPage_list-item-img">
-              <Image className="searchPage_list-item-img-cont" src={listIMG} />
-            </View>
-            {!current.hideInfo && (
+            <View className="searchPage_list-top-more-tit">更多快讯</View>
+          </View>
+          <View className="searchPage_list-top-tit">所有政策</View>
+          {records.map((item, index) => {
+            return (
               <View
-                className="searchPage_list-item-follow"
+                key={Date.now() + index}
+                className="searchPage_list-item"
                 onClick={() => {
-                  cliTip(item);
+                  onEditData(item);
                 }}
               >
-                <Image
-                  className="searchPage_list-item-follow-img"
-                  src={
-                    item?.follow && item.follow === 1
-                      ? require("@/assets/follow_yes.png")
-                      : require("@/assets/follow_no.png")
-                  }
-                />
+                <View className="searchPage_list-item-cont">
+                  <View className="searchPage_list-item-cont-title">
+                    {item.title}
+                  </View>
+                  <View>
+                    {item.tags && (
+                      <View className="searchPage_list-item-cont-tags">
+                        {item.tags}
+                      </View>
+                    )}
+
+                    <View className="searchPage_list-item-cont-info">
+                      {item.create_time}
+                    </View>
+                  </View>
+                </View>
+                <View className="searchPage_list-item-img">
+                  <Image
+                    className="searchPage_list-item-img-cont"
+                    src={listIMG}
+                  />
+                </View>
+                {!current.hideInfo && (
+                  <View
+                    className="searchPage_list-item-follow"
+                    onClick={() => {
+                      cliTip(item);
+                    }}
+                  >
+                    <Image
+                      className="searchPage_list-item-follow-img"
+                      src={
+                        item?.follow && item.follow === 1
+                          ? require("@/assets/follow_yes.png")
+                          : require("@/assets/follow_no.png")
+                      }
+                    />
+                  </View>
+                )}
               </View>
-            )}
-          </View>
-        );
-      });
+            );
+          })}
+        </View>
+      );
     }
   };
   return (
@@ -194,6 +236,55 @@ const SearchPage = () => {
           pnParams
         />
       </View>
+    </View>
+  );
+};
+
+// 最新发布
+const ServiceTab = (props) => {
+  const { newData } = props;
+  
+  const onOpenCustomer =  async (values) => {
+    await Taro.setStorage({
+      key: "DAMAGE-NEW",
+      data: values,
+    });
+    Taro.navigateTo({
+      url: `/pages/newDetail/index`,
+    });
+  };
+
+  return (
+    <View className="searchPage_list-top">
+      <ScrollView
+        className="searchPage_list-top-scroll"
+        scrollX // 横向
+        showsHorizontalScrollIndicator={false} // 此属性为true的时候，显示一个水平方向的滚动条。
+      >
+        {newData.map((item, index) => {
+          return (
+            <View
+              key={Date.now() + index}
+              className="searchPage_list-top-item"
+              style={
+                index === 0
+                  ? "marginLeft:24px"
+                  : index + 1 === newData.length
+                  ? "marginRight:24px"
+                  : ""
+              }
+              onClick={() => {
+                onOpenCustomer(item);
+              }}
+            >
+              {/* <Image className="searchPage_list-top-item-img" src={item.img} alt="" /> */}
+              <View className="searchPage_list-top-item-to">{item?.source}</View>
+              <View className="searchPage_list-top-item-text">{item?.title.length>30? `${(item?.title).slice(0,30)}...`:item?.title}</View>
+              <View className="searchPage_list-top-item-info">发布时间：{item?.create_time}</View>
+            </View>
+          );
+        })}
+      </ScrollView>
     </View>
   );
 };

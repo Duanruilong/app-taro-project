@@ -14,19 +14,5 @@ export function getInfo(params) {
     loading:false
   });
 }
-//  申请
-export function getApply(params) {
-  return get("/apply", params, {
-    loading: { title: "加载中...", mask: false }
-  });
-}
-
-// 关注
-export function getFollow(params) {
-  return get("/follow", params, {
-    loading: { title: "加载中...", mask: false }
-  });
-}
  
-
  

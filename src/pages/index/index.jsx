@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-26 15:54:13
+ * @LastEditTime: 2023-10-08 17:03:26
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -30,7 +30,7 @@ const Index = () => {
     pnParams: { pn: 1, ps: 20 },
     hideInfo: false,
   });
-  const [tagData, setTagData] = useState(["默认"]);
+  const [tagData, setTagData] = useState(["默认",'税收政策','银行政策']);
   const [swiperList, setSwiperList] = useState([]);
   const [data, setData] = useState();
 
@@ -56,6 +56,13 @@ const Index = () => {
       })
       .catch(() => {});
   };
+
+  // useEffect(() => {
+  //   // TODOO:
+  //   Taro.navigateTo({
+  //     url: "/pages/guide/index",
+  //   });
+  // }, []);
 
   useDidShow(() => {
     // TODOO:
@@ -88,7 +95,7 @@ const Index = () => {
         }
         current.infoData = userData;
         const tagNew = userData?.tag.split(",");
-        setTagData(["默认", ...tagNew]);
+        setTagData(["默认",'税收政策','银行政策', ...tagNew]);
         getNewData({ user_id: userData?.user_id });
         getOrderData({ user_id: userData?.user_id, type: 1 });
       })
@@ -102,7 +109,7 @@ const Index = () => {
     //   url: "/pages/user/index"
     // });
     // Taro.navigateTo({
-    //   url: "/pages/useEdit/index",
+    //   url: "/pages/guide/index",
     // });
   }, []);
 
@@ -236,7 +243,7 @@ const Index = () => {
       <YTitleTask
         showIcon={false}
         className="index_top-tas"
-        title={<View className="index_top-tit">特色服务 </View>}
+        title={<View className="index_top-tit">企业服务 </View>}
       />
       <ServiceTab current={current} />
 
@@ -267,6 +274,20 @@ const TagTab = (props) => {
   const { tagData, getOrderData, current } = props;
   const [ShowTag, setShowTag] = useState(0);
 
+  const typeValue=(values)=>{
+    if (values===0) {
+      return 1
+    }
+    if (values===1) {
+      return 3
+    }
+    if (values===2) {
+      return 4
+    }
+    return 2
+    
+  }
+
   return (
     <View className="index_tag">
       <ScrollView
@@ -287,7 +308,7 @@ const TagTab = (props) => {
                 setShowTag(index);
                 getOrderData({
                   user_id: current.infoData?.user_id,
-                  type: index === 0 ? 1 : 2,
+                  type: typeValue(index),
                   tag: item,
                 });
               }}

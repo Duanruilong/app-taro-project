@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-26 11:38:51
+ * @LastEditTime: 2023-10-07 10:52:26
  * @Description: 政策详情
  */
 
@@ -15,7 +15,7 @@ import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
 import { USER_DEFAULT_ID } from "@/constants";
 import ApplyModal from "./ApplyModal";
-import { getInfo, getApply } from "./service";
+import { getInfo, getApply ,getFollow} from "./service";
 import "./index.scss";
 
 const PolicyDetail = () => {
@@ -71,6 +71,22 @@ const PolicyDetail = () => {
       .catch(() => {});
   };
 
+  // 关注
+  const cliFollow = () => {
+    if (data?.follow && data.follow === 1) {
+      toast("您已关注过该政策!");
+      return;
+    }
+    getFollow({
+      user_id: current.infoData?.user_id,
+      policy_id: data?.policy_id,
+    })
+      .then(() => {
+        toast("关注该政策成功!");
+      })
+      .catch(() => {});
+  };
+
   // 下载文档
   // const cliLook = (values) => {
   //   console.log("下载文档 :>> ", values);
@@ -98,13 +114,26 @@ const PolicyDetail = () => {
   //   }
   // };
 
-  // console.log("data :>> ", data?.pdf);
+  console.log("data :>> ", data);
   return (
     <View className="policy">
       <View className="policy_cent-title">{data?.title}</View>
       <View className="policy_cent-clik">
         <View className="policy_cent-info">{data?.create_time}</View>
-        {data?.tags && <View className="policy_cent-tag">{data?.tags}</View>}
+        {/* {data?.tags && <View className="policy_cent-tag">{data?.tags}</View>} */}
+        {!current.hideInfo && (
+          <View className="policy_cent-but" style={{marginRight:12}}>
+            <YButton
+              yType="primary"
+              disabled={params?.type === "dis"}
+              onClick={() => {
+                cliFollow();
+              }}
+            >
+              <View className="policy_cent-but-t">关 注</View>
+            </YButton>
+          </View>
+        )}
         {!current.hideInfo && (
           <View className="policy_cent-but">
             <YButton
