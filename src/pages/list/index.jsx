@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-07 10:18:28
+ * @LastEditTime: 2023-10-10 10:43:45
  * @Description: 消息通知
  */
 import { useState, useRef, useEffect } from "react";
@@ -121,7 +121,7 @@ const List = () => {
           />
           <View className="list_top-item-title">系统通知</View>
         </View>
-        <View
+        {/* <View
           className="list_top-item"
           onClick={() => {
             if (current.hideInfo) {
@@ -143,8 +143,8 @@ const List = () => {
             src={require("@/assets/xinxi_bug.png")}
           />
           <View className="list_top-item-title">问题反馈</View>
-        </View>
-        {/* <View
+        </View> */}
+        <View
           className="list_top-item"
           onClick={() => {
             if (current.hideInfo) {
@@ -166,7 +166,7 @@ const List = () => {
             src={require("@/assets/xinxi_new.png")}
           />
           <View className="list_top-item-title">提问</View>
-        </View> */}
+        </View>
       </View>
 
       <YListView

@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-08 16:51:04
+ * @LastEditTime: 2023-10-09 16:19:09
  * @Description: 政策详情
  */
 
@@ -66,7 +66,7 @@ const NewDetail = () => {
       <View className="policy_cent-info">发布时间：{data?.create_time}</View>
       {data?.content ? (
         <RichText
-          style={{ paddingLeft: 10,paddingRight:10,paddingTop:10, backgroundColor: "#fff" }}
+          style={{ paddingLeft: 10,paddingRight:10,paddingTop:10, backgroundColor: "#fff" ,whiteSpace:'pre-wrap'}}
           nodes={data?.content}
         />
       ) : (
