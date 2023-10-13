@@ -23,3 +23,8 @@ export function getOrderPay(params) {
 export function getOrderChange(params) {
   return get("/steamer_change", params, { loading: false });
 }
+
+// Banner
+export function getBanner(params) {
+  return get("/new_recommend_list", params, { loading: false });
+}

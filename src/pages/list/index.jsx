@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-10 10:43:45
+ * @LastEditTime: 2023-10-12 17:28:46
  * @Description: 消息通知
  */
 import { useState, useRef, useEffect } from "react";
@@ -81,6 +81,7 @@ const List = () => {
           >
             <View className="list_list-item-cent">
               <View className="list_list-item-cent-title"> {item.title}</View>
+              <View className="list_list-item-cent-left">回复者：{item?.admin_name||'暂无'}</View>
               <View className="list_list-item-cent-left">回复内容：</View>
               <View className="list_list-item-cent-answer">
                 {item.answer || "暂无回复"}
@@ -187,6 +188,7 @@ const List = () => {
             <View className="list_msk-cent">
               <View className="list_msk-cent-left">提问内容： </View>
               <View className="list_msk-cent-answer">{showData.question}</View>
+              <View className="list_msk-cent-left">回复者：{showData?.admin_name||'暂无'}</View>
               <View className="list_msk-cent-left">回复内容：</View>
               <View className="list_msk-cent-answer">
                 {showData.answer || "暂无回复"}

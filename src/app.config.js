@@ -22,6 +22,7 @@ export default defineAppConfig({
     "pages/enterDetail/index",
     "pages/new/index",
     "pages/newDetail/index",
+    "pages/help/index",
     // "follow/index",
     // "apply/index",
     // "history/index",
@@ -37,6 +38,7 @@ export default defineAppConfig({
         "apply/index",
         "history/index",
         "notice/index",
+        "pasword/index",
       ]
     }
   ],

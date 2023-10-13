@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-08 17:15:17
+ * @LastEditTime: 2023-10-12 16:45:43
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -13,6 +13,7 @@ import LoginMore from "@/components/LoginMore";
 import { loginOutHandler } from "@/utils/loginHandler";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
+import rightImg from "@/components/YTitleTask/right.png";
 import { APP_VERSION, USER_DEFAULT_ID } from "@/constants";
 import { getCount } from "./service";
 import "./index.scss";
@@ -41,48 +42,6 @@ const User = () => {
       value: 0,
     },
   ];
-  const serListData = [
-    {
-      title: "法律服务",
-      key: "kfc8cbb3383fe5e17cc",
-      img: require("@/assets/serve/falv.png"),
-    },
-    {
-      title: "财税服务",
-      key: "kfc0bb4e48975825e87",
-      img: require("@/assets/serve/caishui.png"),
-    },
-    {
-      title: "企业培训",
-      key: "kfcf1dae5da2f9bfff6",
-      img: require("@/assets/serve/peixun.png"),
-    },
-    {
-      title: "知识产权",
-      key: "kfc0e48e59f2d23d6ed",
-      img: require("@/assets/serve/zhishi.png"),
-    },
-    {
-      title: "金融服务",
-      key: "kfc184e62d581ad5f34",
-      img: require("@/assets/serve/jinrong.png"),
-    },
-    {
-      title: "管理咨询",
-      key: "kfc9dda3f3c667b9b5b",
-      img: require("@/assets/serve/gli.png"),
-    },
-    {
-      title: "企业采购",
-      key: "kfc9a11122109ac3059",
-      img: require("@/assets/serve/caig.png"),
-    },
-    {
-      title: "其他",
-      key: "kfc7615dff40a4c9dea",
-      img: require("@/assets/serve/qta.png"),
-    },
-  ];
 
   const helpData = [
     {
@@ -103,6 +62,12 @@ const User = () => {
       url: "/",
       img: require("@/assets/logout.png"),
     },
+    {
+      title: "修改密码",
+      type: "pasword",
+      url: "/pagesWork/pasword/index",
+      img: require("@/assets/pasword1.png"),
+},
   ];
 
   const { current } = useRef({
@@ -165,19 +130,13 @@ const User = () => {
       Taro.navigateTo({
         url: `/pages/question/index?type=feed`,
       });
+    }  else if (type === "pasword") {
+      Taro.navigateTo({
+        url: values?.url,
+      });
     } else {
       toast("开发中，敬请期待。");
     }
-  };
-
-  // 打开微信客服
-  const onOpenCustomer = async (values) => {
-    console.log("打开微信客服 :>> ", values);
-    
-    toast("正在打开微信客服，请稍等...");
-    Taro.navigateTo({
-      url: `/pagesWork/webView/index?key=${values.key}`,
-    });
   };
 
   return (
@@ -187,7 +146,7 @@ const User = () => {
         onClick={() => {
           if (current.hideInfo) {
             loginOutHandler();
-          }else{
+          } else {
             Taro.navigateTo({
               url: "/pagesWork/useEdit/index",
             });
@@ -211,7 +170,7 @@ const User = () => {
           />
           <Text className="user_top-edit">编辑</Text>
         </View>
-        <View className="user_top_list">
+        {/* <View className="user_top_list">
           {!isEmpty(dataCount) &&
             topData.map((item) => {
               return (
@@ -238,9 +197,8 @@ const User = () => {
                 </View>
               );
             })}
-        </View>
+        </View> */}
       </View>
-
       {current.hideInfo && (
         <View className="list_top-more">
           <LoginMore
@@ -253,60 +211,58 @@ const User = () => {
       )}
       <TopTab />
 
-      <YTitleTask
-        showIcon={false}
-        className="user_tas"
-        title={<View className="user_tas-tit">其他服务 </View>}
-      />
-      <View className="user_ser">
-        {serListData.map((item) => {
-          return (
-            <View
-              key={item.title}
-              className="user_ser-item"
-              onClick={() => {
-                if (current.hideInfo) {
-                  toast("注册登录查看更多");
-                  return;
-                }else{
-                  onOpenCustomer(item);
-                }
-              }}
-            >
-              <Image className="user_ser-item-img" src={item.img} alt="" />
-              <View className="user_ser-item-text">{item.title}</View>
-            </View>
-          );
-        })}
-      </View>
-      <YTitleTask
+      {/* <YTitleTask
         showIcon={false}
         className="user_tas"
         title={<View className="user_tas-tit">帮助中心 </View>}
-      />
-      <View className="user_ser">
-        {helpData.map((item) => {
-          return (
-            <View
-              key={item.title}
-              className="user_ser-help"
-              onClick={() => {
-                helpClick(item);
-              }}
-            >
-              <View className="user_ser-help-img">
-                <Image
-                  className="user_ser-help-img-cen"
-                  mode="aspectFit"
-                  src={item.img}
-                  alt=""
-                />
-              </View>
-              <View className="user_ser-help-text">{item.title}</View>
+      /> */}
+
+      {topData.map((item) => {
+        return (
+          <View
+            key={item.url}
+            className="user_tree"
+            onClick={() => {
+              if (current.hideInfo) {
+                toast("注册登录查看更多");
+                return;
+              }
+              Taro.navigateTo({
+                url: item.url,
+              });
+            }}
+          >
+            <View className="user_tree-cent">
+              <Image className="user_tree-img" src={item.icon} />
+              <View className="user_tree-text">{item.title}</View>
             </View>
-          );
-        })}
-      </View>
+            <View className="user_tree-tit">
+              {dataCount && !current.hideInfo ? dataCount[item.type]:0}
+              <Image className={"user_tree-icon"} src={rightImg} />
+            </View>
+          </View>
+        );
+      })}
+      <View style={{ marginBottom: 10 }} />
+      {helpData.map((item) => {
+        return (
+          <View
+            key={item.title}
+            className="user_tree"
+            onClick={() => {
+              helpClick(item);
+            }}
+          >
+            <View className="user_tree-cent">
+              <Image className="user_tree-img2" src={item.img} />
+              <View className="user_tree-text">{item.title}</View>
+            </View>
+            <View className="user_tree-tit">
+              <Image className={"user_tree-icon"} src={rightImg} />
+            </View>
+          </View>
+        );
+      })}
       {/* 版本 */}
       <View className="user_version">{APP_VERSION}</View>
     </View>

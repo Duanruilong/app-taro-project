@@ -2,7 +2,7 @@
  * @Author: Drlong drl1210@163.com
  * @Date: 2023-08-10 17:56:04
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-10 10:44:57
+ * @LastEditTime: 2023-10-12 17:24:44
  * @FilePath: \app-taro-project\src\pages\question\index.jsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,17 +13,16 @@ import YTitleTask from "@/components/YTitleTask";
 import YButton from "@/components/YButton";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
-import { getSetQue, getFeedback } from "./service";
+import { getSetQue, getFeedback,getGov } from "./service";
 import "./index.scss";
-
-const langPicker = ["默认", "营商环境", "企业经营", "政府工作",'业务办理','银行政策','税务'];
-
+ 
 const Question = () => {
   const { current } = useRef({
     area: "",
   });
   const [params] = useState(Current.router.params);
   const [level, setLevel] = useState();
+  const [langPicker, setLangPicker] = useState([ {name:'部门智能分配'}]);
 
   const eventChannel = Current.page.getOpenerEventChannel();
 
@@ -34,7 +33,26 @@ const Question = () => {
         title: `问题反馈`,
       });
     }
+    getStorageData("userInfo")
+    .then((values) => {
+      current.infoData = values;
+      onGovData(values)
+    })
+    .catch(() => {});
+
   }, []);
+
+  const onGovData = (values) => {
+    getGov({
+      user_id: values?.user_id,
+    })
+      .then((res) => {
+        console.log('部门列表 :>> ', res);
+        setLangPicker([{name:'部门智能分配'},...res])
+      })
+      .catch(() => {});
+  };
+
 
   const cliTip = () => {
     console.log("current :>> ", current);
@@ -75,38 +93,46 @@ const Question = () => {
 
   return (
     <View className="question">
-      {params?.type === "feed" && (
-        <Picker
-          className="question_pick"
-          mode="selector"
-          range={langPicker}
-          onChange={(e) => {
-            const values = langPicker[e.detail.value];
-            current.level = values;
-            setLevel(values);
-          }}
-        >
-          <YTitleTask
-            showIcon={false}
-            className="question_pick-tas"
-            infoWith={74}
-            title={<View className="question_pick-li">问题类型: </View>}
-            right={
-              <View className="question_pick-right">
-                {level || "请选择问题类型"}
-              </View>
-            }
-          />
-        </Picker>
-      )}
-
+      <Picker
+        className="question_pick"
+        mode="selector"
+        rangeKey="name"
+        range={langPicker}
+        onChange={(e) => {
+          const values = langPicker[e.detail.value];
+          console.log('langPicker :>> ', values);
+          current.level = values?.name;
+          setLevel(values?.name);
+        }}
+      >
+        <YTitleTask
+          showIcon={false}
+          className="question_pick-tas"
+          infoWith={74}
+          title={<View className="question_pick-li">找部门: </View>}
+          right={
+            level?
+            <View className="question_pick-right">
+              {level}
+            </View>
+            :
+            <View className="question_pick-right" style={{ fontSize:12,color:"#777" }}>
+                请选择相关部门(不选将智能分配)
+            </View>
+           
+          }
+        />
+      </Picker>
+      <View className="question_tip">
+         <View className="question_tip-icon">*</View>默认不选择指定部门，系统将智能分配给对应部门。
+      </View>
       <YTitleTask
         style={{ marginTop: 10 }}
         showIcon={false}
         className="question_tas"
         title={<View className="question_tas-tit">问题内容 </View>}
       />
-      <View className="question_text">
+      <View className="question_text"  style={{marginTop:0}}>
         <Textarea
           style="font-size:16px;height:100px;"
           // value={!isEmpty(codeData) ? codeData : ""}

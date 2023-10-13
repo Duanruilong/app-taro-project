@@ -25,3 +25,10 @@ export function getFeedback(params) {
   });
 }
  
+// 部门
+export function getGov(params) {
+  return get("/gov_list", params, {
+    loading: { title: "加载中...", mask: false }
+  });
+}
+ 

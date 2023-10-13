@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-08 17:03:26
+ * @LastEditTime: 2023-10-13 10:13:00
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -22,7 +22,7 @@ import { toast } from "@/utils/tools";
 import { getStorageData, isEmpty } from "@/utils/utils";
 // import { loginOutHandler } from "@/utils/loginHandler";
 import { USER_DEFAULT_ID, USER_DEFAULT_TAG } from "@/constants";
-import { getNewList, getOrderPay } from "./service";
+import { getNewList, getOrderPay,getBanner } from "./service";
 import "./index.scss";
 
 const Index = () => {
@@ -53,6 +53,18 @@ const Index = () => {
     })
       .then((res) => {
         setData(res);
+      })
+      .catch(() => {});
+  };
+
+  // Banner
+  const getBannerData = (opts) => {
+    getBanner({
+      ...opts,
+    })
+      .then((res) => {
+        console.log('Banner :>> ', res);
+        setSwiperList(res);
       })
       .catch(() => {});
   };
@@ -96,8 +108,9 @@ const Index = () => {
         current.infoData = userData;
         const tagNew = userData?.tag.split(",");
         setTagData(["默认",'税收政策','银行政策', ...tagNew]);
-        getNewData({ user_id: userData?.user_id });
+        // getNewData({ user_id: userData?.user_id });
         getOrderData({ user_id: userData?.user_id, type: 1 });
+        getBannerData({ user_id: userData?.user_id });
       })
       .catch(() => {
         current.hideInfo = true;
@@ -211,7 +224,7 @@ const Index = () => {
                   >
                     <Image
                       className="index_banner-img"
-                      src={showImgUrl(index)}
+                      src={item?.icon||showImgUrl(index)}
                       alt=""
                     />
                     <View className="index_banner-item-text">
@@ -240,11 +253,7 @@ const Index = () => {
         </View>
       </View>
       
-      <YTitleTask
-        showIcon={false}
-        className="index_top-tas"
-        title={<View className="index_top-tit">企业服务 </View>}
-      />
+      {/*找政府 */}
       <ServiceTab current={current} />
 
       {current.hideInfo && (
@@ -326,35 +335,48 @@ const ServiceTab = (props) => {
   const { current } = props;
   const serData = [
     {
-      title: "法律服务",
-      key: "kfc8cbb3383fe5e17cc",
-      img: require("@/assets/serve/falv.png"),
+      title: "找政府",
+      info: "为企业提供全面、多元化服务",
+      url: "pages/question/index",
+      type:'url',
+      img: require("./asset/gov.png"),
     },
     {
-      title: "财税服务",
-      key: "kfc0bb4e48975825e87",
-      img: require("@/assets/serve/caishui.png"),
+      title: "找政策",
+      info: "惠企利民政策一键直达、助企服务",
+      url: 'pages/search/index',
+      type:'tab',
+      img: require("./asset/gov1.png"),
     },
     {
-      title: "企业培训",
-      key: "kfcf1dae5da2f9bfff6",
-      img: require("@/assets/serve/peixun.png"),
+      title: "找企业",
+      info: "快速查找企业、全面解读企业信息",
+      url: 'pages/enterprise/index',
+      type:'tab',
+      img: require("./asset/gov2.png"),
     },
     {
-      title: "知识产权",
-      key: "kfc0e48e59f2d23d6ed",
-      img: require("@/assets/serve/zhishi.png"),
+      title: "找帮助",
+      info: "提供政策解读、疑惑答疑、法律援助等便捷服务",
+      url: "pages/help/index",
+      type:'url',
+      img: require("./asset/gov3.png"),
     },
   ];
 
-  // 打开微信客服
+  // 跳转
   const onOpenCustomer = async (values) => {
-    console.log("打开微信客服 :>> ", values);
-
-    toast("正在打开微信客服，请稍等...");
-    Taro.navigateTo({
-      url: `/pagesWork/webView/index?key=${values.key}`,
-    });
+    if (values?.type==='tab') {
+      Taro.switchTab({
+        url: values?.url
+      });
+    } else {
+      Taro.navigateTo({
+        url: values?.url
+      });
+    }
+ 
+   
   };
 
   return (
@@ -386,7 +408,23 @@ const ServiceTab = (props) => {
               }}
             >
               <Image className="index_sev-item-img" src={item.img} alt="" />
-              <View className="index_sev-item-text">{item.title}</View>
+              <View className="index_sev-item-center" 
+                onClick={() => {
+                  if (current.hideInfo) {
+                    toast("注册登录查看更多");
+                    return;
+                  } else {
+                    onOpenCustomer(item);
+                  }
+                }}
+              >
+                <View className="index_sev-item-text">
+                  {item?.title}
+                </View>
+                <View className="index_sev-item-info">
+                  {item?.info}
+                </View>
+              </View>
             </View>
           );
         })}
