@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-13 10:17:03
+ * @LastEditTime: 2023-10-17 10:50:00
  * @Description:帮助服务
  */
 import Taro from "@tarojs/taro";
@@ -54,11 +54,11 @@ const HelpPages = () => {
       key: "kfc9a11122109ac3059",
       img: require("@/assets/serve/caig.png"),
     },
-    {
-      title: "其他",
-      key: "kfc7615dff40a4c9dea",
-      img: require("@/assets/serve/qta.png"),
-    },
+    // {
+    //   title: "其他",
+    //   key: "kfc7615dff40a4c9dea",
+    //   img: require("@/assets/serve/qta.png"),
+    // },
   ];
 
   useEffect(() => {

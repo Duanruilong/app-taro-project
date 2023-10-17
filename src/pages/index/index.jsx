@@ -336,28 +336,28 @@ const ServiceTab = (props) => {
   const serData = [
     {
       title: "找政府",
-      info: "为企业提供全面、多元化服务",
+      info: "政府零距离沟通",
       url: "pages/question/index",
       type:'url',
       img: require("./asset/gov.png"),
     },
     {
       title: "找政策",
-      info: "惠企利民政策一键直达、助企服务",
+      info: "惠企政策一键触达",
       url: 'pages/search/index',
       type:'tab',
       img: require("./asset/gov1.png"),
     },
     {
       title: "找企业",
-      info: "快速查找企业、全面解读企业信息",
+      info: "企业信息快速查询",
       url: 'pages/enterprise/index',
       type:'tab',
       img: require("./asset/gov2.png"),
     },
     {
       title: "找帮助",
-      info: "提供政策解读、疑惑答疑、法律援助等便捷服务",
+      info: "企业服务全覆盖",
       url: "pages/help/index",
       type:'url',
       img: require("./asset/gov3.png"),
@@ -381,11 +381,6 @@ const ServiceTab = (props) => {
 
   return (
     <View className="index_sev">
-      <ScrollView
-        className="index_sev-scroll"
-        scrollX // 横向
-        showsHorizontalScrollIndicator={false} // 此属性为true的时候，显示一个水平方向的滚动条。
-      >
         {serData.map((item, index) => {
           return (
             <View
@@ -428,7 +423,6 @@ const ServiceTab = (props) => {
             </View>
           );
         })}
-      </ScrollView>
     </View>
   );
 };
