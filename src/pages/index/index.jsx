@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-13 10:13:00
+ * @LastEditTime: 2023-10-17 16:10:44
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -126,13 +126,25 @@ const Index = () => {
     // });
   }, []);
 
+  // 政策详情
+  // const onEditData = async (values) => {
+  //   await Taro.setStorage({
+  //     key: "DAMAGE-ITEM",
+  //     data: values,
+  //   });
+  //   Taro.navigateTo({
+  //     url: `/pages/policyDetail/index`,
+  //   });
+  // };
+
+  // 新闻详情
   const onEditData = async (values) => {
     await Taro.setStorage({
-      key: "DAMAGE-ITEM",
+      key: "DAMAGE-NEW",
       data: values,
     });
     Taro.navigateTo({
-      url: `/pages/policyDetail/index`,
+      url: `/pages/newDetail/index`,
     });
   };
 
@@ -200,7 +212,7 @@ const Index = () => {
 
   return (
     <View className="index">
-      <View className="index_banner" style={{ height: 230 }}>
+      <View className="index_banner" style={{ height: 180 }}>
       
         {swiperList && swiperList.length > 0 && (
           <Swiper
@@ -248,9 +260,9 @@ const Index = () => {
           </Swiper>
         )}
 
-        <View className="index_banner-top">
+        {/* <View className="index_banner-top">
           云通政企
-        </View>
+        </View> */}
       </View>
       
       {/*找政府 */}
