@@ -21,18 +21,20 @@
 }
 
 .hep_ser{
-  padding: 0 40px;
+  padding: 0 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
   // border-radius: 20px;
-  // background-color: #fff;
   
 
   &-item{
-    margin: 40px 20px;
+    width: 177px;
+    padding-top: 30px;
+    // margin: 40px 20px;
+    // background-color: #f3d1d1;
     display: flex;
     flex-direction: column;
     align-items: center;
