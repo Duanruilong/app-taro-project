@@ -7,6 +7,6 @@
  */
 // eslint-disable-next-line no-undef
 export default definePageConfig({
-  navigationBarTitleText: '云通政企',
+  navigationBarTitleText: '云企通',
   navigationStyle: 'custom',
 })

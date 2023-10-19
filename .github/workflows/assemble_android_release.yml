@@ -16,7 +16,7 @@ env:
   # 应用的application_id
   APP_ID: com.ytzq
   # 应用名称
-  APP_NAME: 云通政企
+  APP_NAME: 云企通
   # 打包类型
   BUILD_TYPE: release
   # 版本名称

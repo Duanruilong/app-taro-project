@@ -8,5 +8,5 @@
  */
 /* eslint-disable no-undef */
 export default definePageConfig({
-  navigationBarTitleText: '注册-云通政企',
+  navigationBarTitleText: '注册-云企通',
 });

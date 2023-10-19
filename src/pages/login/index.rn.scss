@@ -92,3 +92,129 @@
     }
   }
 }
+
+.login_msk{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px 20px;
+  background-color: #fff;
+  width: 90%;
+  border-radius: 32px;
+  position: relative;
+  margin-top: -200px;
+
+  &-cent{
+    margin-bottom: 30px;
+    // min-height: 90PX;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content:space-between;
+    text-align: left;
+    font-size: 26px;
+    color: #000000;
+    &-left{
+      padding-left: 12px;
+      border: 0 solid $color-brand-bc;
+      border-left-width: 4px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      color: #000000;
+      font-weight: 700;
+      display: flex;
+      flex-direction: row;
+    }
+    &-answer{
+      font-size: 26px;
+      color: #000000;
+      margin-top: 24px;
+    }
+    &-info{
+      font-size: 22px;
+      color: #777;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  &-img {
+    position: absolute;
+    bottom: -120px;
+    left: 50%;
+    margin-left: -10px;
+    width: 55px;
+    height: 55px;
+  }
+
+  &-top {
+      color: $color-text;
+      font-size: 36px;
+      font-weight: 700;
+      margin: 20px 0;
+      width: 100%;
+      text-align: center;
+  }
+
+  // code
+  &-code {
+      width: 90%;
+      line-height: 42px;
+      border: 0 solid #b6b6b6;
+      border-width: 1px;
+      padding: 12px;
+      border-radius: 12px;
+
+  }
+
+  &-but {
+      margin: 32px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+
+      &-img1 {
+          width: 55px;
+          height: 40px;
+          margin-right: 24px;
+          padding: 10px;
+      }
+
+      &-img {
+          width: 45px;
+          height: 45px;
+          margin-right: 44px;
+          padding: 10px;
+      }
+  }
+
+  &-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &-b {
+      width: 98%;
+      text-align: center;
+      padding: 12px 10px;
+      border-radius: 22px;
+      margin-bottom: 18px;
+      font-size: 34px;
+      font-weight: 700;
+      // color: $color-brand-bc;
+      // background-color: #eeeeee;
+      color: #09aaaf;
+      background: #defff9;
+      // border-color: #87e8de;
+      
+  }
+}

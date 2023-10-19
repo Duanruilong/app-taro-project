@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-12 16:45:43
+ * @LastEditTime: 2023-10-19 17:06:25
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -45,6 +45,12 @@ const User = () => {
 
   const helpData = [
     {
+      title: "绑定企业",
+      type: "navigateTo",
+      url: "/pagesWork/bind/index",
+      img: require("@/assets/use_bind.png"),
+    },
+    {
       title: "意见反馈",
       type: "question",
       url: "/",
@@ -64,7 +70,7 @@ const User = () => {
     },
     {
       title: "修改密码",
-      type: "pasword",
+      type: "navigateTo",
       url: "/pagesWork/pasword/index",
       img: require("@/assets/pasword1.png"),
 },
@@ -130,11 +136,11 @@ const User = () => {
       Taro.navigateTo({
         url: `/pages/question/index?type=feed`,
       });
-    }  else if (type === "pasword") {
+    }  else if (type === "navigateTo") {
       Taro.navigateTo({
         url: values?.url,
       });
-    } else {
+    }   else {
       toast("开发中，敬请期待。");
     }
   };

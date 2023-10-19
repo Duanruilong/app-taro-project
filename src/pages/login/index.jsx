@@ -2,16 +2,18 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-08-17 15:22:38
+ * @LastEditTime: 2023-10-19 16:19:09
  * @Description:登陆
  */
 import Taro from "@tarojs/taro";
 import { useState } from "react";
 import { View, Input, Image, Radio } from "@tarojs/components";
 import YButton from "@/components/YButton";
+import TMask from "@/components/tinker/TMask";
 import logo from "@/assets/logo.png";
 import phoneImg from "@/assets/phone.png";
 import paswordImg from "@/assets/pasword.png";
+import close_b from "@/assets/close_b.png";
 import { toast } from "@/utils/tools";
 import { loginHandler } from "@/utils/loginHandler";
 import { login } from "./service";
@@ -21,7 +23,7 @@ import "./index.scss";
 const Login = () => {
   const [phone, setPhone] = useState();
   const [password, setPassword] = useState();
-  const [checked, setChecked] = useState(false);
+  const [showData, setShowData] = useState();
 
   const onLog = () => {
     if (!phone) {
@@ -38,7 +40,12 @@ const Login = () => {
       password,
     })
       .then((res) => {
-        loginHandler({ ...res });
+        console.log('login :>> ', res);
+        if (res&&res.length>1) {
+          setShowData(res);
+        }else{
+          loginHandler({ ...res[0] });
+        }
       })
       .catch(() => {});
   };
@@ -143,6 +150,37 @@ const Login = () => {
           </View>
         </View> */}
       </View>
+       {/* TModal */}
+       {showData && (
+          <TMask visible>
+            <View className="login_msk">
+              <View className="login_msk-top">切换企业</View>
+              <View className="login_msk-cent">
+                <View className="login_msk-cent-left">选择需要进入的企业： </View>
+                <View className="login_msk-list">
+                  {showData.map((item,index)=>{
+                    return <View 
+                      key={item?.user_name} 
+                      className="login_msk-b"
+                      onClick={() => {
+                        loginHandler({ ...showData[index] });
+                        setShowData();
+                      }}
+                    >{item?.user_name}</View>
+                  })}
+                </View>
+              </View>
+              <Image
+                className="login_msk-img"
+                mode="aspectFit"
+                src={close_b}
+                onClick={() => {
+                  setShowData();
+                }}
+              />
+            </View>
+          </TMask>
+        )}
     </View>
   );
 };

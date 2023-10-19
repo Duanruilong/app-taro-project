@@ -2,10 +2,11 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 15:55:30
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-04 15:01:10
+ * @LastEditTime: 2023-10-19 17:51:35
  * @Description:修改个人信息
  */
-import { useState, useEffect } from "react";
+import Taro, { Current } from "@tarojs/taro";
+import { useState, useEffect,useRef } from "react";
 import { View, Input, Image } from "@tarojs/components";
 import { getStorageData, isEmpty } from "@/utils/utils";
 import { loginOutHandler } from "@/utils/loginHandler";
@@ -14,10 +15,14 @@ import YButton from "@/components/YButton";
 import YTitleBorder from "@/components/YTitleBorder";
 import SelectTag from "@/components/SelectTag";
 import rightImg from "@/assets/right.png";
-import { getEditInfo } from "./service";
+import { getEditInfo,getNewBind } from "./service";
 import "./index.scss";
 
 const UseEdit = () => {
+  const [params] = useState(Current.router.params);
+  const { current } = useRef({
+    infoData: "",
+  });
   const [dataInfo, setDataInfo] = useState({});
   // const [butLoding, setButLoding] = useState(false);
   const [data, setData] = useState({});
@@ -28,44 +33,73 @@ const UseEdit = () => {
     getStorageData("userInfo").then((values) => {
       if (!isEmpty(values)) {
         setDataInfo(values);
-        setPopList(values["tag"].split(","));
+        setPopList(values["tags"].split(","));
       }
     });
   };
 
   useEffect(() => {
-    getUserInfo();
+    if (params?.type === "bind") {
+      Taro.setNavigationBarTitle({
+        title: '新增绑定企业'
+      })
+      getStorageData("userInfo")
+      .then((values) => {
+        current.infoData = values;
+      })
+      .catch(() => { });
+    }else{
+      getUserInfo();
+    }
   }, []);
 
   const onSubmit = () => {
     console.log("onSubmit :>> ", data);
     if (isEmpty(data)) {
-      // setTimeout(() => {
-      //   setButLoding(false);
-      // }, 600);
       return toast("最少修改一项内容");
     }
-    getEditInfo({
-      user_id: dataInfo?.user_id,
-      ...data,
-    })
-      .then(() => {
-        toast("修改成功，重新登陆");
-        setTimeout(() => {
-          loginOutHandler();
-          // setButLoding(false);
-        }, 2000);
+
+    // 新增绑定企业成功
+    if (params?.type === "bind") {
+      getNewBind({
+        user_id: current.infoData?.user_id,
+        ...data,
       })
-      .catch(() => {
-        setTimeout(() => {
-          // setButLoding(false);
-        }, 600);
-      });
+        .then(() => {
+          toast("新增绑定企业成功");
+          setTimeout(() => {
+              Taro.navigateBack();
+          }, 2000);
+        })
+        .catch(() => {
+        });
+    } else {
+      getEditInfo({
+        user_id: dataInfo?.user_id,
+        ...data,
+      })
+        .then(() => {
+          toast("修改成功，重新登陆");
+          setTimeout(() => {
+              loginOutHandler();
+              // setButLoding(false);
+          }, 2000);
+        })
+        .catch(() => {
+          setTimeout(() => {
+            // setButLoding(false);
+          }, 600);
+        });
+    }
+   
   };
 
   return (
     <View className="useEdit">
-      <View className="useEdit_center">
+      {
+        params?.type !== "bind" &&
+        <>
+         <View className="useEdit_center">
         <YTitleBorder title="联系人：" />
         <Input
           className="useEdit_center-input"
@@ -97,6 +131,27 @@ const UseEdit = () => {
           }}
         />
       </View>
+        </>
+      }
+     
+      {
+        params?.type === "bind" && 
+        <View className="useEdit_center">
+          <YTitleBorder title="信用代码：" />
+          <Input
+            className="useEdit_center-input"
+            name={"id_code"}
+            placeholder="输入统一社会信用代码"
+            type="text"
+            onInput={(e) => {
+              const newData = { ...dataInfo };
+              newData["id_code"] = e.detail.value;
+              setData(newData);
+              setDataInfo(newData);
+            }}
+          />
+        </View>
+      }
       <View className="useEdit_center">
         <YTitleBorder title="企业名称：" />
         <Input
@@ -158,11 +213,11 @@ const UseEdit = () => {
       {/* {showBottom} */}
       {showBottom && (
         <SelectTag
-          tagValue={dataInfo?.["tag"]}
+          tagValue={dataInfo?.["tags"]}
           onChange={(e) => {
             console.log("onChange :>> ", e);
             const newData = { ...dataInfo };
-            newData["tag"] = e.join(",");
+            newData["tags"] = e.join(",");
             setData(newData);
             setDataInfo(newData);
           }}
@@ -170,7 +225,7 @@ const UseEdit = () => {
             setShowBottom(false);
             setPopList(e)
             const newData = { ...dataInfo };
-            newData["tag"] = e.join(",");
+            newData["tags"] = e.join(",");
             setData(newData);
             setDataInfo(newData);
           }}

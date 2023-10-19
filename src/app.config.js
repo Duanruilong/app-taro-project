@@ -39,6 +39,7 @@ export default defineAppConfig({
         "history/index",
         "notice/index",
         "pasword/index",
+        "bind/index",
       ]
     }
   ],
