@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-19 16:56:12
+ * @LastEditTime: 2023-10-20 10:56:29
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -79,18 +79,17 @@ const Index = () => {
 
   useDidShow(() => {
     // TODOO:
-   
-    Taro.setStorage({
-      key: `userInfo`,
-      data: {
-        contact_name: "王芩",
-        contact_phone: "13888008663",
-        id_code: "91530121MA6N3DED6R",
-        tag: "互联网,农业,中小微企业,房地产,教育行业,退役军人创业",
-        user_id: "U827417040517257038",
-        user_name: "昆明君联投资发展有限责任公司",
-      },
-    });
+    // Taro.setStorage({
+    //   key: `userInfo`,
+    //   data: {
+    //     contact_name: "王芩",
+    //     contact_phone: "13888008663",
+    //     id_code: "91530121MA6N3DED6R",
+    //     tag: "互联网,农业,中小微企业,房地产,教育行业,退役军人创业",
+    //     user_id: "U827417040517257038",
+    //     user_name: "昆明君联投资发展有限责任公司",
+    //   },
+    // });
     // TODOO: end
 
 
