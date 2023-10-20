@@ -32,6 +32,7 @@ export const SYSTEM = "REPRESENT";
 
 // 默认用户信息
 export const USER_DEFAULT_ID = "U426729141445162062";
+
 export const USER_DEFAULT_TAG = "互联网,农业,中小微企业,房地产,教育行业";
 
 // 性别
