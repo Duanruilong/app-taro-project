@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 15:55:30
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-19 17:51:35
+ * @LastEditTime: 2023-10-20 10:58:34
  * @Description:修改个人信息
  */
 import Taro, { Current } from "@tarojs/taro";
@@ -33,7 +33,7 @@ const UseEdit = () => {
     getStorageData("userInfo").then((values) => {
       if (!isEmpty(values)) {
         setDataInfo(values);
-        setPopList(values["tags"].split(","));
+        setPopList(values["tag"].split(","));
       }
     });
   };
