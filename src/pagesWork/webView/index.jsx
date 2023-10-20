@@ -13,16 +13,18 @@ import "./index.scss";
 const WebViewPage = () => {
   const [params] = useState(Current.router.params);
   console.log("params :>> ", params);
-  const workUrl='https://work.weixin.qq.com/kfid/'
+  // const workUrl='https://work.weixin.qq.com/kfid/'
   useEffect(() => {
-    setTimeout(() => {
-      Taro.navigateBack();
-    }, 1500);
+    if (params?.type==='back') {
+      setTimeout(() => {
+        Taro.navigateBack();
+      }, 1500);
+    }
   }, []);
 
   return (
     <View className="webview">
-      <WebView src={workUrl+params?.key||'kfc7615dff40a4c9dea'} />
+      <WebView src={params?.url ||''} />
     </View>
   );
 };

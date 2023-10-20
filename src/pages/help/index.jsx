@@ -21,37 +21,37 @@ const HelpPages = () => {
   const serListData = [
     {
       title: "法律服务",
-      key: "kfc8cbb3383fe5e17cc",
+      key: "https://work.weixin.qq.com/kfid/kfc8cbb3383fe5e17cc",
       img: require("@/assets/serve/falv.png"),
     },
     {
       title: "财税服务",
-      key: "kfc0bb4e48975825e87",
+      key: "https://work.weixin.qq.com/kfid/kfc0bb4e48975825e87",
       img: require("@/assets/serve/caishui.png"),
     },
     {
       title: "企业培训",
-      key: "kfcf1dae5da2f9bfff6",
+      key: "https://work.weixin.qq.com/kfid/kfcf1dae5da2f9bfff6",
       img: require("@/assets/serve/peixun.png"),
     },
     {
       title: "知识产权",
-      key: "kfc0e48e59f2d23d6ed",
+      key: "https://work.weixin.qq.com/kfid/kfc0e48e59f2d23d6ed",
       img: require("@/assets/serve/zhishi.png"),
     },
     {
       title: "金融服务",
-      key: "kfc184e62d581ad5f34",
+      key: "https://work.weixin.qq.com/kfid/kfc184e62d581ad5f34",
       img: require("@/assets/serve/jinrong.png"),
     },
     {
       title: "管理咨询",
-      key: "kfc9dda3f3c667b9b5b",
+      key: "https://work.weixin.qq.com/kfid/kfc9dda3f3c667b9b5b",
       img: require("@/assets/serve/gli.png"),
     },
     {
       title: "企业采购",
-      key: "kfc9a11122109ac3059",
+      key: "https://work.weixin.qq.com/kfid/kfc9a11122109ac3059",
       img: require("@/assets/serve/caig.png"),
     },
     // {
@@ -76,7 +76,7 @@ const HelpPages = () => {
     
     toast("正在打开微信客服，请稍等...");
     Taro.navigateTo({
-      url: `/pagesWork/webView/index?key=${values.key}`,
+      url: `/pagesWork/webView/index?url=${values.key}&type=back`,
     });
   };
   return (

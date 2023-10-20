@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-27 10:24:40
+ * @LastEditTime: 2023-10-20 16:52:25
  * @Description: 企业信息查询
  */
 import { useState, useRef, useEffect } from "react";
@@ -131,7 +131,7 @@ const EnterprisePage = () => {
                 企业注册时间：{item.enterprise_register_time||'暂无'}
               </View>
               <View className="enterprise_list-item-cont-tag_list">
-              {item?.tag && item?.tag.split(",").map((news) => {
+              {item?.tags && item?.tags.split(",").map((news) => {
                 return (
                   <View key={Date.now() + news} className="enterprise_list-item-cont-tags">
                     {news}

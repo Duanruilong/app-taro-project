@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-09-27 11:33:55
+ * @LastEditTime: 2023-10-20 16:52:46
  * @Description: 企业信息详情
  */
 
@@ -76,18 +76,9 @@ const EnterDetail = () => {
             <View className="enterDet_top-type">{data?.operate_state}</View>
           )}
         </View>
-        {/* <View className="enterDet_top-tag">
-          {data?.tag.split(",").map((item) => {
-            return (
-              <View key={item} className="enterDet_top-tag-item">
-                {item}
-              </View>
-            );
-          })}
-        </View> */}
-        {data?.tag && (
+        {data?.tags && (
           <View className="enterDet_top-tag">
-            {data?.tag.split(",").map((item) => {
+            {data?.tags.split(",").map((item) => {
               return (
                 <View key={item} className="enterDet_top-tag-items">
                   {item}

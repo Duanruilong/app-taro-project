@@ -33,7 +33,7 @@ const UseEdit = () => {
     getStorageData("userInfo").then((values) => {
       if (!isEmpty(values)) {
         setDataInfo(values);
-        setPopList(values["tag"].split(","));
+        setPopList(values["tags"].split(","));
       }
     });
   };

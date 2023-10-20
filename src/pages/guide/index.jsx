@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-07 10:33:40
+ * @LastEditTime: 2023-10-20 16:22:41
  * @Description:登陆
  */
 import Taro from "@tarojs/taro";
@@ -13,15 +13,19 @@ import "./index.scss";
 
 const GuidePage = () => {
   const [active, setActive] = useState(0);
+  const [showB, setShowB] = useState(false);
 
-  const guide=[
-    'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page1.png',
-    'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page2.png',
-    'https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page3.png'
-  ]
+  const guide = [
+    "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page1.png",
+    "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page2.png",
+    "https://xssq-1257939190.cos.ap-chengdu.myqcloud.com/zqt/icon/guide_page3.png",
+  ];
 
   useEffect(() => {
-    getUserInfo()
+    getUserInfo();
+    setTimeout(() => {
+      setShowB(true);
+    }, 2000);
   }, []);
 
   const getUserInfo = async () => {
@@ -29,13 +33,13 @@ const GuidePage = () => {
     const userGuide = await getStorageData("userGuide");
     console.log("userGuide :>> ", userGuide);
     console.log("userData :>> ", userData);
-    if (isEmpty(userGuide) ||isEmpty(userData)) {
+    if (isEmpty(userGuide) || isEmpty(userData)) {
       Taro.setStorage({
         key: "userGuide",
-        data: true
+        data: true,
       });
     } else {
-      cliLook()
+      cliLook();
     }
   };
 
@@ -81,14 +85,17 @@ const GuidePage = () => {
           );
         })}
       </Swiper>
-      <View
-        className="guide_top"
-        onClick={() => {
-          cliLook();
-        }}
-      >
-        <View className="guide_top-text">跳 过</View>
-      </View>
+      {showB && (
+        <View
+          className="guide_top"
+          onClick={() => {
+            cliLook();
+          }}
+        >
+          <View className="guide_top-text">跳 过</View>
+        </View>
+      )}
+
       <View
         className="guide_indicator"
         onClick={() => {

@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-09 16:19:09
+ * @LastEditTime: 2023-10-20 11:09:08
  * @Description: 政策详情
  */
 
@@ -43,7 +43,7 @@ const NewDetail = () => {
       });
   }, []);
 
-  console.log("data :>> ", data);
+  console.log("data?.content :>> ", data?.content);
   return (
     <View className="policy">
       <View className="policy_cent-title">{data?.title}</View>

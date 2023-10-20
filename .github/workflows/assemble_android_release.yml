@@ -22,7 +22,7 @@ env:
   # 版本名称
   VERSION_NAME: 1.0.0
   # 版本号
-  VERSION_CODE: 10
+  VERSION_CODE: 100
   # 密钥库文件
   KEYSTORE_FILE: debug.keystore
   # 密钥库口令

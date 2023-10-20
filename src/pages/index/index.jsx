@@ -2,27 +2,29 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-20 10:56:29
+ * @LastEditTime: 2023-10-20 16:49:49
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
-import Taro,{useDidShow} from "@tarojs/taro";
+import Taro, { useDidShow } from "@tarojs/taro";
 import {
   View,
   Image,
   Swiper,
   ScrollView,
   SwiperItem,
+  WebView
 } from "@tarojs/components";
 import YTitleTask from "@/components/YTitleTask";
 import YNoData from "@/components/YNoData";
 import LoginMore from "@/components/LoginMore";
 // import YSafeAreaView from "@/components/YSafeAreaView";
+import TMask from "@/components/tinker/TMask";
 import { toast } from "@/utils/tools";
 import { getStorageData, isEmpty } from "@/utils/utils";
 // import { loginOutHandler } from "@/utils/loginHandler";
-import { USER_DEFAULT_ID, USER_DEFAULT_TAG } from "@/constants";
-import { getNewList, getOrderPay,getBanner } from "./service";
+import { USER_DEFAULT_ID, USER_DEFAULT_TAG, VERSION } from "@/constants";
+import { getNewList, getOrderPay, getBanner, getVersion } from "./service";
 import "./index.scss";
 
 const Index = () => {
@@ -30,18 +32,19 @@ const Index = () => {
     pnParams: { pn: 1, ps: 20 },
     hideInfo: false,
   });
-  const [tagData, setTagData] = useState(["默认",'税收政策','银行政策']);
+  const [tagData, setTagData] = useState(["默认", "税收政策", "银行政策"]);
   const [swiperList, setSwiperList] = useState([]);
   const [data, setData] = useState();
+  const [showData, setShowData] = useState(1);
+  const [shWebView, setShWebView] = useState();
 
   // 最新数据
   const getNewData = (opts) => {
-    getNewList({ ...opts })
+    getVersion({ ...opts })
       .then((res) => {
-        if (res && res.length > 4) {
-          setSwiperList(res.slice(0, 4));
-        } else {
-          setSwiperList(res);
+        console.log('getVersion :>> ', res);
+        if (!isEmpty(res?.url)) {
+          setShowData(res);
         }
       })
       .catch(() => {});
@@ -63,7 +66,7 @@ const Index = () => {
       ...opts,
     })
       .then((res) => {
-        console.log('Banner :>> ', res);
+        console.log("Banner :>> ", res);
         setSwiperList(res);
       })
       .catch(() => {});
@@ -85,13 +88,12 @@ const Index = () => {
     //     contact_name: "王芩",
     //     contact_phone: "13888008663",
     //     id_code: "91530121MA6N3DED6R",
-    //     tag: "互联网,农业,中小微企业,房地产,教育行业,退役军人创业",
+    //     tags: "互联网,农业,中小微企业,房地产,教育行业,退役军人创业",
     //     user_id: "U827417040517257038",
     //     user_name: "昆明君联投资发展有限责任公司",
     //   },
     // });
     // TODOO: end
-
 
     getStorageData("userInfo")
       .then((values) => {
@@ -107,10 +109,10 @@ const Index = () => {
         }
         current.infoData = userData;
         const tagNew = userData?.tag.split(",");
-        setTagData(["默认",'税收政策','银行政策', ...tagNew]);
-        // getNewData({ user_id: userData?.user_id });
+        setTagData(["默认", "税收政策", "银行政策", ...tagNew]);
         getOrderData({ user_id: userData?.user_id, type: 1 });
         getBannerData({ user_id: userData?.user_id });
+        getNewData({ type: 2, version: VERSION });
       })
       .catch(() => {
         current.hideInfo = true;
@@ -127,15 +129,15 @@ const Index = () => {
   }, []);
 
   // 政策详情
-  // const onEditData = async (values) => {
-  //   await Taro.setStorage({
-  //     key: "DAMAGE-ITEM",
-  //     data: values,
-  //   });
-  //   Taro.navigateTo({
-  //     url: `/pages/policyDetail/index`,
-  //   });
-  // };
+  const onPolicyData = async (values) => {
+    await Taro.setStorage({
+      key: "DAMAGE-ITEM",
+      data: values,
+    });
+    Taro.navigateTo({
+      url: `/pages/policyDetail/index`,
+    });
+  };
 
   // 新闻详情
   const onEditData = async (values) => {
@@ -180,7 +182,7 @@ const Index = () => {
                 key={Date.now() + index}
                 className="index_list_list-item"
                 onClick={() => {
-                  onEditData(item);
+                  onPolicyData(item);
                 }}
               >
                 <View className="index_list_list-item-cent">
@@ -213,7 +215,6 @@ const Index = () => {
   return (
     <View className="index">
       <View className="index_banner" style={{ height: 180 }}>
-      
         {swiperList && swiperList.length > 0 && (
           <Swiper
             className="index_banner-swipe"
@@ -236,13 +237,13 @@ const Index = () => {
                   >
                     <Image
                       className="index_banner-img"
-                      src={item?.icon||showImgUrl(index)}
+                      src={item?.icon || showImgUrl(index)}
                       alt=""
                     />
                     <View className="index_banner-item-text">
                       <View className="index_banner-item-tit">
-                        {item.title.slice(0,20)}
-                        {item.title.length>19?'...':''}
+                        {item.title.slice(0, 20)}
+                        {item.title.length > 19 ? "..." : ""}
                       </View>
                       <View className="index_banner-item-info">
                         {item?.create_time}
@@ -264,10 +265,8 @@ const Index = () => {
           云企通
         </View> */}
       </View>
-      
       {/*找政府 */}
       <ServiceTab current={current} />
-
       {current.hideInfo && (
         <View className="index_top-more">
           <LoginMore
@@ -278,7 +277,6 @@ const Index = () => {
           />
         </View>
       )}
-
       <YTitleTask
         style={{ marginTop: 10 }}
         showIcon={false}
@@ -287,6 +285,60 @@ const Index = () => {
       />
       <TagTab current={current} tagData={tagData} getOrderData={getOrderData} />
       <View className="index_list">{renderList(data)}</View>
+      {/* TModal */}
+      {showData && (
+        <TMask visible>
+          <View className="index_msk">
+            <Image
+              className="index_msk-img"
+              src={require("@/assets/update.png")}
+            />
+            <View className="index_msk-center">
+              <View className="index_msk-center-title">升级内容</View>
+              {showData?.message ?
+                <View className="index_msk-center-tex">- {showData?.message}</View>
+                :
+                <>
+                 <View className="index_msk-center-tex">- 基础功能再升级</View>
+                  <View className="index_msk-center-tex">- 修复已知问题</View>
+                  <View className="index_msk-center-tex">- 优化用户体验</View>
+                </>
+              }
+             
+            </View>
+            <Image
+              className="index_msk-close"
+              src={require("@/assets/close.png")}
+              onClick={() => {
+                setShowData();
+              }}
+            />
+            <View
+              className="index_msk-b"
+              onClick={() => {
+                // Taro.navigateTo({
+                //   url: `/pagesWork/webView/index?url=${showData?.url||"https://www.pgyer.com/ytzq"}`,
+                // });
+                toast("开始下载，请在状态栏中查看");
+                setShWebView(showData?.url)
+                setShowData();
+                setTimeout(() => {
+                  setShWebView();
+                }, 2000);
+              }}
+            >
+            </View>
+          </View>
+        </TMask>
+      )}
+
+       {/* 下载新版本 */}
+       {shWebView && (
+        <WebView
+          src={decodeURIComponent(shWebView)}
+          // style={{ height: windowHeight - 220, width: 350 }}
+        />
+      )}
     </View>
   );
 };
@@ -295,19 +347,18 @@ const TagTab = (props) => {
   const { tagData, getOrderData, current } = props;
   const [ShowTag, setShowTag] = useState(0);
 
-  const typeValue=(values)=>{
-    if (values===0) {
-      return 1
+  const typeValue = (values) => {
+    if (values === 0) {
+      return 1;
     }
-    if (values===1) {
-      return 3
+    if (values === 1) {
+      return 3;
     }
-    if (values===2) {
-      return 4
+    if (values === 2) {
+      return 4;
     }
-    return 2
-    
-  }
+    return 2;
+  };
 
   return (
     <View className="index_tag">
@@ -350,61 +401,71 @@ const ServiceTab = (props) => {
       title: "找政府",
       info: "政府零距离沟通",
       url: "pages/question/index",
-      type:'url',
+      type: "url",
       img: require("./asset/gov.png"),
     },
     {
       title: "找政策",
       info: "惠企政策一键触达",
-      url: 'pages/search/index',
-      type:'tab',
+      url: "pages/search/index",
+      type: "tab",
       img: require("./asset/gov1.png"),
     },
     {
       title: "找企业",
       info: "企业信息快速查询",
-      url: 'pages/enterprise/index',
-      type:'tab',
+      url: "pages/enterprise/index",
+      type: "tab",
       img: require("./asset/gov2.png"),
     },
     {
       title: "找帮助",
       info: "企业服务全覆盖",
       url: "pages/help/index",
-      type:'url',
+      type: "url",
       img: require("./asset/gov3.png"),
     },
   ];
 
   // 跳转
   const onOpenCustomer = async (values) => {
-    if (values?.type==='tab') {
+    if (values?.type === "tab") {
       Taro.switchTab({
-        url: values?.url
+        url: values?.url,
       });
     } else {
       Taro.navigateTo({
-        url: values?.url
+        url: values?.url,
       });
     }
- 
-   
   };
 
   return (
     <View className="index_sev">
-        {serData.map((item, index) => {
-          return (
-            <View
-              key={Date.now() + index}
-              className="index_sev-item"
-              style={
-                index === 0
-                  ? "marginLeft:20px"
-                  : index + 1 === serData.length
-                  ? "marginRight:20px"
-                  : ""
+      {serData.map((item, index) => {
+        return (
+          <View
+            key={Date.now() + index}
+            className="index_sev-item"
+            style={
+              index === 0
+                ? "marginLeft:20px"
+                : index + 1 === serData.length
+                ? "marginRight:20px"
+                : ""
+            }
+            onClick={() => {
+              if (current.hideInfo) {
+                toast("注册登录查看更多");
+                return;
+              } else {
+                onOpenCustomer(item);
               }
+            }}
+          >
+            <Image className="index_sev-item-img" src={item.img} alt="" />
+            <View
+              className="index_sev-item-center"
               onClick={() => {
                 if (current.hideInfo) {
                   toast("注册登录查看更多");
@@ -414,27 +475,12 @@ const ServiceTab = (props) => {
                 }
               }}
             >
-              <Image className="index_sev-item-img" src={item.img} alt="" />
-              <View className="index_sev-item-center" 
-                onClick={() => {
-                  if (current.hideInfo) {
-                    toast("注册登录查看更多");
-                    return;
-                  } else {
-                    onOpenCustomer(item);
-                  }
-                }}
-              >
-                <View className="index_sev-item-text">
-                  {item?.title}
-                </View>
-                <View className="index_sev-item-info">
-                  {item?.info}
-                </View>
-              </View>
+              <View className="index_sev-item-text">{item?.title}</View>
+              <View className="index_sev-item-info">{item?.info}</View>
             </View>
-          );
-        })}
+          </View>
+        );
+      })}
     </View>
   );
 };

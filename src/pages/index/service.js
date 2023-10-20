@@ -9,6 +9,10 @@ import http from "@/utils/http";
 
 const { get } = new http("user");
 
+// 更新版本
+export function getVersion(params) {
+  return http("common").get("/update_version", params, { loading: false });
+}
 // 最新
 export function getNewList(params) {
   return get("/policy_new", params, { loading: false });
