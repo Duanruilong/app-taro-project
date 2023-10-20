@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-20 16:49:49
+ * @LastEditTime: 2023-10-20 17:20:35
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -35,7 +35,7 @@ const Index = () => {
   const [tagData, setTagData] = useState(["默认", "税收政策", "银行政策"]);
   const [swiperList, setSwiperList] = useState([]);
   const [data, setData] = useState();
-  const [showData, setShowData] = useState(1);
+  const [showData, setShowData] = useState();
   const [shWebView, setShWebView] = useState();
 
   // 最新数据
@@ -94,29 +94,31 @@ const Index = () => {
     //   },
     // });
     // TODOO: end
-
+    
     getStorageData("userInfo")
       .then((values) => {
-        console.log("values :>> ", values);
+        console.log("userInfo :>> ", values);
         let userData = {};
         if (isEmpty(values)) {
           // loginOutHandler();
           userData.user_id = USER_DEFAULT_ID;
-          userData.tag = USER_DEFAULT_TAG;
           current.hideInfo = true;
         } else {
           userData = values;
+          current.hideInfo = false;
         }
         current.infoData = userData;
-        const tagNew = userData?.tag.split(",");
+        const tagNew = userData?.tags.split(",");
         setTagData(["默认", "税收政策", "银行政策", ...tagNew]);
         getOrderData({ user_id: userData?.user_id, type: 1 });
         getBannerData({ user_id: userData?.user_id });
-        getNewData({ type: 2, version: VERSION });
+        setTimeout(() => {
+          getNewData({ type: 2, version: VERSION });
+        }, 1000);
       })
       .catch(() => {
         current.hideInfo = true;
-        current.infoData = { user_id: USER_DEFAULT_ID, tag: USER_DEFAULT_TAG };
+        current.infoData = { user_id: USER_DEFAULT_ID };
       });
 
     // TODO:
