@@ -2,15 +2,15 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-05-25 16:15:14
+ * @LastEditTime: 2023-10-23 10:58:00
  * @Description:
  */
 import { ENV } from "../constants";
 
 const hostMap = {
-  dev: "https://base.zhsq.work:8010",
-  qa: "https://base.zhsq.work:8010",
-  prod: "https://base.zhsq.work:8010"
+  dev: "https://zqt.yqybarter.com:8010",
+  qa: "https://zqt.yqybarter.com:8010",
+  prod: "https://zqt.yqybarter.com:8010"
 };
 
 const servers = {
