@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-19 17:06:25
+ * @LastEditTime: 2023-10-24 17:07:00
  * @Description: 我的
  */
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -73,7 +73,7 @@ const User = () => {
       type: "navigateTo",
       url: "/pagesWork/pasword/index",
       img: require("@/assets/pasword1.png"),
-},
+    },
   ];
 
   const { current } = useRef({
@@ -136,11 +136,11 @@ const User = () => {
       Taro.navigateTo({
         url: `/pages/question/index?type=feed`,
       });
-    }  else if (type === "navigateTo") {
+    } else if (type === "navigateTo") {
       Taro.navigateTo({
         url: values?.url,
       });
-    }   else {
+    } else {
       toast("开发中，敬请期待。");
     }
   };
@@ -159,6 +159,9 @@ const User = () => {
           }
         }}
       >
+        <View className="user_top-bac">
+          <Image className="user_top-bac-img" src={require("./user_b.png")} />
+        </View>
         <View className="user_top-lef">
           <View className="user_top-ava">
             <Image
@@ -222,7 +225,7 @@ const User = () => {
         className="user_tas"
         title={<View className="user_tas-tit">帮助中心 </View>}
       /> */}
-
+      <View style={{ marginBottom: 10 }} />
       {topData.map((item) => {
         return (
           <View
@@ -243,7 +246,7 @@ const User = () => {
               <View className="user_tree-text">{item.title}</View>
             </View>
             <View className="user_tree-tit">
-              {dataCount && !current.hideInfo ? dataCount[item.type]:0}
+              {dataCount && !current.hideInfo ? dataCount[item.type] : 0}
               <Image className={"user_tree-icon"} src={rightImg} />
             </View>
           </View>

@@ -2,12 +2,12 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-08 16:39:46
+ * @LastEditTime: 2023-10-26 10:52:42
  * @Description: 政策列表
  */
 import { useState, useRef, useEffect } from "react";
 import Taro, { useDidShow } from "@tarojs/taro";
-import { View, Image,ScrollView } from "@tarojs/components";
+import { View, Image, ScrollView } from "@tarojs/components";
 import YInputSearch from "@/components/YInputSearch";
 import YNoData from "@/components/YNoData";
 import YListView from "@/components/YListView";
@@ -15,7 +15,7 @@ import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
 import listIMG from "@/assets/policy2.png";
 import { USER_DEFAULT_ID } from "@/constants";
-import { getList, getFollow,getListNew } from "./service";
+import { getList, getFollow, getListNew } from "./service";
 import "./index.scss";
 
 const SearchPage = () => {
@@ -25,7 +25,6 @@ const SearchPage = () => {
     hideInfo: false,
   });
   const [newData, setNewData] = useState([]);
-
 
   const requestList = (param) => {
     listViewRef.current.load({
@@ -50,7 +49,7 @@ const SearchPage = () => {
           userData = values;
         }
         current.infoData = userData;
-        newList(values)
+        newList(values);
         requestList({ user_id: userData?.user_id });
       })
       .catch(() => {
@@ -60,21 +59,21 @@ const SearchPage = () => {
   });
 
   // 新闻数据
-  const newList=(values)=>{
+  const newList = (values) => {
     getListNew({
       user_id: values?.user_id,
-      pn:1,
-      ps:5
+      pn: 1,
+      ps: 5,
     })
       .then((res) => {
-        console.log('新闻数据 :>> ', res);
-        
+        console.log("新闻数据 :>> ", res);
+
         if (!isEmpty(res?.records)) {
-          setNewData(res?.records)
+          setNewData(res?.records);
         }
       })
       .catch(() => {});
-  }
+  };
 
   const onChange = (values) => {
     console.log("onChange :>> ", values);
@@ -142,9 +141,13 @@ const SearchPage = () => {
     if (records && records.length > 0) {
       return (
         <View>
+          <Image
+            className="searchPage_list_img"
+            src={require("@/assets/list_bc1.png")}
+          />
           <View className="searchPage_list-top-tit">最新发布</View>
-          <ServiceTab newData={newData}  />
-          <View 
+          <ServiceTab newData={newData} />
+          <View
             className="searchPage_list-top-more"
             onClick={() => {
               Taro.navigateTo({
@@ -169,14 +172,16 @@ const SearchPage = () => {
                     {item.title}
                   </View>
                   <View>
-                    {item.tags && (
+                    {/* {item.tags && (
                       <View className="searchPage_list-item-cont-tags">
                         {item.tags}
                       </View>
-                    )}
-
+                    )} */}
                     <View className="searchPage_list-item-cont-info">
-                      {item.create_time}
+                      发文部门：{item.source||'暂无'}
+                    </View>
+                    <View className="searchPage_list-item-cont-info">
+                      印发日期：{item.publish_date||'暂无'}
                     </View>
                   </View>
                 </View>
@@ -186,7 +191,13 @@ const SearchPage = () => {
                     src={listIMG}
                   />
                 </View>
-                {!current.hideInfo && (
+                {item?.level && (
+                  <View className="searchPage_list-item-types">
+                    {item?.level}
+                  </View>
+                )}
+
+                {/* {!current.hideInfo && (
                   <View
                     className="searchPage_list-item-follow"
                     onClick={() => {
@@ -202,7 +213,7 @@ const SearchPage = () => {
                       }
                     />
                   </View>
-                )}
+                )} */}
               </View>
             );
           })}
@@ -243,8 +254,8 @@ const SearchPage = () => {
 // 最新发布
 const ServiceTab = (props) => {
   const { newData } = props;
-  
-  const onOpenCustomer =  async (values) => {
+
+  const onOpenCustomer = async (values) => {
     await Taro.setStorage({
       key: "DAMAGE-NEW",
       data: values,
@@ -278,9 +289,17 @@ const ServiceTab = (props) => {
               }}
             >
               {/* <Image className="searchPage_list-top-item-img" src={item.img} alt="" /> */}
-              <View className="searchPage_list-top-item-to">{item?.source}</View>
-              <View className="searchPage_list-top-item-text">{item?.title.length>30? `${(item?.title).slice(0,30)}...`:item?.title}</View>
-              <View className="searchPage_list-top-item-info">发布时间：{item?.create_time}</View>
+              <View className="searchPage_list-top-item-to">
+                {item?.source}
+              </View>
+              <View className="searchPage_list-top-item-text">
+                {item?.title.length > 30
+                  ? `${(item?.title).slice(0, 30)}...`
+                  : item?.title}
+              </View>
+              <View className="searchPage_list-top-item-info">
+                发布时间：{item?.create_time}
+              </View>
             </View>
           );
         })}

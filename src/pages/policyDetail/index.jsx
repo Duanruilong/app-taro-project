@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-07 10:52:26
+ * @LastEditTime: 2023-10-26 10:33:19
  * @Description: 政策详情
  */
 
@@ -15,7 +15,7 @@ import { getStorageData, isEmpty } from "@/utils/utils";
 import { toast } from "@/utils/tools";
 import { USER_DEFAULT_ID } from "@/constants";
 import ApplyModal from "./ApplyModal";
-import { getInfo, getApply ,getFollow} from "./service";
+import { getInfo, getApply, getFollow } from "./service";
 import "./index.scss";
 
 const PolicyDetail = () => {
@@ -33,6 +33,10 @@ const PolicyDetail = () => {
   const [modalAdd, setModalAdd] = useState(false);
 
   useEffect(() => {
+    Taro.setNavigationBarColor({
+      // frontColor: '#ffffff',
+      backgroundColor: '#f5f9fc',
+    })
     getStorageData("userInfo")
       .then((values) => {
         let userData = {};
@@ -86,6 +90,8 @@ const PolicyDetail = () => {
       })
       .catch(() => {});
   };
+  // 解读
+  const cliInterpret = () => {};
 
   // 下载文档
   // const cliLook = (values) => {
@@ -114,15 +120,63 @@ const PolicyDetail = () => {
   //   }
   // };
 
+  const onPolicyInter = async (values) => {
+    await Taro.setStorage({
+      key: "Inter-ITEM",
+      data: values,
+    });
+    Taro.navigateTo({
+      url: "pages/policyInter/index",
+    });
+  };
+
   console.log("data :>> ", data);
   return (
     <View className="policy">
+      <Image
+        className="policy_img"
+        src={require("@/assets/del_bc.jpg")}
+      />
       <View className="policy_cent-title">{data?.title}</View>
+      {!isEmpty(data?.tags) && (
+        <View className="policy_cent-clik">
+          {data?.tags &&
+            data?.tags.split(",").map((news) => {
+              return (
+                <View key={Date.now() + news} className="policy_cent-tag">
+                  {news}
+                </View>
+              );
+            })}
+        </View>
+      )}
+      <View className="policy_cent-info">政策文号：{data?.no || "暂无"}</View>
+      <View className="policy_cent-info">
+        发文部门：{data?.source || "暂无"}
+      </View>
+      <View className="policy_cent-info">
+        印发日期：{data?.publish_date || "暂无"}
+      </View>
       <View className="policy_cent-clik">
-        <View className="policy_cent-info">{data?.create_time}</View>
-        {/* {data?.tags && <View className="policy_cent-tag">{data?.tags}</View>} */}
+        <View className="policy_cent-but" style={{ marginRight: 12 }}>
+          <YButton
+            yType="primary"
+            onClick={() => {
+              cliInterpret();
+            }}
+          >
+            <View
+              className="policy_cent-but-t"
+              onClick={() => {
+                onPolicyInter(data)
+              }}
+            >
+              政策解读
+            </View>
+          </YButton>
+        </View>
         {!current.hideInfo && (
-          <View className="policy_cent-but" style={{marginRight:12}}>
+          <View className="policy_cent-but" style={{ marginRight: 12 }}>
             <YButton
               yType="primary"
               disabled={params?.type === "dis"}
@@ -148,7 +202,7 @@ const PolicyDetail = () => {
           </View>
         )}
       </View>
-      {!current.hideInfo && data?.pdf && (
+      {!current.hideInfo && !isEmpty(data?.pdf) && (
         <View className="policy_cent-clik">
           {(data?.pdf).split(",").map((item, index) => {
             return (
@@ -177,7 +231,7 @@ const PolicyDetail = () => {
           })}
         </View>
       )}
-      {!current.hideInfo && data?.annex && (
+      {!current.hideInfo && !isEmpty(data?.annex) && (
         <View className="policy_cent-clik">
           {(data?.annex).split(",").map((item, index) => {
             return (
@@ -208,7 +262,7 @@ const PolicyDetail = () => {
       )}
       {data?.content ? (
         <RichText
-          style={{ padding: 10, backgroundColor: "#fff" }}
+          style={{ padding: 16, backgroundColor: "#fff" }}
           nodes={data?.content}
         />
       ) : (
@@ -247,7 +301,9 @@ const PolicyDetail = () => {
       {modalAdd && (
         <ApplyModal
           data={data}
-          onConfirm={() => {cliTip()}}
+          onConfirm={() => {
+            cliTip();
+          }}
           onClose={() => {
             setModalAdd(false);
           }}

@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-20 17:20:35
+ * @LastEditTime: 2023-10-26 11:06:30
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -99,6 +99,7 @@ const Index = () => {
       .then((values) => {
         console.log("userInfo :>> ", values);
         let userData = {};
+        let tagNew={};
         if (isEmpty(values)) {
           // loginOutHandler();
           userData.user_id = USER_DEFAULT_ID;
@@ -106,9 +107,9 @@ const Index = () => {
         } else {
           userData = values;
           current.hideInfo = false;
+          tagNew = userData?.tags.split(",");
         }
         current.infoData = userData;
-        const tagNew = userData?.tags.split(",");
         setTagData(["默认", "税收政策", "银行政策", ...tagNew]);
         getOrderData({ user_id: userData?.user_id, type: 1 });
         getBannerData({ user_id: userData?.user_id });
@@ -191,14 +192,21 @@ const Index = () => {
                   <View className="index_list_list-item-cent-title">
                     {item.title}
                   </View>
+                  <View>
+                    <View className="index_list_list-item-cent-info">
+                      发文部门：{item.source||'暂无'}
+                    </View>
+                    <View className="index_list_list-item-cent-info">
+                      印发日期：{item.publish_date||'暂无'}
+                    </View>
+                  </View>
+                 
                   {item.tags && (
                     <View className="index_list_list-item-cent-tags">
                       {item.tags}
                     </View>
                   )}
-                  <View className="index_list_list-item-cent-info">
-                    {item.create_time}
-                  </View>
+                 
                 </View>
                 <View className="index_list_list-item-img">
                   <Image
@@ -206,6 +214,11 @@ const Index = () => {
                     src={require("@/assets/policy1.png")}
                   />
                 </View>
+                {item?.level && (
+                  <View className="index_list_list-item-types">
+                    {item?.level}
+                  </View>
+                )}
               </View>
             );
           })}
@@ -402,7 +415,8 @@ const ServiceTab = (props) => {
     {
       title: "找政府",
       info: "政府零距离沟通",
-      url: "pages/question/index",
+      url: "pages/help/index?type=q",
+      // url: "pages/question/index",
       type: "url",
       img: require("./asset/gov.png"),
     },
@@ -423,7 +437,7 @@ const ServiceTab = (props) => {
     {
       title: "找帮助",
       info: "企业服务全覆盖",
-      url: "pages/help/index",
+      url: "pages/help/index?type=h",
       type: "url",
       img: require("./asset/gov3.png"),
     },

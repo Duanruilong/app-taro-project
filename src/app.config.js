@@ -19,6 +19,7 @@ export default defineAppConfig({
     "pages/sign/index",
     "pages/question/index",
     "pages/policyDetail/index",
+    "pages/policyInter/index",
     "pages/enterDetail/index",
     "pages/new/index",
     "pages/newDetail/index",

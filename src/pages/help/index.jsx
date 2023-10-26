@@ -2,10 +2,10 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-17 10:50:00
+ * @LastEditTime: 2023-10-25 11:18:29
  * @Description:帮助服务
  */
-import Taro from "@tarojs/taro";
+import Taro, { Current } from "@tarojs/taro";
 import { useState, useRef, useEffect } from "react";
 import { View, Image } from "@tarojs/components";
 import { getStorageData, isEmpty } from "@/utils/utils";
@@ -14,10 +14,49 @@ import { toast } from "@/utils/tools";
 import "./index.scss";
 
 const HelpPages = () => {
+  const [params] = useState(Current.router.params);
   const { current } = useRef({
     infoData: "",
     hideInfo: false,
   });
+
+  useEffect(() => {
+    getUserInfo();
+    if (params?.type === "h") {
+      Taro.setNavigationBarTitle({
+        title: `帮助服务`,
+      });
+      Taro.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: '#430FD4',
+      })
+    }
+    if (params?.type === "q") {
+      Taro.setNavigationBarTitle({
+        title: `政企沟通服务`,
+      });
+      Taro.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: '#0057c1',
+      })
+    }
+  }, []);
+
+  const getUserInfo = async () => {
+    const userData = await getStorageData("userInfo");
+    current.infoData = userData;
+  };
+
+  return (
+    <View className="hep">
+      {params?.type === "h" && <HelpRender current={current} /> }
+      {params?.type === "q" && <GovpRender current={current} /> }
+      
+    </View>
+  );
+};
+
+const HelpRender = (props) => {
   const serListData = [
     {
       title: "法律服务",
@@ -61,31 +100,22 @@ const HelpPages = () => {
     // },
   ];
 
-  useEffect(() => {
-    getUserInfo();
-  }, []);
-
-  const getUserInfo = async () => {
-    const userData = await getStorageData("userInfo");
-    current.infoData = userData;
-  };
+  const { current } = props;
 
   // 打开微信客服
   const onOpenCustomer = async (values) => {
     console.log("打开微信客服 :>> ", values);
-    
     toast("正在打开微信客服，请稍等...");
     Taro.navigateTo({
       url: `/pagesWork/webView/index?url=${values.key}&type=back`,
     });
   };
+
   return (
-    <View className="hep">
-      <YTitleTask
-        showIcon={false}
-        className="hep_tas"
-        title={<View className="hep_tas-tit">服务选项</View>}
-      />
+    <>
+      <View className="hep_tas-bc">
+        <Image className="hep_tas-bc-img" src={require("./asset/help_b.png")} alt="" />
+      </View>
       <View className="hep_ser">
         {serListData.map((item) => {
           return (
@@ -107,7 +137,55 @@ const HelpPages = () => {
           );
         })}
       </View>
-    </View>
+    </>
   );
 };
+
+
+const GovpRender = (props) => {
+  const { current } = props;
+
+  // 打开微信客服
+  const onOpenCustomer = async (values) => {
+    console.log("打开微信客服 :>> ", values);
+    toast("正在打开微信客服，请稍等...");
+    Taro.navigateTo({
+      url: `/pagesWork/webView/index?url=${values.key}&type=back`,
+    });
+  };
+
+  return (
+    <>
+      <View className="hep_tas-bc">
+        <Image className="hep_tas-bc-img" src={require("./asset/gov_b.png")} alt="" />
+      </View>
+      <View className="hep_ser" style={{justifyContent:'center'}}>
+        <View
+          className="hep_ser-item1"
+          onClick={() => {
+            Taro.navigateTo({
+              url: 'pages/question/index?type=q',
+            });
+          }}
+        >
+          <Image className="hep_ser-item1-img" src={require("@/assets/depart.png")} alt="" />
+          <View className="hep_ser-item1-text">部门问题反馈</View>
+        </View>
+        <View
+          className="hep_ser-item1"
+          style={{backgroundColor:'#fceaea'}}
+          onClick={() => {
+            Taro.navigateTo({
+              url: 'pages/question/index?type=feed',
+            });
+          }}
+        >
+          <Image className="hep_ser-item1-img" src={require("@/assets/community.png")} alt="" />
+          <View className="hep_ser-item1-text">社区民意反馈</View>
+        </View>
+      </View>
+    </>
+  );
+};
+
 export default HelpPages;
