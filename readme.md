@@ -21,7 +21,14 @@ https://developer.android.com/studio/publish/app-signing?hl=zh-cn#generate-key
 https://blog.csdn.net/tzhenxiong/article/details/109901468
 
 
+# 修改版本号
+```
 
+android：
+build.gradle下的 versionName "1.0.0"
+
+
+```
 
 
 React Native Template for Taro

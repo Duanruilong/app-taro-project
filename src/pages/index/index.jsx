@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-26 11:06:30
+ * @LastEditTime: 2023-10-26 15:31:20
  * @Description: 消息通知
  */
 import { useState, useEffect, useRef } from "react";
@@ -13,7 +13,7 @@ import {
   Swiper,
   ScrollView,
   SwiperItem,
-  WebView
+  WebView,
 } from "@tarojs/components";
 import YTitleTask from "@/components/YTitleTask";
 import YNoData from "@/components/YNoData";
@@ -42,7 +42,7 @@ const Index = () => {
   const getNewData = (opts) => {
     getVersion({ ...opts })
       .then((res) => {
-        console.log('getVersion :>> ', res);
+        console.log("getVersion :>> ", res);
         if (!isEmpty(res?.url)) {
           setShowData(res);
         }
@@ -62,6 +62,7 @@ const Index = () => {
 
   // Banner
   const getBannerData = (opts) => {
+    console.log("Banner 1111:>> ", opts);
     getBanner({
       ...opts,
     })
@@ -94,12 +95,12 @@ const Index = () => {
     //   },
     // });
     // TODOO: end
-    
+
     getStorageData("userInfo")
       .then((values) => {
         console.log("userInfo :>> ", values);
         let userData = {};
-        let tagNew={};
+        let tagNew = {};
         if (isEmpty(values)) {
           // loginOutHandler();
           userData.user_id = USER_DEFAULT_ID;
@@ -110,6 +111,7 @@ const Index = () => {
           tagNew = userData?.tags.split(",");
         }
         current.infoData = userData;
+        console.log("userData -----:>> ", userData);
         setTagData(["默认", "税收政策", "银行政策", ...tagNew]);
         getOrderData({ user_id: userData?.user_id, type: 1 });
         getBannerData({ user_id: userData?.user_id });
@@ -120,6 +122,9 @@ const Index = () => {
       .catch(() => {
         current.hideInfo = true;
         current.infoData = { user_id: USER_DEFAULT_ID };
+        console.log('catch-userInfo :>> ', 1111111111111);
+        getBannerData({ user_id: '' });
+        getOrderData({ user_id: USER_DEFAULT_ID, type: 1 });
       });
 
     // TODO:
@@ -194,19 +199,18 @@ const Index = () => {
                   </View>
                   <View>
                     <View className="index_list_list-item-cent-info">
-                      发文部门：{item.source||'暂无'}
+                      发文部门：{item.source || "暂无"}
                     </View>
                     <View className="index_list_list-item-cent-info">
-                      印发日期：{item.publish_date||'暂无'}
+                      印发日期：{item.publish_date || "暂无"}
                     </View>
                   </View>
-                 
+
                   {item.tags && (
                     <View className="index_list_list-item-cent-tags">
                       {item.tags}
                     </View>
                   )}
-                 
                 </View>
                 <View className="index_list_list-item-img">
                   <Image
@@ -310,16 +314,17 @@ const Index = () => {
             />
             <View className="index_msk-center">
               <View className="index_msk-center-title">升级内容</View>
-              {showData?.message ?
-                <View className="index_msk-center-tex">- {showData?.message}</View>
-                :
+              {showData?.message ? (
+                <View className="index_msk-center-tex">
+                  - {showData?.message}
+                </View>
+              ) : (
                 <>
-                 <View className="index_msk-center-tex">- 基础功能再升级</View>
+                  <View className="index_msk-center-tex">- 基础功能再升级</View>
                   <View className="index_msk-center-tex">- 修复已知问题</View>
                   <View className="index_msk-center-tex">- 优化用户体验</View>
                 </>
-              }
-             
+              )}
             </View>
             <Image
               className="index_msk-close"
@@ -335,20 +340,19 @@ const Index = () => {
                 //   url: `/pagesWork/webView/index?url=${showData?.url||"https://www.pgyer.com/ytzq"}`,
                 // });
                 toast("开始下载，请在状态栏中查看");
-                setShWebView(showData?.url)
+                setShWebView(showData?.url);
                 setShowData();
                 setTimeout(() => {
                   setShWebView();
                 }, 2000);
               }}
-            >
-            </View>
+            ></View>
           </View>
         </TMask>
       )}
 
-       {/* 下载新版本 */}
-       {shWebView && (
+      {/* 下载新版本 */}
+      {shWebView && (
         <WebView
           src={decodeURIComponent(shWebView)}
           // style={{ height: windowHeight - 220, width: 350 }}
