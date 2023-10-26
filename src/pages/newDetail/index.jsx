@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-08-30 16:29:48
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-20 11:09:08
+ * @LastEditTime: 2023-10-26 11:45:52
  * @Description: 政策详情
  */
 
@@ -22,6 +22,10 @@ const NewDetail = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
+    Taro.setNavigationBarColor({
+      // frontColor: '#ffffff',
+      backgroundColor: '#f5f9fc',
+    })
     getStorageData("userInfo")
       .then((values) => {
         let userData = {};
@@ -46,6 +50,10 @@ const NewDetail = () => {
   console.log("data?.content :>> ", data?.content);
   return (
     <View className="policy">
+      <Image
+        className="policy_img2"
+        src={require("@/assets/del_bc.jpg")}
+      />
       <View className="policy_cent-title">{data?.title}</View>
       <View className="policy_cent-clik">
         <View className="policy_cent-tag">
