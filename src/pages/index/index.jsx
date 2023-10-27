@@ -2,8 +2,8 @@
  * @Author: duanruilong
  * @Date: 2022-07-22 17:25:19
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-26 15:31:20
- * @Description: 消息通知
+ * @LastEditTime: 2023-10-27 15:15:50
+ * @Description: 首页
  */
 import { useState, useEffect, useRef } from "react";
 import Taro, { useDidShow } from "@tarojs/taro";
@@ -37,6 +37,7 @@ const Index = () => {
   const [data, setData] = useState();
   const [showData, setShowData] = useState();
   const [shWebView, setShWebView] = useState();
+  const [hideInfo, setHideInfo] = useState(false);
 
   // 最新数据
   const getNewData = (opts) => {
@@ -73,6 +74,42 @@ const Index = () => {
       .catch(() => {});
   };
 
+  const handInfo=()=>{
+    getStorageData("userInfo")
+    .then((values) => {
+      console.log("userInfo :>> ", values);
+      let userData = {};
+      let tagNew = {};
+      if (isEmpty(values)) {
+        // loginOutHandler();
+        userData.user_id = USER_DEFAULT_ID;
+        current.hideInfo = true;
+        getBannerData({ user_id: '' });
+        getOrderData({ user_id: USER_DEFAULT_ID, type: 1 });
+        setHideInfo(true)
+      } else {
+        userData = values;
+        current.hideInfo = false;
+        tagNew = userData?.tags.split(",");
+      }
+      current.infoData = userData;
+      console.log("userData -----:>> ", userData);
+      setTagData(["默认", "税收政策", "银行政策", ...tagNew]);
+      getOrderData({ user_id: userData?.user_id, type: 1 });
+      getBannerData({ user_id: userData?.user_id });
+      setTimeout(() => {
+        getNewData({ type: 2, version: VERSION });
+      }, 1000);
+    })
+    .catch(() => {
+      current.hideInfo = true;
+      current.infoData = { user_id: USER_DEFAULT_ID };
+      getBannerData({ user_id: '' });
+      getOrderData({ user_id: USER_DEFAULT_ID, type: 1 });
+      setHideInfo(true)
+    });
+  }
+
   useEffect(() => {
     // TODOO:
     // Taro.clearStorage(); //清理本地数据缓存
@@ -94,46 +131,16 @@ const Index = () => {
     //     user_name: "昆明君联投资发展有限责任公司",
     //   },
     // });
-    // TODOO: end
-
-    getStorageData("userInfo")
-      .then((values) => {
-        console.log("userInfo :>> ", values);
-        let userData = {};
-        let tagNew = {};
-        if (isEmpty(values)) {
-          // loginOutHandler();
-          userData.user_id = USER_DEFAULT_ID;
-          current.hideInfo = true;
-        } else {
-          userData = values;
-          current.hideInfo = false;
-          tagNew = userData?.tags.split(",");
-        }
-        current.infoData = userData;
-        console.log("userData -----:>> ", userData);
-        setTagData(["默认", "税收政策", "银行政策", ...tagNew]);
-        getOrderData({ user_id: userData?.user_id, type: 1 });
-        getBannerData({ user_id: userData?.user_id });
-        setTimeout(() => {
-          getNewData({ type: 2, version: VERSION });
-        }, 1000);
-      })
-      .catch(() => {
-        current.hideInfo = true;
-        current.infoData = { user_id: USER_DEFAULT_ID };
-        console.log('catch-userInfo :>> ', 1111111111111);
-        getBannerData({ user_id: '' });
-        getOrderData({ user_id: USER_DEFAULT_ID, type: 1 });
-      });
-
-    // TODO:
-    // Taro.switchTab({
+        // Taro.switchTab({
     //   url: "/pages/user/index"
     // });
     // Taro.navigateTo({
     //   url: "/pages/guide/index",
     // });
+    // TODOO: end
+
+    handInfo()
+
   }, []);
 
   // 政策详情
@@ -286,7 +293,7 @@ const Index = () => {
       </View>
       {/*找政府 */}
       <ServiceTab current={current} />
-      {current.hideInfo && (
+      {hideInfo && (
         <View className="index_top-more">
           <LoginMore
             title="登录查看更多"

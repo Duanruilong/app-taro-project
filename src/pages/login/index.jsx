@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-19 16:19:09
+ * @LastEditTime: 2023-10-26 16:20:28
  * @Description:登陆
  */
 import Taro from "@tarojs/taro";
@@ -50,11 +50,11 @@ const Login = () => {
       .catch(() => {});
   };
 
-  const cliLook = (values) => {
-    Taro.navigateTo({
-      url: `/pagesWork/webView/index?url=${values}`,
-    });
-  };
+  // const cliLook = (values) => {
+  //   Taro.navigateTo({
+  //     url: `/pagesWork/webView/index?url=${values}`,
+  //   });
+  // };
 
   return (
     <View className="login">

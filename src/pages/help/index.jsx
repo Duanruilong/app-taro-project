@@ -2,7 +2,7 @@
  * @Author: duanruilong
  * @Date: 2022-10-26 11:16:27
  * @LastEditors: Drlong drl1210@163.com
- * @LastEditTime: 2023-10-25 11:18:29
+ * @LastEditTime: 2023-10-27 09:45:44
  * @Description:帮助服务
  */
 import Taro, { Current } from "@tarojs/taro";
@@ -181,7 +181,7 @@ const GovpRender = (props) => {
           }}
         >
           <Image className="hep_ser-item1-img" src={require("@/assets/community.png")} alt="" />
-          <View className="hep_ser-item1-text">社区民意反馈</View>
+          <View className="hep_ser-item1-text">社情民意反馈</View>
         </View>
       </View>
     </>
